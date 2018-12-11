@@ -1,0 +1,69 @@
+/*推送来源*/
+.feed-source,.feed-source a {
+    color: #999
+}
+/**显示更多*/
+a.toggle-expand,.CardAdFeed-button {
+    display: inline-block;
+    padding: 0 3px;
+    border-radius: 2px;
+    font-size: .9em;
+    color: #25bb9b;
+}
+/*精灵图z-icon*/
+i[class^=z-icon-],i[class*=" z-icon-"] {
+    display:inline-block;
+    *margin-right:.3em;
+    line-height:10px;
+    vertical-align:0;
+    /*注意引用路径*/
+    background-image:url(../res/sprites.png);
+    background-repeat:no-repeat;
+    margin-right:5px
+}
+.z-icon-x {
+    width:8px;
+    height:8px;
+    background-position:-130px -206px
+}
+.z-icon-x:hover {
+    background-position:-110px -206px
+}
+.z-icon-comment {
+    width:9px;
+    height:10px;
+    background-position:-28px -22px
+}
+.z-icon-collect {
+    width:7px;
+    height:10px;
+    background-position:-56px -22px
+}
+.z-icon-thank {
+    width:10px;
+    height:10px;
+    background-position:-41px -22px
+}
+.z-icon-share {
+    width:11px;
+    height:10px;
+    background-position:-67px -22px
+}
+.z-icon-report-o {
+    width:10px;
+    height:10px;
+    background-position:-82px -22px
+}
+.z-icon-follow {
+    width:8px;
+    height:9px;
+    background-position:-97px -23px
+}
+.z-icon-fold {
+    width:8px;
+    height:9px;
+    background-position:-135px -22px
+}
+.feed-title {
+    font-size: 15px
+}
