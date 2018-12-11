@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
-    @RequestMapping(path = {"/test"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(path = {"/index","/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index(Model model) {
         int a=2;
         int b=2*a;
-        return "test";
+        return "index";
     }
 }

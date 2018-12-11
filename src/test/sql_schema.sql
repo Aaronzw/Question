@@ -1,3 +1,8 @@
+create database wenda;
+use wenda;
+-- 另外创建user用户用于登录；use/pass
+GRANT ALL ON *.* TO user@'%' IDENTIFIED BY 'pass' WITH GRANT OPTION;
+
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` INT NOT NULL AUTO_INCREMENT,

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="static/depend/bootstrap.min.css">
+    <script src="static/depend/jquery-3.3.1.min.js"></script>
+    <script src="static/depend/bootstrap.min.js"></script>
+    <title>问答</title>
+</head>
+<body>
+<div class="container" style="position: absolute;margin-top: 5%;margin-left: 15%">
+    <div class="row pull-left"  >
+        <!--注意scr路径-->
+        <a href="/"><img class="center-block" alt="" src="static/img/yousay.png"></a>
+    </div>
+    <div class="clearfix center-block">
+        <div class="col-md-6 column">
+            <!--<img class="center-block" alt="" src="static/img/lg.png" height="200" width="200">-->
+            <h2>问答</h2>
+            <h4>与世界分享你的知识</h4>
+            <form role="form" >
+                <div class="form-group" display：block;margin：0 auto;>
+                    <label >用户名</label><input type="email" class="form-control" id="username" />
+                </div>
+                <div class="form-group" display：block;margin：0 auto;>
+                    <label >密码</label><input type="password" class="form-control" id="password" />
+                </div>
+
+                <div class="checkbox">
+                    <label><input type="checkbox" name="remember" />记住我</label>
+                </div>
+                <button type="login" class="btn btn-info btn-default ">登录</button>
+                <button type="reg" class="btn btn-info btn-default ">注册</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
