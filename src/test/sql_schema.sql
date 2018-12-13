@@ -11,6 +11,7 @@ CREATE TABLE `question` (
   `user_id` INT NOT NULL,
   `created_date` DATETIME NOT NULL,
   `comment_count` INT NOT NULL,
+  `status` int NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `date_index` (`created_date` ASC));
 
@@ -21,6 +22,7 @@ CREATE TABLE `question` (
     `password` varchar(128) NOT NULL DEFAULT '',
     `salt` varchar(32) NOT NULL DEFAULT '',
     `head_url` varchar(256) NOT NULL DEFAULT '',
+    `status` int NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
