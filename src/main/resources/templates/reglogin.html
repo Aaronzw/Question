@@ -30,39 +30,38 @@
                             <a href="#">发现</a>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="问一下"/>
-                        </div> <button type="submit" class="btn btn-default">搜索</button>
-                        <button type="ask" class="btn btn-default">提问</button>
-                    </form>
-                    #if(!$user)
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="/reglogin">注册/登录</a>
-                        </li>
-                        <!--<li>-->
-                            <!--<a href="/login">登录</a>-->
-                        <!--</li>-->
-                    </ul>
-                    #else
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">消息</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">我的主页<strong class="caret"></strong></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">设置</a>
-                                </li>
-                                <li>
-                                    <a href="#">退出登录</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    #end
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="clearfix center-block">
+        <div class="row pull-left"  >
+            <!--注意scr路径-->
+            <a href="/"><img class="center-block" alt="" src="static/img/yousay.png"></a>
+        </div>
+
+        <div class="col-md-6 column">
+            <!--<img class="center-block" alt="" src="static/img/lg.png" height="200" width="200">-->
+            <h4>与世界分享你的知识</h4>
+            <form role="form" >
+                <div class="form-group" display：block;margin：0 auto;>
+                    <label >用户名</label><input type="email" class="form-control" id="username" />
+                </div>
+                <div class="form-group" display：block;margin：0 auto;>
+                    <label >密码</label><input type="password" class="form-control" id="password" />
                 </div>
 
-            </nav>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="remember" />记住我</label>
+                </div>
+                <button type="login" class="btn btn-info btn-default ">登录</button>
+                <button type="reg" class="btn btn-info btn-default ">注册</button>
+            </form>
+        </div>
+    </div>
+</div>
+#parse("footer.html")

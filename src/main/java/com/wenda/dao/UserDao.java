@@ -26,4 +26,8 @@ public interface UserDao {
 
     @Delete({"delete from ", TABLE_NAME, " where id=#{id}"})
     void deleteById(int id);
+
+    //账号封禁
+    @Update({"update ", TABLE_NAME, " set status=#{status} where id=#{id}"})
+    void updateStatus(@Param("id") int id, @Param("status") int status);
 }

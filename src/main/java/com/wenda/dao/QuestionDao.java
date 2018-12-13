@@ -23,4 +23,7 @@ public interface QuestionDao {
 
     @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
     int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
+
+    @Update({"update ", TABLE_NAME, " set status = #{status} where id=#{id}"})
+    int deleteQuestion(@Param("id") int id, @Param("status") int status);
 }

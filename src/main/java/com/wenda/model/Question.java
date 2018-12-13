@@ -9,6 +9,16 @@ public class Question {
     private String content;
     private Date createdDate;
     private int commentCount;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Question(){}
 
     public int getId() {
