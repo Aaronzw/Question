@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LoginController {
-    @RequestMapping(path = {"/reg"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String index(Model model) {
-        return "register";
+    @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String regloginPage(Model model) {
+        return "reglogin";
     }
+
+    @RequestMapping
 }
