@@ -53,7 +53,7 @@ public class LoginController {
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
-                return "login";
+                return "reglogin";
             }
 
         } catch (Exception e) {
@@ -84,13 +84,13 @@ public class LoginController {
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
-                return "login";
+                return "reglogin";
             }
 
         } catch (Exception e) {
             logger.error("登录异常" + e.getMessage());
             model.addAttribute("msg", "服务器错误");
-            return "login";
+            return "reglogin";
         }
     }
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
