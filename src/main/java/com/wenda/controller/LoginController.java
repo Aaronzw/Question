@@ -62,6 +62,37 @@ public class LoginController {
             return "login";
         }
     }
+    @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
+    public String login(Model model, @RequestParam("username") String username,
+                      @RequestParam("password") String password,
+                      @RequestParam(value = "next",defaultValue = "") String next,
+                      @RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
+                      HttpServletResponse response) {
+        try {
+            Map<String, Object> map = userService.login(username, password);
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+                cookie.setPath("/");
+                if (rememberme) {
+                    //cookie缓存时间
+                    cookie.setMaxAge(3600*24*5);
+                }
+                response.addCookie(cookie);
+                if (StringUtils.isNotBlank(next)) {
+                    return "redirect:" + next;
+                }
+                return "redirect:/";
+            } else {
+                model.addAttribute("msg", map.get("msg"));
+                return "login";
+            }
+
+        } catch (Exception e) {
+            logger.error("登录异常" + e.getMessage());
+            model.addAttribute("msg", "服务器错误");
+            return "login";
+        }
+    }
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);
