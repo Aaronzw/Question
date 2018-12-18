@@ -2,14 +2,6 @@
 .feed-source,.feed-source a {
     color: #999
 }
-/**显示更多*/
-a.toggle-expand,.CardAdFeed-button {
-    display: inline-block;
-    padding: 0 3px;
-    border-radius: 2px;
-    font-size: .9em;
-    color: #25bb9b;
-}
 /*精灵图z-icon*/
 i[class^=z-icon-],i[class*=" z-icon-"] {
     display:inline-block;
@@ -64,10 +56,20 @@ i[class^=z-icon-],i[class*=" z-icon-"] {
     height:9px;
     background-position:-135px -22px
 }
+a {
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
 .feed-title {
     font-size: 15px
 }
-
+body,ul,ol,li,p,h1,h2,h3,h4,h5 {
+    margin: 0;
+    padding: 0
+}
 /*右上角头像图片*/
 .Avatar {
     width: 25px;
@@ -85,17 +87,38 @@ i[class^=z-icon-],i[class*=" z-icon-"] {
     position: relative;
     border-top: 1px solid #ccc
 }
-
-a.zu-main-feed-fresh-button {
-    display: block;
-    background-color: #eff6fa;
-    text-align: center;
-    margin: 12px 0 2px;
-    padding: 4px 10px;
-    border-radius: 4px;
-    color: #777;
-    text-shadow: 0 1px 0 #fff;
-    text-decoration: none!important;
-    cursor: pointer;
-    border: 1px solid #cce1ef
+.feed-main{
+    margin-left: 48px;
+    position: relative;
 }
+.feed-content{
+    margin-top: 0
+}
+.feed-list{
+    margin-left: 0;
+    float: none
+}
+.feed-item{
+    padding: 10px 0;
+    position: relative;
+    margin-left: 0;
+    outline: 0;
+    border-top: 1px solid #eee
+}
+.avatar{
+    display: block;
+    width: 38px;
+    height: 38px
+}
+.item-link-avatar img{
+    width: 35px;
+    position: absolute
+}
+.item-img-avatar{
+    width: inherit;
+    height: inherit
+}
+.feed-item-answer-author-info {
+    margin: 0 0 1px
+}
+
