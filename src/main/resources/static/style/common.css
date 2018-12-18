@@ -67,3 +67,58 @@ i[class^=z-icon-],i[class*=" z-icon-"] {
 .feed-title {
     font-size: 15px
 }
+
+/*右上角头像图片*/
+.Avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    background-color: #eee
+}
+/*首页回答头像*/
+.suggest-item-inner .zm-item-link-avatar img {
+    width: 35px;
+    position: absolute
+}
+
+.zu-main-feed-con {
+    position: relative;
+    border-top: 1px solid #ccc
+}
+
+a.zu-main-feed-fresh-button {
+    display: block;
+    background-color: #eff6fa;
+    text-align: center;
+    margin: 12px 0 2px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: #777;
+    text-shadow: 0 1px 0 #fff;
+    text-decoration: none!important;
+    cursor: pointer;
+    border: 1px solid #cce1ef
+}
+
+.zh-profile-card .lower .operation .zg-btn,.zh-profile-card .lower .operation .zg-btn-white,.zh-profile-card .lower .operation button {
+    float: right;
+    height: 32px;
+    margin-top: 8px;
+    vertical-align: middle
+}
+/*查看更多*/
+.zg-btn-white.zu-button-more {
+    display: block;
+    font-size: 13px;
+    margin: 20px 0;
+    padding: 5px 1px
+}
+.zg-r3px {
+     border-radius: 3px
+ }
+.zg-btn-white:hover {
+    background: #00B091;
+}
+.zu-button-more.loading {
+    cursor: not-allowed
+}
