@@ -17,7 +17,7 @@ i[class^=z-icon-],i[class*=" z-icon-"] {
     line-height:10px;
     vertical-align:0;
     /*注意引用路径*/
-    background-image:url(../res/sprites.png);
+    background-image:url(../images/img/sprites.png);
     background-repeat:no-repeat;
     margin-right:5px
 }
@@ -98,27 +98,4 @@ a.zu-main-feed-fresh-button {
     text-decoration: none!important;
     cursor: pointer;
     border: 1px solid #cce1ef
-}
-
-.zh-profile-card .lower .operation .zg-btn,.zh-profile-card .lower .operation .zg-btn-white,.zh-profile-card .lower .operation button {
-    float: right;
-    height: 32px;
-    margin-top: 8px;
-    vertical-align: middle
-}
-/*查看更多*/
-.zg-btn-white.zu-button-more {
-    display: block;
-    font-size: 13px;
-    margin: 20px 0;
-    padding: 5px 1px
-}
-.zg-r3px {
-     border-radius: 3px
- }
-.zg-btn-white:hover {
-    background: #00B091;
-}
-.zu-button-more.loading {
-    cursor: not-allowed
 }

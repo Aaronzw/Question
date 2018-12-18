@@ -46,7 +46,13 @@
 
         <div class="col-md-6 column">
             <!--<img class="center-block" alt="" src="static/img/lg.png" height="200" width="200">-->
-            <h4>与世界分享你的知识</h4>
+            <h4>
+                #if($msg)
+                $!{msg}
+                #else
+                与世界分享你的知识、经验和见解
+                #end
+            </h4>
             <form role="form" action="/reg/" id="regloginform" method="post">
                 <div class="form-group" display：block;margin：0 auto;>
                     <label >用户名</label><input type="username" class="form-control" name="username" />
