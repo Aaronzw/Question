@@ -9,7 +9,7 @@ public class Comment {
     private int entityType;
     private int entityId;
     private int status;//状态，0正常，1删除
-
+    private Date createdDate;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -19,7 +19,6 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
-    private Date createdDate;
     public int getId() {
         return id;
     }
