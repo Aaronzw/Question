@@ -49,9 +49,6 @@
                     #else
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="/msg/list">消息</a>
-                        </li>
                         <li class="dropdown">
                             <a href="/user/$!{user.id}" class="dropdown-toggle" data-toggle="dropdown">
                                 <img class="Avatar" src="$!{user.headUrl}" alt="$!{user.name}">
@@ -62,6 +59,9 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="/user/$!{user.id}">我的主页</a>
+                                </li>
+                                <li>
+                                    <a href="/msg/list">消息</a>
                                 </li>
                                 <li>
                                     <a href="/logout">退出</a>

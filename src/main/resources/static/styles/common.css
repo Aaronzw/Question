@@ -63,7 +63,7 @@ a {
 a {
     text-decoration: none;
 }
-.feed-title {
+.item-title {
     font-size: 15px
 }
 body,ul,ol,li,p,h1,h2,h3,h4,h5 {
@@ -122,3 +122,20 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
     margin: 0 0 1px
 }
 
+.item-vote{
+    position: absolute;
+    left: -48px;
+    margin-top: -1px;
+}
+.item-left{
+    float: left;
+    height: 40px;
+}
+.item-main{
+    position: relative;
+    margin-left:48px
+
+}
+.info-list{
+    text-align: center;
+}
