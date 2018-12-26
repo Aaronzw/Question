@@ -54,6 +54,7 @@
                 #end
             </h4>
             <form role="form" action="/reg/" id="regloginform" method="post">
+                <input type="hidden" name="next" value="$!{next}"/>
                 <div class="form-group" display：block;margin：0 auto;>
                     <label >用户名</label><input type="username" class="form-control" name="username" />
                 </div>
