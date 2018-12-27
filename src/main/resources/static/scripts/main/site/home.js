@@ -1,12 +1,12 @@
 (function (window, undefined) {
-    var PopupAdd = Base.getClass('main.component.PopupAdd');
-    var PopupMsg = Base.getClass('main.component.PopupMsg');
+    var PopupAdd = Base.getClass('main.component.popupAdd');
+    var PopupMsg = Base.getClass('main.component.popupMsg');
 
     Base.ready({
         initialize: fInitialize,
         binds: {
-            'click #zu-top-add-question': fClickAdd,
-            'click #zh-top-nav-count-wrap': fClickMsg
+            'click #top-add-question': fClickAdd,
+            'click #top-nav-count-wrap': fClickMsg
         }
     });
 

@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <script src="/scripts/main/jquery.min.js"></script>
     <script src="/scripts/main/bootstrap.min.js"></script>
-    <script src="base.js"></script>
     <link rel="stylesheet" href="/styles/common.css">
 
     <title>首页-问答</title>
@@ -42,7 +41,7 @@
                         </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                         #if($user)
-                        <button type="ask" class="btn btn-default">提问</button>
+                        <button type="ask" class="btn btn-default" id="top-add-question">提问</button>
                         #end
                     </form>
                     <div class="top-nav-profile">
