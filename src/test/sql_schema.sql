@@ -13,7 +13,8 @@ CREATE TABLE `question` (
   `comment_count` INT NOT NULL,
   `status` int NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  INDEX `date_index` (`created_date` ASC));
+  INDEX `date_index` (`created_date` ASC)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
   DROP TABLE IF EXISTS `user`;
   CREATE TABLE `user` (

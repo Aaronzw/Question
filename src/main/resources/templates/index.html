@@ -2,47 +2,51 @@
 
 			<ul class="nav nav-tabs">
 				<li class="active">
-					 <a href="#">推荐</a>
+					 <a href="/index">最新动态</a>
 				</li>
 				<li>
-					 <a href="#">关注</a>
+					 <a href="/concern">关注</a>
 				</li>
 				<li >
-					 <a href="#">热榜</a>
+					 <a href="/hotTop">热榜</a>
 				</li>
 			</ul>
 			<br/>
-			<div class="content">
+			<div class="content" style="margin:0 auto;">
 				<div class="zu-main-feed-con ">
 					<a href="javascript:;" class="zu-main-feed-fresh-button" id="zh-main-feed-fresh-button" style="display:none"></a>
 					<!--<div id="js-home-feed-list" class="zh-general-list topstory clearfix"></div>-->
 					<div id="js-home-feed-list" class="feed-list">
+						#foreach($vo in $vos)
 						<div class="feed-item" data-queestion-id="17">
 							<div class="item-left">
 								<div class="avatar">
 									<a title="" class="item-link-avatar" target="_blank"
 									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
+										<img src="$!{vo.user.headUrl}" class="zm-item-img-avatar"></a>
+								</div>
+								<div class="avatar item-vote">
+									<a class="item-vote-cnt" href="javascript:;" data-bind-votecount="">4168</a>
 								</div>
 							</div>
 							<div class="item-main">
 								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
+									<a class="question_link" target="_blank" href="/question/17">$!{vo.question.title}</a>
 								</h2>
 								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
 								<!--2018-12-19 19:40:23-->
 								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
+									<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">$!{vo.user.name}</a>
+									，$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.question.createdDate})
 								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
+								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/$!{vo.question.id}/answer/13174385">
 									<div class="answer-summary">
-										不请自来，人在美国
+										${vo.question.content}
 										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
 									</div>
 
 									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
+										${vo.question.content}
 										<a href="javascript:;" style="color: #1b6d85">收起</a>
 									</div>
 								</div>
@@ -51,519 +55,12 @@
 										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
 											<i class="z-icon-follow"></i>关注问题</a>
 										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
+											<i class="z-icon-comment"></i>${vo.question.commentCount} 条评论</a>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="feed-item" data-queestion-id="17">
-							<div class="item-left">
-								<div class="avatar">
-									<a title="" class="item-link-avatar" target="_blank"
-									   href="https://nowcoder.com/people/amuro1230">
-										<img src="http://images.nowcoder.com/head/608t.png" class="zm-item-img-avatar"></a>
-								</div>
-							</div>
-							<div class="item-main">
-								<h2 class="item-title">
-									<a class="question_link" target="_blank" href="/question/17">关注免疫疗法治愈癌症 - 2018诺贝尔奖座</a>
-								</h2>
-								<!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
-								<!--2018-12-19 19:40:23-->
-								<div class="item-author-info">
-									<a class="author-link" target="_blank" href="/user/">qq</a>
-									，2018-12-19 19:40:23
-								</div>
-								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/19857995/answer/13174385">
-									<div class="answer-summary">
-										不请自来，人在美国
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
-									</div>
-
-									<div class="whole-answer" style="display: none">
-										不请自来，人在美国
-										<a href="javascript:;" style="color: #1b6d85">收起</a>
-									</div>
-								</div>
-								<div class="feed-mata">
-									<div class="meta-panel">
-										<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
-											<i class="z-icon-follow"></i>关注问题</a>
-										<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
-											<i class="z-icon-comment"></i>10 条评论</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
+						#end
 					</div>
 					<a href="javascript:;" id="zh-load-more" data-method="next" class="btn btn-block btn-info" style="">更多</a>
 				</div>

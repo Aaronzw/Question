@@ -3,7 +3,5 @@ package com.wenda.controller;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class QuestionController {
-
-
+public class MessageController {
 }

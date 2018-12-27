@@ -8,6 +8,7 @@ import com.wenda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,8 +35,13 @@ public class HomeController {
     }
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-        model.addAttribute("vos",getQuestions(0,0,0));
+        model.addAttribute("vos",getQuestions(0,0,10));
         return "index";
     }
 
+    @RequestMapping(path={"/user/{userId}"},method ={RequestMethod.POST,RequestMethod.GET})
+    public String useIndex(Model model, @PathVariable("userId") int userId){
+        model.addAttribute("vos",getQuestions(userId,0,10));
+        return "index";
+    }
 }

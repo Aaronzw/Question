@@ -121,12 +121,6 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
 .feed-item-answer-author-info {
     margin: 0 0 1px
 }
-
-.item-vote{
-    position: absolute;
-    left: -48px;
-    margin-top: -1px;
-}
 .item-left{
     float: left;
     height: 40px;
@@ -138,4 +132,27 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
 }
 .info-list{
     text-align: center;
+}
+.item-vote-cnt{
+    display:block;
+    color:#25bb9b;
+    background: #eff6fa;
+    height:24px;
+    width:38px;
+}
+.question_link{
+    color: #25bb9b;
+    font-size: 14px;
+}
+.author-link{
+    font-weight: bold;
+    font-size: small;
+}
+.item-question-content{
+    margin: 0 0 1px;
+    font-size: 13px;
+    line-height:25px;
+}
+.item-author-info{
+    font-size:12px;
 }
