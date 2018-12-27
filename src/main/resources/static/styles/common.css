@@ -142,7 +142,7 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
 }
 .question_link{
     color: #25bb9b;
-    font-size: 14px;
+    font-size: 18px;
 }
 .author-link{
     font-weight: bold;
@@ -150,9 +150,9 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
 }
 .item-question-content{
     margin: 0 0 1px;
-    font-size: 13px;
+    font-size: 16px;
     line-height:25px;
 }
 .item-author-info{
-    font-size:12px;
+    font-size:14px;
 }
