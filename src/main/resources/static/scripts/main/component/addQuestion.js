@@ -38,7 +38,5 @@ $(function () {
 
 });
 
-// $(document).ready(function(){
-//
-// });
+
 
