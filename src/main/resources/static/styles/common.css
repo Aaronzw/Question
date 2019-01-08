@@ -141,8 +141,9 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
     width:38px;
 }
 .question_link{
-    color: #25bb9b;
-    font-size: 18px;
+    /*color: #25bb9b;*/
+    font-size: 17px;
+    font-weight: bold;
 }
 .author-link{
     font-weight: bold;
@@ -155,4 +156,12 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5 {
 }
 .item-author-info{
     font-size:14px;
+}
+
+.answer-summary{
+    font-size: 10px;
+}
+.container{
+    /*设置网页整体宽度*/
+    width: 1000px;
 }
