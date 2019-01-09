@@ -7,23 +7,7 @@ $(function () {
 
     function fInitialize() {
         var that = this;
-        $(".js-submitQuestion").on('click',function () {
-            var title=$(".js-addTitle").val();
-            var content=$(".js-addContent").val();
-            console.log(title+","+content);
 
-            $.ajax({
-                url: '/addcomment/',
-                type: 'post',
-                dataType: 'json',
-                data: {image_id: sImageId, content: sCmt}
-            }).done(function (oResult) {
-
-
-            }).fail(function (oResult) {
-                alert(oResult.msg || '提交失败，请重试');
-            });
-        });
 
     }
 
@@ -37,6 +21,4 @@ $(function () {
     };
 
 });
-
-
 

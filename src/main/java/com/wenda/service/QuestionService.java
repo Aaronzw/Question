@@ -3,12 +3,14 @@ package com.wenda.service;
 import com.wenda.dao.QuestionDao;
 import com.wenda.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
 @Service
+@Component
 public class QuestionService {
 
     @Autowired
