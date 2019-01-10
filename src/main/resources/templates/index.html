@@ -15,9 +15,9 @@
 				<div class="zu-main-feed-con ">
 					<a href="javascript:;" class="zu-main-feed-fresh-button" id="zh-main-feed-fresh-button" style="display:none"></a>
 					<!--<div id="js-home-feed-list" class="zh-general-list topstory clearfix"></div>-->
-					<div id="js-home-feed-list" class="feed-list">
+					<div id="js-home-feed-list" class="feed-list js-feed-list">
 						#foreach($vo in $vos)
-						<div class="feed-item" data-queestion-id="17">
+						<div class="feed-item" data-queestion-id="$!{vo.question.id}">
 							<div class="item-left">
 								<div class="avatar">
 									<a title="" class="item-link-avatar" target="_blank"
@@ -68,6 +68,6 @@
 	</div>
 </div>
 #parse("footer.html")
-
+<link rel="stylesheet" href="/styles/common.css">
 <script type="text/javascript" src="/scripts/main/component/index.js"></script>
 </html>

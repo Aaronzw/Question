@@ -51,7 +51,7 @@ $(function () {
     function iniClicKMoreEvent() {
         var that=this;
         that.page=1;
-        that.pageSize=5;
+        that.pageSize=6;
         that.listHasNext=true;
 
         $('.js-load-more').on('click', function (oEvent) {
@@ -82,101 +82,76 @@ $(function () {
             page: that.page + 1,
             pageSize: that.pageSize,
             call: function (oResult) {
-                console.log(oResult);
-                // // 是否有更多数据
-                // that.listHasNext = !!oResult.has_next && (oResult.images || []).length > 0;
-                // // 更新当前页面
-                // that.page++;
-                // // 渲染数据
-                // var sHtml = '';
-                // $.each(oResult.images, function (nIndex, oImage) {
-                //     var cur_page_id = (that.page - 1) * that.pageSize + nIndex + 1;
-                //     sHtml_part1 = that.tpl([
-                //         '<article class="mod">',
-                //         '<header class="mod-hd">',
-                //         '<time class="time">#{created_date}</time>',
-                //         '<a href="/profile/#{user_id}" class="avatar">',
-                //         '   <img src="#{head_url}">',
-                //         '</a>',
-                //         '<div class="profile-info">',
-                //         '<a title="#{user_name}" href="/profile/#{user_id}">#{user_name}</a>',
-                //         '</div>',
-                //         '</header>',
-                //         '<div class="mod-bd">',
-                //         '<div class="img-box">',
-                //         '<a href = "/image/#{id}">',
-                //         '<img src="#{url}">',
-                //         ' </div>',
-                //         ' </div>',
-                //         ' <div class="mod-ft">',
-                //         '  <ul class="discuss-list">',
-                //         ' <li class="more-discuss js-discuss-list">',
-                //         ' <a>',
-                //         '<a href = "/image/{{image.id}}">',
-                //         ' <span>全部</span><span class="">#{comment_count}</span>',
-                //         '<span>条评论</span></a>',
-                //         '</li>',
-                //         '<div class="js-discuss-list-',
-                //         cur_page_id.toString(),
-                //         '"> </div>'].join(''), oImage);
-                //     sHtml_part2 = ' ';
-                //
-                //     for (var ni = 0; ni < Math.min(2,oImage.comment_count); ni++){
-                //         dict = {'comment_user_username':oImage.comments[ni].comment_username, 'comment_user_id':oImage.comments[ni].user_id,
-                //             'comment_content':oImage.comments[ni].content };
-                //
-                //         sHtml_part2 += that.tpl([
-                //             '    <li>',
-                //             '    <a class="_4zhc5 _iqaka" title="#{comment_user_username}" href="/profile/#{comment_user_id}" data-reactid=".0.1.0.0.0.2.1.2:$comment-17856951190001917.1">#{comment_user_username}</a>',
-                //             '    <span>',
-                //             '        <span>#{comment_content}</span>',
-                //             '     </span>',
-                //             '   </li>',
-                //         ].join(''), dict);
-                //     }
-                //
-                //     sHtml_part3 =    that.tpl([
-                //         '</div>',
-                //         '  </ul>',
-                //         '<section class="discuss-edit">',
-                //         '<a class="icon-heart-empty"></a>',
-                //         '<form>',
-                //         ' <input placeholder="添加评论..." id="jsCmt-',
-                //         cur_page_id.toString(),
-                //         '" type="text">',
-                //         '<input id = "js-image-id-',
-                //         cur_page_id.toString(),
-                //         '" type = "text" style="display: none" value="#{id}">',
-                //         '</form>',
-                //         ' <button class="more-info" id="jsSubmit-',
-                //         cur_page_id.toString(),
-                //         '">更多选项</button>',
-                //         '</section>',
-                //         ' </div>',
-                //
-                //         ' </article>  '
-                //     ].join(''), oImage);
-                //
-                //     sHtml += sHtml_part1 + sHtml_part2 + sHtml_part3;
-                // });
-                // sHtml && that.listEl.append(sHtml);
+                //console.log(oResult);
+                that.page++;
+                that.listHasNext=oResult.has_next;
+                if(oResult.code==0){
+                    $.each(oResult.data,function (Index, Item) {
+                        // console.log(Index);
+                        // console.log(Item.question);
+                        var html;
+                        html='<div class="feed-item" data-queestion-id="'+Item.question.id+'">'+
+                            '<div class="item-left">'+
+                            '<div class="avatar">'+
+                            '<a title="" class="item-link-avatar" target="_blank"'+
+                            'href="/user/'+Item.user.id+'">'+
+                            '<img src="'+Item.user.headUrl+'" class="zm-item-img-avatar"></a>'+
+                            '</div>'+
+                            '<div class="avatar item-vote">'+
+                            '<a class="item-vote-cnt" href="javascript:;" data-bind-votecount="">4168</a>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="item-main">'+
+                            '<h2 class="item-title">'+
+                            '<a class="question_link" target="_blank" href="/question/'+Item.question.id+'">'+Item.question.title+'</a>'+
+                            '</h2>'+
+                            '<div class="item-author-info">'+
+                            '<a class="author-link" target="_blank" href="/user/'+Item.user.id+'">'+Item.user.name+'</a>'+
+                            '，'+Item.question.createdDate+
+                            '</div>'+
+                            '<div class="item-question-content" data-author-name="qq" data-entry-url="/question/'+Item.question.id+'/answer/13174385">'+
+                            '<div class="answer-summary">'+
+                            Item.question.content+
+                            '<a href="javascript:;"style="color: #1b6d85">查看全文</a>'+
+                            '</div>'+
+
+                            '<div class="whole-answer" style="display: none">'+
+                            +Item.question.id+
+                            '<a href="javascript:;" style="color: #1b6d85">收起</a>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="feed-mata">'+
+                            '<div class="meta-panel">'+
+                            '<a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">'+
+                            '<i class="z-icon-follow"></i>关注问题</a>'+
+                            '<a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">'+
+                            '<i class="z-icon-comment"></i>'+Item.question.commentCount+'条评论</a>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '</div>'
+                        $(".js-feed-list").append(html);
+                    })
+                }else {
+                    alert(oResult.msg);
+                }
             },
             error: function () {
                 alert('出现错误，请稍后重试');
             },
             always: fCb
         });
-        // setTimeout(detail_index, 1000);
     }
     function requestData(oConf) {
         var that = this;
         var sUrl = '/index/renderMore' ;
-            // + oConf.page + '/' + oConf.pageSize + '/';
         $.ajax({
             url: sUrl,
             dataType: 'json',
             type: 'post',
-            data: {"userId":0,"offset":0,"limit":10},
+            data: { "userId":0,
+                    "offset":oConf.page,
+                    "limit":oConf.pageSize},
         }).done(oConf.call).fail(oConf.error).always(oConf.always);
     }
     function fEncode(sStr, bDecode) {

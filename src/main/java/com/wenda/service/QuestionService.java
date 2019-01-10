@@ -34,6 +34,9 @@ public class QuestionService {
     public List<Question> getLatestQuestions(int userId,int offset,int limit){
         return questionDao.selectLatestQuestions(userId,offset,limit);
     }
+    public List<Question> getLatestQuestionsPageHelper(int userId){
+        return questionDao.selectLatestQuestionsPageHelper(userId);
+    }
     public int updateCommentCount(int id,int count){
         return questionDao.updateCommentCount(id,count);
     }

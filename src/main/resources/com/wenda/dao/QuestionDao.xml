@@ -17,4 +17,15 @@
         ORDER BY id DESC
         LIMIT #{offset},#{limit}
     </select>
+    <select id="selectLatestQuestionsPageHelper" resultType="com.wenda.model.Question">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+
+        <if test="userId != 0">
+            WHERE user_id = #{userId}
+        </if>
+        ORDER BY created_date DESC
+    </select>
 </mapper>

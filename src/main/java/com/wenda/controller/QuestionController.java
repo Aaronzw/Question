@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,21 +53,11 @@ public class QuestionController {
         }
         return WendaUtil.getJSONString(1,"fail");
     }
-    @RequestMapping(value = "/question/{qid}",method = RequestMethod.POST)
-    @ResponseBody
-    public String questionDetail(Model model, @RequestParam("qid") int qid){
+
+    @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
+    public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
-        model.addAttribute("question",question);
-        List<Comment> commentList=commentService.getCommentListByEntity(qid, EntityType.ENTITY_QUESTION);
-        List<ViewObject> vos=new ArrayList<>();
-        for(Comment comment:commentList){
-            ViewObject vo=new ViewObject();
-            User user=new User();
-            vo.set("user",user);
-            vo.set("comment",comment);
-            vos.add(vo);
-        }
-        model.addAttribute("comments",vos);
+
         return "detail";
     }
 
