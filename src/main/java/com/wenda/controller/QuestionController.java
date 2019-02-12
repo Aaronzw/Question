@@ -58,7 +58,7 @@ public class QuestionController {
     public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
 
-        return "detail";
+        return "question_detail";
     }
 
 }

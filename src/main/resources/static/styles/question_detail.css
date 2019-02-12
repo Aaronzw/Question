@@ -53,3 +53,80 @@
 .gray-normal{
     color: #999;
 }
+/*赞成按钮框*/
+.zm-votebar .up{
+    display: block;
+    color: #25bb9b;
+    height: 44px;
+    line-height: 24px;
+    width: 38px;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+    background: #eff6fa;
+    font-weight: 700;
+    font-weight: 500;
+    text-align:center;
+    position: relative;
+}
+/*反对按钮边框*/
+.zm-votebar .down{
+    margin: 5px 0 0;
+    display: block;
+    color: #25bb9b;
+    height: 24px;
+    line-height: 24px;
+    width: 38px;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+    background: #eff6fa;
+    font-weight: 700;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+}
+/*箭头通用属性*/
+.zm-votebar .vote-arrow{
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    font-size: 0;
+    _border-style: dashed;
+    background-image: none;
+}
+/*向上箭头*/
+.up .vote-arrow{
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    margin-left: -6px;
+    border-top-width: 0;
+    border-bottom-color: #25bb9b;
+    border-top-style: solid;
+    padding: auto 0;
+}
+/*向下箭头*/
+.down .vote-arrow{
+    border-bottom-width: 0;
+    border-top-color: #25bb9b;
+}
+.zm-votebar .count{
+    display: block;
+    /*text-decoration:inherit;*/
+    position: absolute;
+    text-align: center;
+    width: 30px;
+    height: 20px;
+
+}
+.avatar_link{
+    float: right;
+}
+.votebar{
+    float: left;
+    width: 40px;
+}
+
+
+
