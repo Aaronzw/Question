@@ -57,7 +57,26 @@ public class QuestionController {
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
-
+        model.addAttribute("question",question);
+        List<Comment> commentList=commentService.getCommentListByEntity(qid,EntityType.ENTITY_QUESTION);
+        List<ViewObject> comments=new ArrayList<ViewObject>();
+        for(Comment comment :commentList){
+            ViewObject vo=new ViewObject();
+            vo.set("comment",comment);
+            //未登录
+            if(hostHolder.getUser()==null){
+                vo.set("liked",0);
+            }else {
+                //暂定
+                vo.set("liked",1);
+            }
+            //likeservice暂定
+            vo.set("likeCount",9);
+//            vo.set("comments_count,);
+            vo.set("user",userService.getUser(comment.getUserId()));
+            comments.add(vo);
+        }
+        model.addAttribute("comments",comments);
         return "question_detail";
     }
 

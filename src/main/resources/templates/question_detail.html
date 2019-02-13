@@ -2,11 +2,10 @@
 <div class="content question-main">
     <div class="content-inner">
         <div class="question-title">
-            最近二十几年，自然科学领域有哪些常识或理论得到了修正？
+            $!{question.title}
         </div>
         <div class="question-detail">
-            之前看到了一个关于常识的问答，发现我们这一代年轻人很多小时候接受的常识现在都发生了变化，但我们还是固守己见，这样其实在某一方面与最新的世界脱节了，保不齐还与小朋友之间有了认识上的代沟。 出于好奇，我提出了这个问题，为了反映一代人的变化，我用了限定词「最近二十几年」。 这些被修正的理论或常识有： 珠穆朗玛峰的官方高度被修正为 8844 米，我国基础教育中最小自然数改成了 0，「九大行星」被修正为「八大行星」，等等。
-
+            $!{question.content}
         </div>
         <div class="side-section">
             <div class="side-section-inner">
@@ -26,9 +25,10 @@
                 </div>
             </div>
         </div>
-        <hr/>
-        </div>
-        <div class="question-answer-wrap">
+    </div>
+    <hr/>
+    #foreach($comment in $comments)
+    <div class="question-answer-wrap">
             <div class="item-answer" data-answer-id=1>
                 <div class="votebar"><!--赞同和反对按钮，赞同数-->
                     <div class="zm-votebar js-vote" data-id="4">
@@ -44,36 +44,81 @@
                         </button>
                     </div>
                 </div>
-                <div class="answer-head"><!--名字 头像 赞同数-->
+                <div class="answer-head" ><!--名字 头像 赞同数-->
                     <div class="answer-author-info">
                         <a class="avatar_link">
-                            <img src="http://images.nowcoder.com/head/376t.png" class="follow-avatar"></a>
+                            <img src="$!{comment.user.headUrl}" class="follow-avatar"></a>
                         </a>
-                        <a class="" href="/">
-                            应晓刀
-                        </a>
+
+                        <a class="author-link" href="/user/$!{comment.user.id}">
+                            $!{comment.user.name}
+                        </a>,
                         <span title="爱生活" class="intro">
                             爱生活
                         </span>
                     </div>
+                    <div class="vote-count-info" data-vote-count=8>
+                        <a href class="more texts">
+                            <span class="vote-info-text">
+                                <span class="js-vote-count">$!{comment.likeCount}</span>人觉得赞同
+                            </span>
+                        </a>
+                    </div>
                 </div>
                 <div class="answer-text"><!--正文-->
-
+                    $!{comment.comment.content}
                 </div>
                 <div class="answer-actions"><!--发表于  评论数-->
-
+                    <a class="meta-panel">
+                        <a class="anwswer-date">发布于$date.format('yyyy-MM-dd HH:mm:ss', $!{comment.comment.createdDate})</a>
+                        <a name="addComment" class="commentCount">
+                            <i class="z-icon-comment"></i>
+                            $!{comment.commentCount}0条评论
+                        </a>
+                    </a>
                 </div>
             </div>
-            <div class=""></div>
-            <div class=""></div>
+            <!--<div class=""></div>-->
+            <!--<div class=""></div>-->
         </div>
+    <hr/>
+    #end
+    <div id="paginate"></div>
+
     </div>
+    <form action="/addComment" method="post">
+        <input type="hidden" name="questionId" value="$!{question.id}"/>
+        #if($user)
+        <div class="add-answer-head">
+            <img src="$!{user.headUrl}" class="follow-avatar"></a>
+            <span class="name_label">$!{user.name}</span>
+        </div>
+        <div id="question-answer-form">
+            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;height: 100px
+"></textarea>
+            <label style="color: gray">分享你的真实观点和经验</label>
+            <button type="submit" class="btn btn-info" style="float: right">发布回答</button>
+        </div>
+        #else
+        <div >
+            <textarea name="content" disabled class="zm-editable-editor-field-element editable" style="width:100%;height: 100px
+"></textarea>
+            <label style="color: gray">登陆后方可发布回答。<a href="/reglogin">去注册/登录</a></label>
+            <button type="submit" class="btn btn-info" style="float: right" disabled>发布回答</button>
+        </div>
+        #end
+    </div>
+</form>
 </div>
 </div>
 </div>
-</div>
-<!--#parse("footer.html")-->
+<br/>
+#parse("footer.html")
+
 <link rel="stylesheet" href="/styles/question_detail.css">
 <link rel="stylesheet" href="/styles/common.css">
+<!--分页插件-->
+<link rel="stylesheet" href="/styles/mricode.pagination.css">
+<script type="text/javascript" src="/scripts/main/mricode.pagination.js"></script>
 <script type="text/javascript" src="/scripts/main/component/questionDetail.js"></script>
 </html>

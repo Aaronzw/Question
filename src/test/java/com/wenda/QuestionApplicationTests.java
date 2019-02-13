@@ -6,10 +6,9 @@ import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
 import com.wenda.dao.LoginTicketDao;
 import com.wenda.dao.QuestionDao;
-import com.wenda.model.LoginTicket;
-import com.wenda.model.Question;
-import com.wenda.model.User;
+import com.wenda.model.*;
 import com.wenda.dao.UserDao;
+import com.wenda.service.CommentService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
 import org.junit.Test;
@@ -44,7 +43,7 @@ public class QuestionApplicationTests {
 	@Autowired
 	QuestionController questionController;
 	@Autowired
-	IndexController indexController;
+	CommentService commentService;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -70,21 +69,29 @@ public class QuestionApplicationTests {
 	}
 
 	@Test
-	public void testQuestionService() {
-		Question question=new Question();
-		question.setTitle("为啥么？？？");
-		question.setContent("i don konw!");
-		question.setStatus(0);
-		question.setCreatedDate(new Date());
-		question.setUserId(11);
-		question.setCommentCount(0);
-		List<Question> questions=questionService.getLatestQuestions(0,0,10);
-		String s= JSON.toJSONString(questions);
-		System.out.println(s);
+	public void testCommentService() {
+		Comment comment=new Comment();
+		comment.setContent("test1");
+		comment.setCreatedDate(new Date());
+		comment.setEntityId(1);
+		comment.setEntityType(EntityType.ENTITY_QUESTION);
+		comment.setStatus(0);
+//            if(hostHolder.getUser()==null){
+//                return "redirect:/reglogin";
+//            }else {
+//                comment.setUserId(hostHolder.getUser().getId());
+//            }
+		comment.setUserId(1);
+		try {
+			commentService.addComment(comment);
+		}catch (Exception e){
+			System.out.println(e);
+		}
+
 	}
 	@Test
 	public void testPageHelper() {
-		String str=indexController.MoreQuestion1(0,0,10);
+//		String str=indexController.MoreQuestion1(0,0,10);
 
 	}
 }

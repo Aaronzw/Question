@@ -127,6 +127,32 @@
     float: left;
     width: 40px;
 }
+.answer-author-info .author-link{
+    font-weight:700;
+    font-size: medium;
+}
+.answer-head, .answer-text,.answer-actions{
+    margin-left: 48px;
+    margin-top: 10px;
+}
+.vote-info-text{
+    font-size: 12px;
+    color: gray;
+}
+.anwswer-date,.commentCount{
+    color: gray;
+}
+.vote-count-info{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.name_label{
+    padding-left: 10px;
+    font-weight: bold;
+}
+.add-answer-head{
+    margin-bottom: 10px;
+}
 
 
 
