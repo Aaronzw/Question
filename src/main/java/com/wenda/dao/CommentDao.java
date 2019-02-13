@@ -14,7 +14,7 @@ public interface CommentDao {
     String SELECT_FIELDS=" id ,"+INSERT_FIELDS;
 
     @Insert({"insert into ",TABLE_NAME, "(",INSERT_FIELDS,
-            ") values (#{userId},#{content},#{createdDate},#{entityId},#{entityType},#{status}"})
+            ") values (#{userId},#{content},#{createdDate},#{entityId},#{entityType},#{status})"})
     int addComment(Comment comment);
     @Update({"update ", TABLE_NAME, " set status=#{status} where entity_id=#{entityId} and entity_type=#{entityType}"})
     void updateStatus(@Param("entityId") int entityId, @Param("entityType") int entityType, @Param("status") int status);

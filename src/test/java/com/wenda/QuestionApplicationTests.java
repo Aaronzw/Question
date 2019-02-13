@@ -4,6 +4,7 @@ package com.wenda;
 import com.alibaba.fastjson.JSON;
 import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
+import com.wenda.dao.CommentDao;
 import com.wenda.dao.LoginTicketDao;
 import com.wenda.dao.QuestionDao;
 import com.wenda.model.*;
@@ -67,11 +68,13 @@ public class QuestionApplicationTests {
 			questionDao.addQuestion(question);
 		}
 	}
-
+	@Autowired
+	CommentDao commentDao;
 	@Test
 	public void testCommentService() {
 		Comment comment=new Comment();
 		comment.setContent("test1");
+		comment.setId(111);
 		comment.setCreatedDate(new Date());
 		comment.setEntityId(1);
 		comment.setEntityType(EntityType.ENTITY_QUESTION);
@@ -83,7 +86,7 @@ public class QuestionApplicationTests {
 //            }
 		comment.setUserId(1);
 		try {
-			commentService.addComment(comment);
+			commentDao.addComment(comment);
 		}catch (Exception e){
 			System.out.println(e);
 		}

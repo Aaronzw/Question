@@ -28,7 +28,7 @@ public class QuestionController {
     @Autowired
     CommentService commentService;
 
-    @RequestMapping(value = "/question/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/question/add",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,@RequestParam("content") String content){
         try {

@@ -86,29 +86,28 @@
     <div id="paginate"></div>
 
     </div>
-    <form action="/addComment" method="post">
+    <!--<form action="/addComment" method="post">-->
+    <form>
         <input type="hidden" name="questionId" value="$!{question.id}"/>
         #if($user)
         <div class="add-answer-head">
             <img src="$!{user.headUrl}" class="follow-avatar"></a>
             <span class="name_label">$!{user.name}</span>
+            <input type="hidden" name="uid" value="$!{user.id}"/>
         </div>
         <div id="question-answer-form">
-            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;height: 100px
-"></textarea>
+            <textarea name="content" id="content" class="zm-editable-editor-field-element editable js-addComment" style="width:100%;height: 100px"></textarea>
             <label style="color: gray">分享你的真实观点和经验</label>
-            <button type="submit" class="btn btn-info" style="float: right">发布回答</button>
+            <button type="submit" class="btn btn-info js-submitAnswer" style="float: right">发布回答</button>
         </div>
         #else
         <div >
-            <textarea name="content" disabled class="zm-editable-editor-field-element editable" style="width:100%;height: 100px
-"></textarea>
+            <textarea name="content" disabled class="zm-editable-editor-field-element editable" style="width:100%;height: 100px"></textarea>
             <label style="color: gray">登陆后方可发布回答。<a href="/reglogin">去注册/登录</a></label>
-            <button type="submit" class="btn btn-info" style="float: right" disabled>发布回答</button>
+            <button type="submit" class="btn btn-info js-submitAnswer" style="float: right" disabled>发布回答</button>
         </div>
         #end
-    </div>
-</form>
+    </form>
 </div>
 </div>
 </div>
