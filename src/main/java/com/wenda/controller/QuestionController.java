@@ -1,5 +1,8 @@
 package com.wenda.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wenda.model.*;
 import com.wenda.service.CommentService;
 import com.wenda.service.QuestionService;
@@ -12,9 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class QuestionController {
@@ -46,7 +47,11 @@ public class QuestionController {
                 return WendaUtil.getJSONString(1,"annoymous");
             }
             if(questionService.addQuestion(question)>0){
-                return WendaUtil.getJSONString(0,"success");
+                int question_id=question.getId();
+                Map info=new HashMap();
+                info.put("msg","success");
+                info.put("question_id",question_id);
+                return WendaUtil.getJSONString(0,info);
             }
         }catch (Exception e){
             logger.error("增加题目失败！"+e.getMessage());
@@ -77,7 +82,55 @@ public class QuestionController {
             comments.add(vo);
         }
         model.addAttribute("comments",comments);
+        int commentCount=commentList.size();
+        model.addAttribute("commentCount",commentCount);
         return "question_detail";
+    }
+    @RequestMapping(value = "/question/requestMore",method = RequestMethod.POST)
+    @ResponseBody
+    public String MoreQuestion1(@RequestParam("questionId") int questionId,
+                                @RequestParam("offset")int offset,
+                                @RequestParam("limit") int limit){
+        //使用开源pageHelper插件
+        PageHelper.startPage(offset,limit);
+        Map<String,Object> result=new HashMap<>();
+        Map<String,Object> map=new HashMap();
+        List<Map> list=new ArrayList<>();
+        List<Comment> commentList=new ArrayList<>();
+        //数据库不分页地查数据
+        try {
+            commentList=commentService.getCommentListByEntity(questionId,EntityType.ENTITY_QUESTION);
+        }catch (Exception e){
+            result.put("code",1);
+            result.put("msg","请求数据库异常！");
+            return JSON.toJSONString(result);
+        }
+        PageInfo<Comment> pageInfo=new PageInfo<>(commentList);
+        for(Comment comment:pageInfo.getList()){
+            map=new HashMap<>();
+            map.put("comment",comment);
+            if(hostHolder.getUser()==null){
+                map.put("liked",0);
+            }else {
+                //暂定
+                map.put("liked",1);
+            }
+            //likeservice暂定
+            map.put("likeCount",9);
+//            vo.set("comments_count,);
+            User user=userService.getUser(comment.getUserId());
+            //避免密码暴露于ajax
+            user.setPassword("*************");
+            user.setSalt("***********");
+            map.put("user",user);
+            list.add(map);
+        }
+        result.put("code",0);
+        result.put("data",list);
+        result.put("has_next",pageInfo.isHasNextPage());
+        result.put("current_pages",pageInfo.getPageNum());
+        result.put("totals",pageInfo.getTotal());
+        return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
 
 }

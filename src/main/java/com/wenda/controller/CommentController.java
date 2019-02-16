@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class CommentController {
@@ -32,6 +34,7 @@ public class CommentController {
     CommentService commentService;
     @Autowired
     QuestionService questionService;
+
     @RequestMapping(value = {"/comment/add"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addComment(@RequestParam("questionId") int questionId,
@@ -52,9 +55,15 @@ public class CommentController {
             //comment.setUserId(1);
             if(commentService.addComment(comment)>0)
             {
+                //插入数据成功则返回插入成功的id
+                int answer_id=comment.getId();
+                //更新评论数
                 int count=commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
-                questionService.updateCommentCount(comment.getId(),count);
-                return WendaUtil.getJSONString(0,"success");
+                questionService.updateCommentCount(comment.getEntityId(),count);
+                Map map=new HashMap();
+                map.put("answer_id",answer_id);
+                map.put("msg","success");
+                return WendaUtil.getJSONString(0,map);
             }
         }catch (Exception e){
             logger.error("发表评论失败");

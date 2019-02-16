@@ -71,26 +71,25 @@ public class QuestionApplicationTests {
 	@Autowired
 	CommentDao commentDao;
 	@Test
-	public void testCommentService() {
+	public void testQuestionDao() {
+//		Question question=new Question();
+//		question.setCommentCount(0);
+//		question.setUserId(1);
+//		question.setCreatedDate(new Date());
+//		question.setStatus(0);
+//		question.setTitle("Title "+1);
+//		question.setContent("This is a test question "+1+",这是一条测试数据");
+//
+//		int val=questionDao.addQuestion(question);
 		Comment comment=new Comment();
-		comment.setContent("test1");
-		comment.setId(111);
+		comment.setUserId(1);
+		comment.setStatus(0);
+		comment.setEntityType(EntityType.ENTITY_QUESTION);
 		comment.setCreatedDate(new Date());
 		comment.setEntityId(1);
-		comment.setEntityType(EntityType.ENTITY_QUESTION);
-		comment.setStatus(0);
-//            if(hostHolder.getUser()==null){
-//                return "redirect:/reglogin";
-//            }else {
-//                comment.setUserId(hostHolder.getUser().getId());
-//            }
-		comment.setUserId(1);
-		try {
-			commentDao.addComment(comment);
-		}catch (Exception e){
-			System.out.println(e);
-		}
-
+		comment.setContent("test comment");
+		commentDao.addComment(comment);
+		System.out.println(comment.getId());
 	}
 	@Test
 	public void testPageHelper() {

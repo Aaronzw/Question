@@ -153,6 +153,19 @@
 .add-answer-head{
     margin-bottom: 10px;
 }
+.cmt_total_num{
+    display: block;
+    line-height: 50px;
+    text-align: center;
+    width: auto;
+    height: auto;
+    font-size: 15px;
+    border-style:solid;
+    border-color: #b8b8b8 transparent #ccc #b8b8b8;
+}
+a .cmt_total_num{
+    text-decoration: none;
+}
 
 
 

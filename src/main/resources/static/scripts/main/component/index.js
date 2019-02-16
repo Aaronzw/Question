@@ -18,6 +18,7 @@ $(function () {
             var content=$(".js-addContent").val();
             if(title==""){
                 alert("问题标题不能为空！");
+                return
             }
             var flag=false;
             if(flag){
@@ -35,7 +36,7 @@ $(function () {
                 console.log(oResult);
                 if(oResult.code==0){
                     alert("发表问题成功！");
-                    window.location.reload()
+                    window.location.href="/question/"+oResult.question_id;
                 }else {
                     alert("发表问题失败！"+oResult.msg);
                     window.location.reload()

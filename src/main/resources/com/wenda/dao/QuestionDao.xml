@@ -5,6 +5,8 @@
     <sql id="table">question</sql>
     <sql id="selectFields">id, title, content, comment_count,created_date,user_id
     </sql>
+    <sql id="insertFields">title, content, comment_count,created_date,user_id
+    </sql>
     <select id="selectLatestQuestions" resultType="com.wenda.model.Question">
         SELECT
         <include refid="selectFields"/>
@@ -28,4 +30,11 @@
         </if>
         ORDER BY created_date DESC
     </select>
+    <insert id="addQuestion" parameterType="com.wenda.model.Question" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="table"/>
+        (
+        <include refid="insertFields"/>
+        )VALUES   (#{title},#{content},#{commentCount},#{createdDate},#{userId})
+    </insert>
 </mapper>
