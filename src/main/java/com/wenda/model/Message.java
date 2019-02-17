@@ -1,5 +1,6 @@
 package com.wenda.model;
 
+import java.lang.annotation.ElementType;
 import java.util.Date;
 
 public class Message {
@@ -8,6 +9,8 @@ public class Message {
     private int fromId;
     private int toId;
     private String conversationId;
+    private Date createdDate;
+    private int hasRead;//默认0，0未读，1已读
 
     public int getId() {
         return id;
@@ -42,19 +45,23 @@ public class Message {
     }
 
     public String getConversationId() {
-        return conversationId;
+        if(fromId<toId){
+            return this.fromId+"_"+this.toId;
+        }else{
+            return this.toId+"_"+this.fromId;
+        }
     }
 
     public void setConversationId(String conversationId) {
         this.conversationId = conversationId;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setCreatedDate(Date date) {
+        this.createdDate = date;
     }
 
     public int getHasRead() {
@@ -65,7 +72,6 @@ public class Message {
         this.hasRead = hasRead;
     }
 
-    private Date date;
-    private int hasRead;//默认0，0未读，1已读
+
 
 }

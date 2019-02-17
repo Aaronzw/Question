@@ -4,14 +4,12 @@ package com.wenda;
 import com.alibaba.fastjson.JSON;
 import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
-import com.wenda.dao.CommentDao;
-import com.wenda.dao.LoginTicketDao;
-import com.wenda.dao.QuestionDao;
+import com.wenda.dao.*;
 import com.wenda.model.*;
-import com.wenda.dao.UserDao;
 import com.wenda.service.CommentService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
+import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +43,9 @@ public class QuestionApplicationTests {
 	QuestionController questionController;
 	@Autowired
 	CommentService commentService;
+
+	@Autowired
+	MessageDao messageDao;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -92,8 +93,40 @@ public class QuestionApplicationTests {
 		System.out.println(comment.getId());
 	}
 	@Test
-	public void testPageHelper() {
+	public void testMessage() {
+		Random random=new Random();
 //		String str=indexController.MoreQuestion1(0,0,10);
+		for(int i=0;i<10;i++){
+			Message message=new Message();
+			if(random.nextInt(3)%3==0) {
+				message.setFromId(1);
+				message.setToId(2);
+			}else if(random.nextInt(3)%3==1){
+				message.setFromId(1);
+				message.setToId(3);
+			}else {
+				message.setFromId(2);
+				message.setToId(1);
+			}
+			message.setCreatedDate(new Date());
+			message.setHasRead(0);
+			String conversationId=message.getConversationId();
+			message.setConversationId(conversationId);
+			message.setContent("from "+message.getFromId()+",to "+message.getToId());
+			try {
+				messageDao.addMessage(message);
+			}catch (Exception e){
+				System.out.println(e);
+			}
+		}
+	}
+	@Test
+	public void testq(){
+		List<Message> messageList=messageDao.getConversationList(1);
+		int num=messageDao.getConversationUnreadCount(1,"1_2");
+		Message message=messageDao.selectMessageById(113);
 
+		Question question=questionDao.getById(1);
+		int c=1+1;
 	}
 }
