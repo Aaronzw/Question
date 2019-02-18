@@ -1,0 +1,46 @@
+#main{
+    margin: 20px auto;
+}
+.zu-main{
+    min-height: 340px;
+    position: relative;
+    z-index: 2;
+    width: 960px;
+    margin: 0 auto;
+    clear: both;
+}
+.msg-detail-header{
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 10px;
+    /*border-bottom: 1px solid #CCC;*/
+    position: relative;
+    width: 80%;
+    display: block;
+}
+.letter-list{
+    margin: -10px -20px 0;
+}
+.letter-list li{
+    border-bottom: 1px solid #E0E0E0;
+    padding: 20px 10px;
+    overflow: hidden;
+    margin: 0 10px;
+    position: relative
+}
+.msg-sender{
+    color: #222;
+    overflow: hidden;
+    min-height: 66px;
+    line-height: 22px;
+    font-size: 13px;
+    padding: 0!important;
+    margin: 0!important;
+    /*border: 0 none;*/
+}
+.js-send{
+    float: right;
+}
+.editor{
+    margin-top: 10px;
+}

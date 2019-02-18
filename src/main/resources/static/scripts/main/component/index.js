@@ -9,8 +9,11 @@ $(function () {
     function fInitialize() {
         var that = this;
         addQuestion();
-
         iniClicKMoreEvent();
+        initRenderAuto();
+    }
+    function initRenderAuto() {
+
     }
     function addQuestion() {
         $(".js-submitQuestion").on("click",function () {

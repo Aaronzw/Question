@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MessageController {
     MessageService messageService;
     @Autowired
     UserService userService;
-    @RequestMapping(value = "/message/list", method = {RequestMethod.GET})
+    @RequestMapping(value = "/msg/list", method = {RequestMethod.GET})
     public String getConversationList(Model model){
         if(hostHolder.getUser()==null)
             return "redirect:/reglogin";
@@ -39,6 +40,22 @@ public class MessageController {
         }
         model.addAttribute("conversations",conversations);
         return "letter";
-
+    }
+    @RequestMapping(value = "/msg/detail", method = {RequestMethod.GET})
+    public String getConversationList(Model model, @RequestParam("conversationId") String converstaionId){
+        if(hostHolder.getUser()==null)
+            return "redirect:/reglogin";
+        int localUserId=hostHolder.getUser().getId();
+        List<Message> messageList=messageService.getConversationDetail(converstaionId);
+        List<ViewObject> messages=new ArrayList<ViewObject>();
+        for(Message message :messageList){
+            ViewObject vo=new ViewObject();
+            vo.set("message",message);
+            int targrtId=(message.getFromId()==localUserId?message.getToId():message.getFromId());
+            vo.set("user",userService.getUser(targrtId));
+            messages.add(vo);
+        }
+        model.addAttribute("messages",messages);
+        return "letterDetail";
     }
 }

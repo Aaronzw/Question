@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+#parse("header.html")
+<div id="main">
+    <div class="zu-main clearfix">
+        <div class="msg-detail-header">
+            <a href="/msg/list">返回</a>
+        </div>
+        <div class="info-tips">
+            发私信给 哈哈
+        </div>
+        <div class="editor">
+            <textarea class="msg-sender" style="width: 80%;height: 100px;display: block">
 
-</body>
+            </textarea>
+            <div class="command">
+                <button class="btn btn-info js-send">发送</button>
+            </div>
+        </div>
+
+        <ul class="msg-detail-list ">
+
+            <li class="conversation-item">
+                <a class="letter-link" href="/msg/detail?conversationId=$!{$conversation.message.conversationId}"></a>
+                <div class="letter-info">
+                    <span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{conversation.message.createdDate})</span>
+                </div>
+                <div class="operate-bar">
+                    <a href="/msg/detail?conversationId=$conversation.message.conversationId">共$conversation.unReadCount条未读消息</a>
+                </div>
+                <div class="chat-headbox">
+                        <span class="msg-num">
+                            $conversation.unReadCount
+                        </span>
+                    <a class="list-head">
+                        <img alt="头像" src="$conversation.user.headUrl">
+                    </a>
+                </div>
+                <div class="letter-detail">
+                    <a title="通知" class="letter-name level-color-1">
+                        qq
+                    </a>
+                    <p class="letter-brief">
+                        试试一条消息
+                    </p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<br/>
+#parse("footer.html")
+
+<link rel="stylesheet" href="/styles/letterDetail.css">
+<link rel="stylesheet" href="/styles/common.css">
+<script type="text/javascript" src="/scripts/main/component/letterDetail.js"></script>
 </html>

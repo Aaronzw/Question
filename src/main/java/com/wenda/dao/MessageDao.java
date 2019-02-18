@@ -12,12 +12,12 @@ import java.util.List;
 public interface MessageDao {
     String TABLE_NAME=" message ";
     String INSERT_FIELDS=" from_id,to_id,content,has_read,conversation_id,created_date ";
-    String SELECT_FIELDS=" id "+INSERT_FIELDS;
+    String SELECT_FIELDS=" id ,"+INSERT_FIELDS;
 
     @Insert({"insert into ",TABLE_NAME,"(",INSERT_FIELDS,")values(#{fromId},#{toId},#{content},#{hasRead},#{conversationId},#{createdDate})"})
     int addMessage(Message message);
     //消息详情列表
-    @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME,"where conversation_id=#{conversationId} order created_date desc " })
+    @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME,"where conversation_id=#{conversationId} order by created_date desc " })
     List<Message> getConversationDetail(@Param("conversationId")String conversationId);
     //消息列表
     @Select({"select", INSERT_FIELDS,", count(id) ","FROM (select * from ",TABLE_NAME ,"where to_id=#{userId} or from_id=#{userId} ORDER BY created_date desc)tt  GROUP BY conversation_id ORDER BY created_date desc"})

@@ -98,15 +98,18 @@ public class QuestionApplicationTests {
 //		String str=indexController.MoreQuestion1(0,0,10);
 		for(int i=0;i<10;i++){
 			Message message=new Message();
-			if(random.nextInt(3)%3==0) {
-				message.setFromId(1);
-				message.setToId(2);
-			}else if(random.nextInt(3)%3==1){
-				message.setFromId(1);
-				message.setToId(3);
-			}else {
-				message.setFromId(2);
-				message.setToId(1);
+			if(random.nextInt(4)%4==0) {
+				message.setFromId(11);
+				message.setToId(12);
+			}else if(random.nextInt(4)%4==1){
+				message.setFromId(11);
+				message.setToId(13);
+			}else if(random.nextInt(4)%4==2){
+				message.setFromId(12);
+				message.setToId(11);
+			}if(random.nextInt(4)%4==1){
+				message.setFromId(13);
+				message.setToId(11);
 			}
 			message.setCreatedDate(new Date());
 			message.setHasRead(0);
