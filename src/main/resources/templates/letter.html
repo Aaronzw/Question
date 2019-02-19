@@ -7,7 +7,7 @@
             <li class="conversation-item">
                 <a class="letter-link" href="/msg/detail?conversationId=$!{$conversation.message.conversationId}"></a>
                 <div class="letter-info">
-                    <span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{conversation.message.createdDate})</span>
+                    <span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{$conversation.message.createdDate})</span>
                 </div>
                 <div class="operate-bar">
                     <a href="/msg/detail?conversationId=$conversation.message.conversationId">共$conversation.unReadCount条未读消息</a>
@@ -25,12 +25,13 @@
                         $conversation.user.name
                     </a>
                     <p class="letter-brief">
-                        试试一条消息
+                        $conversation.message.content
                     </p>
                 </div>
             </li>
             #end
         </ul>
+        <div class="paginate"></div>
     </div>
 </div>
 </div>

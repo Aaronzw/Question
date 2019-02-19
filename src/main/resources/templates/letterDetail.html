@@ -1,50 +1,68 @@
 #parse("header.html")
-<div id="main">
+<div id="main" style="width: 100%;float: left">
     <div class="zu-main clearfix">
         <div class="msg-detail-header">
-            <a href="/msg/list">返回</a>
+            <a href="/msg/list"><<返回 </a>
         </div>
         <div class="info-tips">
-            发私信给 哈哈
+            发私信给 $targetUser.name
         </div>
-        <div class="editor">
-            <textarea class="msg-sender" style="width: 80%;height: 100px;display: block">
-
+        <input name="targetUserId" hidden value="${targetUser.id}}">
+        <div class="editor" >
+            <textarea class="msg-sender js-sendMsg" style="width: 80%">
             </textarea>
-            <div class="command">
-                <button class="btn btn-info js-send">发送</button>
-            </div>
         </div>
-
+        <div class="command">
+            <button class="btn btn-info js-send" >发送</button>
+        </div>
+        <input name="conversationId" hidden value="$!{conversationId}">
         <ul class="msg-detail-list ">
+            #foreach($message in $messages)
+            <li class="msg-item" data-message-id="${message.message.id}">
+                <div class="msg-info">
+                    <span class="msg-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{message.message.createdDate})</span>
+                    <a class="act-link js-report" data-msg-id="">举报<span class="zu-bull">|</span></a>
 
-            <li class="conversation-item">
-                <a class="letter-link" href="/msg/detail?conversationId=$!{$conversation.message.conversationId}"></a>
-                <div class="letter-info">
-                    <span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{conversation.message.createdDate})</span>
-                </div>
-                <div class="operate-bar">
-                    <a href="/msg/detail?conversationId=$conversation.message.conversationId">共$conversation.unReadCount条未读消息</a>
+                    <a class="act-link js-delete-msg" data-msg-id="">删除<span class="zu-bull">|</span></a>
+
                 </div>
                 <div class="chat-headbox">
-                        <span class="msg-num">
-                            $conversation.unReadCount
-                        </span>
-                    <a class="list-head">
-                        <img alt="头像" src="$conversation.user.headUrl">
+                    <a class="msg-head">
+                        <img alt="头像" class="msg-head-avatar" src="${message.user.headUrl}">
                     </a>
                 </div>
-                <div class="letter-detail">
-                    <a title="通知" class="letter-name level-color-1">
-                        qq
+                <div class="msg-detail">
+                    <a title="通知" class="msg-name level-color-1" href="/user/${message.user.id}">
+                        ${message.user.name}
                     </a>
-                    <p class="letter-brief">
-                        试试一条消息
+                    <p class="msg-brief">
+                        ${message.message.content}
                     </p>
                 </div>
+
             </li>
+            #end
+            <!--<li class="msg-detail-item">-->
+                <!--<div class="chat-headbox">-->
+                    <!--<a class="msg-head">-->
+                        <!--<img alt="头像" src="http://images.nowcoder.com/head/321t.png">-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div class="message-detail">-->
+                    <!--<a title="通知" class="msg-name level-color-1" href="/user/1">-->
+                        <!--qq-->
+                    <!--</a>-->
+                    <!--<p class="letter-brief">-->
+                        <!--试试一条消息-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="msg-info">-->
+                    <!--<span class="msg-time">2019-08-12 11:11</span>-->
+                <!--</div>-->
+            <!--</li>-->
 
         </ul>
+        <div id="paginate"></div>
     </div>
 </div>
 </div>

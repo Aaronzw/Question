@@ -12,6 +12,43 @@
     <!--分页插件-->
     <link rel="stylesheet" href="/styles/mricode.pagination.css">
     <script type="text/javascript" src="/scripts/main/mricode.pagination.js"></script>
+    <script>
+        $(".js-submitQuestion").on("click",function () {
+            var title=$(".js-addTitle").val();
+            var content=$(".js-addContent").val();
+            if(title==""){
+                alert("问题标题不能为空！");
+                return
+            }
+            var flag=false;
+            if(flag){
+                return false;
+            }
+            flag=true;
+
+            $.ajax({
+                url: '/question/add',
+                type: 'post',
+                data: {"title":title,"content":content},
+                dataType: 'json'
+            }).done(function (oResult) {
+                // 未登陆，跳转到登陆页面
+                console.log(oResult);
+                if(oResult.code==0){
+                    alert("发表问题成功！");
+                    window.location.href="/question/"+oResult.question_id;
+                }else {
+                    alert("发表问题失败！"+oResult.msg);
+                    window.location.reload()
+                }
+            }).fail(function () {
+                alert('出现错误，请重试');
+                window.location.reload();
+            }).always(function () {
+                bSubmit = false;
+            });
+        });
+    </script>
     <title>首页-问答</title>
 </head>
 <body>
@@ -105,7 +142,7 @@
                             <a href="/user/$!{user.id}" class="dropdown-toggle" data-toggle="dropdown">
                                 <img class="Avatar" src="$!{user.headUrl}" alt="$!{user.name}">
                                 <span class="name">${user.name}</span>
-
+                                <input name="userIdVal" hidden value="${user.id}">
                                 <strong class="caret"></strong>
                             </a>
                             <ul class="dropdown-menu">
