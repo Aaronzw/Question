@@ -18,29 +18,29 @@
         <input name="conversationId" hidden value="$!{conversationId}">
         <ul class="msg-detail-list ">
             #foreach($message in $messages)
-            <li class="msg-item" data-message-id="${message.message.id}">
-                <div class="msg-info">
-                    <span class="msg-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{message.message.createdDate})</span>
-                    <a class="act-link js-report" data-msg-id="">举报<span class="zu-bull">|</span></a>
+            <!--<li class="msg-item" data-message-id="${message.message.id}">-->
+                <!--<div class="msg-info">-->
+                    <!--<span class="msg-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{message.message.createdDate})</span>-->
+                    <!--<a class="act-link js-report" data-msg-id="">举报<span class="zu-bull">|</span></a>-->
 
-                    <a class="act-link js-delete-msg" data-msg-id="">删除<span class="zu-bull">|</span></a>
+                    <!--<a class="act-link js-delete-msg" data-msg-id="">删除<span class="zu-bull">|</span></a>-->
 
-                </div>
-                <div class="chat-headbox">
-                    <a class="msg-head">
-                        <img alt="头像" class="msg-head-avatar" src="${message.user.headUrl}">
-                    </a>
-                </div>
-                <div class="msg-detail">
-                    <a title="通知" class="msg-name level-color-1" href="/user/${message.user.id}">
-                        ${message.user.name}
-                    </a>
-                    <p class="msg-brief">
-                        ${message.message.content}
-                    </p>
-                </div>
+                <!--</div>-->
+                <!--<div class="chat-headbox">-->
+                    <!--<a class="msg-head">-->
+                        <!--<img alt="头像" class="msg-head-avatar" src="${message.user.headUrl}">-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div class="msg-detail">-->
+                    <!--<a title="通知" class="msg-name level-color-1" href="/user/${message.user.id}">-->
+                        <!--${message.message.name}-->
+                    <!--</a>-->
+                    <!--<p class="msg-brief">-->
+                        <!--${message.message.content}-->
+                    <!--</p>-->
+                <!--</div>-->
 
-            </li>
+            <!--</li>-->
             #end
             <!--<li class="msg-detail-item">-->
                 <!--<div class="chat-headbox">-->

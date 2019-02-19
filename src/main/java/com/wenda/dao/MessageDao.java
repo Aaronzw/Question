@@ -1,10 +1,7 @@
 package com.wenda.dao;
 
 import com.wenda.model.Message;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,4 +29,7 @@ public interface MessageDao {
     Message selectMessageById(@Param("id")int id);
 
     Message selectById(int id);
+
+    @Update({"update ",TABLE_NAME,"set has_read=#{hasRead} where id=#{id}"})
+    int setMsgHasRead(@Param("id")int id,@Param("hasRead")int hasRead);
 }

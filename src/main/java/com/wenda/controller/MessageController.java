@@ -94,9 +94,9 @@ public class MessageController {
         for(Message message :messageList){
             ViewObject vo=new ViewObject();
             vo.set("message",message);
-            int targrtId=(message.getFromId()==localUserId?message.getToId():message.getFromId());
-            vo.set("user",userService.getUser(targrtId));
-            targetUser=userService.getUser(targrtId);
+            int targetId=(message.getFromId()==localUserId?message.getFromId():message.getToId());
+            vo.set("user",userService.getUser(message.getFromId()));
+            targetUser=userService.getUser(targetId);
             messages.add(vo);
         }
         model.addAttribute("messages",messages);
@@ -135,8 +135,11 @@ public class MessageController {
         for(Message message :messageList){
             Map item=new HashMap();
             item.put("message",message);
-            int targrtId=(message.getFromId()==localUserId?message.getToId():message.getFromId());
-            item.put("user",userService.getUser(targrtId));
+            if(message.getHasRead()==Constant.Msg_notRead){
+                messageService.setMsgHasRead(message.getId(),Constant.Msg_hasRead);
+            }
+            //int targrtId=(message.getFromId()==localUserId?message.getFromId():message.getFromId());
+            item.put("user",userService.getUser(message.getFromId()));
             itemList.add(item);
         }
         result.put("conversationId",conversationId);

@@ -125,11 +125,7 @@ public class QuestionApplicationTests {
 	}
 	@Test
 	public void testq(){
-		List<Message> messageList=messageDao.getConversationList(1);
-		int num=messageDao.getConversationUnreadCount(1,"1_2");
-		Message message=messageDao.selectMessageById(113);
-
-		Question question=questionDao.getById(1);
-		int c=1+1;
+		int num=messageDao.setMsgHasRead(174,1);
+		num=num;
 	}
 }
