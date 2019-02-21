@@ -21,11 +21,21 @@ public class CommentService {
         return commentDao.selectByEntity(entityId,entityType);
     }
     //删除评论 状态置为1，表示删除
-    public void deleteComment(int entityId,int entityType){
-        commentDao.updateStatus(entityId,entityType,1);
+    public boolean deleteComment(int id){
+        return commentDao.updateStatus(id,1)>0;
     }
     //查询问题的评论数和评论的评论数
     public int getCommentCount(int entityId,int entityType){
         return commentDao.getCommentCount(entityId,entityType);
     }
+    //根据id获得回答
+    public Comment getCommentById(int commentId){
+        return commentDao.getCommentById(commentId);
+    }
+
+    public int getUserCommentCount(int userId){
+        return commentDao.getUserCommentCount(userId);
+    }
+
+
 }

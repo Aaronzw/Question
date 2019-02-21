@@ -14,11 +14,11 @@ public class RedisKeyUtil {
         return BIZ_LIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
     }
     public static String getDisLikeKey(int entityType,int entityId){
-        return BIZ_LIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
+        return BIZ_DISLIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
     }
     //某一实体的粉丝，问题，回答，用户
     public static String getFollowerKey(int entityType,int entityId){
-        return BIZ_LIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
+        return BIZ_FOLLOWER+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
     }
     //某一用户对某一类实体的关注
     public static String getFolloweeKey(int UserId,int entityType){

@@ -128,7 +128,6 @@ public class QuestionApplicationTests {
 	JedisAdapter jedisAdapter;
 	@Test
 	public void testq(){
-		long i=jedisAdapter.srem("1","3");
-		int a=3+4;
+
 	}
 }
