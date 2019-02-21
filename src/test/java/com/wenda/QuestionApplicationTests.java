@@ -9,6 +9,7 @@ import com.wenda.model.*;
 import com.wenda.service.CommentService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
+import com.wenda.util.JedisAdapter;
 import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -123,9 +124,11 @@ public class QuestionApplicationTests {
 			}
 		}
 	}
+	@Autowired
+	JedisAdapter jedisAdapter;
 	@Test
 	public void testq(){
-		int num=messageDao.setMsgHasRead(174,1);
-		num=num;
+		long i=jedisAdapter.srem("1","3");
+		int a=3+4;
 	}
 }
