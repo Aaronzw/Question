@@ -92,6 +92,17 @@
             </nav>
             <ul id="page"></ul>
         </div>
+        <form method="POST" enctype="multipart/form-data" action="/upload/pic">
+            <p>文件1：<input type="file" name="file"/></p>
+            <p>文件2：<input type="file" name="file"/></p>
+            <p><input type="submit" value="上传"/></p>
+        </form>
+
+            <form method="post" action="/upload/" enctype="multipart/form-data">
+                <button class="btn-success">上传图片</button>
+                <input name="file" type="file" onchange="this.parentNode.submit()" style="opacity:0;position:absolute;top:0;left:0;display:block;width:100%;height:100%;">
+            </form>
+
     </div>
 </div>
 </body>
