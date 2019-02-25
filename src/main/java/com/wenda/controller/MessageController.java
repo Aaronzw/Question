@@ -94,7 +94,7 @@ public class MessageController {
         for(Message message :messageList){
             ViewObject vo=new ViewObject();
             vo.set("message",message);
-            int targetId=(message.getFromId()==localUserId?message.getFromId():message.getToId());
+            int targetId=(message.getFromId()!=localUserId?message.getFromId():message.getToId());
             vo.set("user",userService.getUser(message.getFromId()));
             targetUser=userService.getUser(targetId);
             messages.add(vo);
@@ -111,10 +111,9 @@ public class MessageController {
                              @RequestParam("limit")int limit,
                              @RequestParam("offset")int offset,
                              @RequestParam("conversationId")String conversationId){
-//        if(hostHolder.getUser()==null)
-////            return "redirect:/reglogin";
-////        int localUserId=hostHolder.getUser().getId();
-        int localUserId=11;
+        if(hostHolder.getUser()==null)
+            return "redirect:/reglogin";
+        int localUserId=hostHolder.getUser().getId();
         if(!conversationId.startsWith(""+localUserId)&&!conversationId.endsWith(""+localUserId))
             return "redirect:/reglogin";
         PageHelper.startPage(offset,limit);

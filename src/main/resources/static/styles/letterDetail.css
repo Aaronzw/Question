@@ -46,6 +46,12 @@
     list-style-type: none;
     min-height:50px;
 }
+.msg-item{
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    list-style-type: none;
+    min-height:50px;
+}
 .msg-time{
     color: #999;
     font-size: 12px;
@@ -90,6 +96,9 @@
     font-size: 14px;
     margin-top: 5px;
     width: 700px;
+    height: auto;
+    height: 100px;
+    /*overflow: hidden;*/
 }
 .act-link{
     float: right;

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    init();
+    //init();
     function init(){
         var that = this;
         // var sUrl = '/msg/detail/request' ;
@@ -121,9 +121,9 @@ $(document).ready(function () {
             console.log("always")
         });
     }
-    /*发表回答ajax post*/
+    /*发送消息ajax post*/
     $(".js-sendMsg").on("click",function () {
-        var content=$(".js-addComment").val();
+        var content=$("textarea[name='MsgContent']").val();
         var conversationId=$('input[name="conversationId"]').val();
         var toId=$('input[name="targetUserId"]').val();
         var fromId=$('input[name="userIdVal"]').val();
@@ -142,18 +142,18 @@ $(document).ready(function () {
         flag=true;
 
         $.ajax({
-            url: '/comment/add',
+            url: '/msg/add',
             type: 'post',
-            data: {"questionId":qid,
-                "content":content,
-                "userId":userId},
+            data: {"content":content,
+                "fromId":fromId,
+                "toId":toId},
             dataType: 'json'
         }).done(function (oResult) {
             //alert("done")
             //未登陆，跳转到登陆页面
             console.log(oResult);
             if(oResult.code==0){
-                alert("发表回答成功！");
+                alert("发送消息成功！");
                 window.location.reload()
                 $(window).scrollTop(0);
             }else {
@@ -169,42 +169,6 @@ $(document).ready(function () {
             bSubmit = false;
         });
     });
-    /*发表问题弹框*/
-    // $(".js-submitQuestion").on("click",function () {
-    //     var title=$(".js-addTitle").val();
-    //     var content=$(".js-addContent").val();
-    //     if(title==""){
-    //         alert("问题标题不能为空！");
-    //         return
-    //     }
-    //     var flag=false;
-    //     if(flag){
-    //         return false;
-    //     }
-    //     flag=true;
-    //
-    //     $.ajax({
-    //         url: '/question/add',
-    //         type: 'post',
-    //         data: {"title":title,"content":content},
-    //         dataType: 'json'
-    //     }).done(function (oResult) {
-    //         // 未登陆，跳转到登陆页面
-    //         console.log(oResult);
-    //         if(oResult.code==0){
-    //             alert("发表问题成功！");
-    //             window.location.href="/question/"+oResult.question_id;
-    //         }else {
-    //             alert("发表问题失败！"+oResult.msg);
-    //             window.location.reload()
-    //         }
-    //     }).fail(function () {
-    //         alert('出现错误，请重试');
-    //         window.location.reload();
-    //     }).always(function () {
-    //         bSubmit = false;
-    //     });
-    // });
 
 });
 

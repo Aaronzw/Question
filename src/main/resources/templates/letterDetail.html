@@ -7,60 +7,67 @@
         <div class="info-tips">
             发私信给 $targetUser.name
         </div>
-        <input name="targetUserId" hidden value="${targetUser.id}}">
+        <input name="targetUserId" hidden value="${targetUser.id}">
         <div class="editor" >
-            <textarea class="msg-sender js-sendMsg" style="width: 80%">
+            <textarea name="MsgContent" class="msg-sender " style="width: 80%">
             </textarea>
         </div>
         <div class="command">
-            <button class="btn btn-info js-send" >发送</button>
+            <button class="btn btn-info js-sendMsg" >发送</button>
         </div>
         <input name="conversationId" hidden value="$!{conversationId}">
-        <ul class="msg-detail-list ">
+        <ul class="letter-chat-list msg-detail-list ">
             #foreach($message in $messages)
-            <!--<li class="msg-item" data-message-id="${message.message.id}">-->
-                <!--<div class="msg-info">-->
-                    <!--<span class="msg-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{message.message.createdDate})</span>-->
-                    <!--<a class="act-link js-report" data-msg-id="">举报<span class="zu-bull">|</span></a>-->
+            <li class="msg-item" data-message-id="${message.message.id}">
+                <div class="msg-info">
+                    <span class="msg-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{message.message.createdDate})</span>
+                    <a class="act-link js-report" data-msg-id="">举报<span class="zu-bull">|</span></a>
 
-                    <!--<a class="act-link js-delete-msg" data-msg-id="">删除<span class="zu-bull">|</span></a>-->
+                    <a class="act-link js-delete-msg" data-msg-id="">删除<span class="zu-bull">|</span></a>
 
-                <!--</div>-->
-                <!--<div class="chat-headbox">-->
-                    <!--<a class="msg-head">-->
-                        <!--<img alt="头像" class="msg-head-avatar" src="${message.user.headUrl}">-->
-                    <!--</a>-->
-                <!--</div>-->
-                <!--<div class="msg-detail">-->
-                    <!--<a title="通知" class="msg-name level-color-1" href="/user/${message.user.id}">-->
-                        <!--${message.message.name}-->
-                    <!--</a>-->
-                    <!--<p class="msg-brief">-->
-                        <!--${message.message.content}-->
-                    <!--</p>-->
-                <!--</div>-->
+                </div>
+                <div class="chat-headbox">
+                    <a class="msg-head">
+                        <img alt="头像" class="msg-head-avatar" src="${message.user.headUrl}">
+                    </a>
+                </div>
+                <div class="msg-detail">
+                    <a title="通知" class="msg-name level-color-1" href="/user/${message.user.id}">
+                        ${message.user.name}
+                    </a>
+                    <p class="msg-brief">
+                        ${message.message.content}
+                    </p>
+                </div>
 
+            </li>
+
+            <!--<li id="msg-item">-->
+                <!--<a class="list-head">-->
+                    <!--<img alt="头像" src="http://static.nowcoder.com/images/head/notify.png">-->
+                <!--</a>-->
+                <!--<div class="tooltip fade right in">-->
+                    <!--&lt;!&ndash;<div class="tooltip-arrow"></div>&ndash;&gt;-->
+                    <!--<div class="tooltip-inner letter-chat clearfix">-->
+                        <!--<div class="letter-info">-->
+                            <!--<p class="letter-time">06-23 20:52</p>-->
+                            <!--<a href="javascript:void(0);" id="del-link" name="3993979">删除</a>-->
+                        <!--</div>-->
+                        <!--<p class="chat-content">-->
+                            <!--突然厌倦了那些嘈杂，不喜热闹。突然想在安静的角落细数光阴的故事，然，默念每次重逢和别离。-->
+
+                            <!--　　渐渐喜欢素质的东西，简单而不失颜色，穿着和打理起来都很舒服，就好比与你的相遇，浅浅行，简单守，就在我一转身，就能看到你温柔的眼眸。-->
+                            <!--突然厌倦了那些嘈杂，不喜热闹。突然想在安静的角落细数光阴的故事，然，默念每次重逢和别离。-->
+
+                            <!--　　渐渐喜欢素质的东西，简单而不失颜色，穿着和打理起来都很舒服，就好比与你的相遇，浅浅行，简单守，就在我一转身，就能看到你温柔的眼眸。-->
+                            <!--突然厌倦了那些嘈杂，不喜热闹。突然想在安静的角落细数光阴的故事，然，默念每次重逢和别离。-->
+
+                            <!--　　渐渐喜欢素质的东西，简单而不失颜色，穿着和打理起来都很舒服，就好比与你的相遇，浅浅行，简单守，就在我一转身，就能看到你温柔的眼眸。-->
+                        <!--</p>-->
+                    <!--</div>-->
+                <!--</div>-->
             <!--</li>-->
             #end
-            <!--<li class="msg-detail-item">-->
-                <!--<div class="chat-headbox">-->
-                    <!--<a class="msg-head">-->
-                        <!--<img alt="头像" src="http://images.nowcoder.com/head/321t.png">-->
-                    <!--</a>-->
-                <!--</div>-->
-                <!--<div class="message-detail">-->
-                    <!--<a title="通知" class="msg-name level-color-1" href="/user/1">-->
-                        <!--qq-->
-                    <!--</a>-->
-                    <!--<p class="letter-brief">-->
-                        <!--试试一条消息-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="msg-info">-->
-                    <!--<span class="msg-time">2019-08-12 11:11</span>-->
-                <!--</div>-->
-            <!--</li>-->
-
         </ul>
         <div id="paginate"></div>
     </div>
@@ -73,5 +80,6 @@
 
 <link rel="stylesheet" href="/styles/letterDetail.css">
 <link rel="stylesheet" href="/styles/common.css">
+<link rel="stylesheet" href="/styles/detail.css">
 <script type="text/javascript" src="/scripts/main/component/letterDetail.js"></script>
 </html>

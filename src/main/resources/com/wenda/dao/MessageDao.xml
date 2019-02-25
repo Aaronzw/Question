@@ -14,4 +14,19 @@
         <include refid="table"/>
         where id=#{id}
     </select>
+    <select id="getConversationList" parameterType="int" resultType="com.wenda.model.Message">
+        SELECT
+        <include refid="selectFields"/>
+        from
+        <include refid="table"/>
+        ,(select MAX(id) max_id,conversation_id cid,MAX(created_date)
+             from
+             ( select *
+             FROM <include refid="table"/>
+             where to_id=#{userId} or from_id=#{userId}
+             )tt
+             GROUP  BY conversation_id
+          )ids WHERE message.id=ids.max_id
+
+    </select>
 </mapper>
