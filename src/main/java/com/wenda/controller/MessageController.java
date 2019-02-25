@@ -172,4 +172,16 @@ public class MessageController {
         result.put("msg","success");
         return JSON.toJSONString(result);
     }
+    @RequestMapping(value = "/sendMsgTo/{sendToId}", method = {RequestMethod.GET})
+    public String jumpToSendMsgTo(Model model, @PathVariable("sendToId") int sendToId){
+        if(hostHolder.getUser()==null)
+            return "redirect:/reglogin";
+        int localUserId=hostHolder.getUser().getId();
+        Message newmsg=new Message();
+        newmsg.setFromId(localUserId);
+        newmsg.setToId(sendToId);
+        String conversationId=newmsg.getConversationId();
+        return "redirect:/msg/detail?conversationId="+conversationId;
+        //return "letterDetail";
+    }
 }

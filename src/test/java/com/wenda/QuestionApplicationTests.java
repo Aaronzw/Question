@@ -128,7 +128,8 @@ public class QuestionApplicationTests {
 	JedisAdapter jedisAdapter;
 	@Test
 	public void testq(){
-		List<Message> messageList=messageDao.getConversationList(12);
-		System.out.println("ok");
+		String converstaionId="11_12";
+		int userId=11;
+
 	}
 }

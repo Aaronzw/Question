@@ -37,11 +37,12 @@
 								<div class="item-author-info">
 									<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">$!{vo.user.name}</a>
 									，$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.question.createdDate})
+									<a href="/sendMsgTo/$!{vo.user.id}">发私信</a>
 								</div>
 								<div class="item-question-content" data-author-name="qq" data-entry-url="/question/$!{vo.question.id}/">
 									<div class="answer-summary">
 										$!{vo.question.content}
-										<a href="javascript:;"style="color: #1b6d85">查看全文</a>
+										<!--<a href="javascript:;"style="color: #1b6d85">查看全文</a>-->
 									</div>
 
 									<div class="whole-answer" style="display: none">
