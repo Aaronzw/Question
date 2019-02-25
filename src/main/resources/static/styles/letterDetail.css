@@ -91,14 +91,33 @@
     /*white-space: nowrap;*/
     /*text-overflow: ellipsis;*/
     /*word-wrap: normal;*/
+
+    height:auto!important;
+    height:500px;
+    min-height:500px
 }
-.msg-brief{
+.msg-brief-1{
     font-size: 14px;
     margin-top: 5px;
     width: 700px;
     height: auto;
-    height: 100px;
-    /*overflow: hidden;*/
+    /*!*overflow: hidden;*!*/
+    /*overflow: auto;*/
+}
+.msg-detail-1{
+    /*position: absolute;*/
+    margin-left: 80px;
+    width: 700px;
+    color: #666;
+    /*float: left;*/
+    /*font-size: 14px;*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
+    /*word-wrap: normal;*/
+
+    /*height:auto!important;*/
+    /*height:500px;*/
+    /*min-height:500px*/
 }
 .act-link{
     float: right;
