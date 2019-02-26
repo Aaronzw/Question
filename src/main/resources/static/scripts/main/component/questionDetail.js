@@ -203,31 +203,16 @@ $(document).ready(function () {
 
     function initLikeOrDisLike(){
 
-        $("js-like").each(
-            $(this).on('click',function (e) {
-                var oEl = e.currentTarget;
-                console.log(oEl==this)
-            })
-        );
-        $(".js-dislike").click(function(){
-            alert($(this).index());
+
+        $(".js-like").on('click',function (e) {
+                var oEl = e.target;//icon vote-arrow
+                console.log($(e.target).closest("div .item-answer").attr("data-answer-id"));
+                console.log("like")
+            });
+
+        $(".js-like").on("click",function(){
+            alert("ok");
         })
-        // $('.js-load-more').on('click', function (oEvent) {
-        //     var oEl = $(oEvent.currentTarget);
-        //     var sAttName = 'data-load';
-        //     // 正在请求数据中，忽略点击事件
-        //     if (oEl.attr(sAttName) === '1') {
-        //         return;
-        //     }
-        //     // 增加标记，避免请求过程中的频繁点击
-        //     oEl.attr(sAttName, '1');
-        //     that.renderMore(function () {
-        //         // 取消点击标记位，可以进行下一次加载
-        //         oEl.removeAttr(sAttName);
-        //         // 没有数据隐藏加载更多按钮
-        //         !that.listHasNext && oEl.hide();
-        //     });
-        // });
     }
     /*发表回答ajax post*/
     $(".js-submitAnswer").on("click",function () {
