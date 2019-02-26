@@ -58,4 +58,19 @@ public class WendaUtil {
         }
         return json.toString();
     }
+
+    //conversationId "12_14",localUserId 14，默认参数合法
+    public static int getChatTarget(String converationId,int localUserId){
+        String[] ids=converationId.split("_");
+        if(ids.length<2)
+            return -1;
+        else {
+            if(Integer.parseInt(ids[0])==localUserId)
+                return Integer.parseInt(ids[1]);
+            else if(Integer.parseInt(ids[1])==localUserId){
+                return Integer.parseInt(ids[0]);
+            }else
+                return -1;
+        }
+    }
 }

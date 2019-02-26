@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    init();
-    function init(){
+    initData();
+    initLikeOrDisLike();
+    function initData(){
         var that = this;
         var sUrl = '/question/requestMore' ;
         var qid=$("input[name='questionId']").val();
@@ -23,21 +24,28 @@ $(document).ready(function () {
                 $(".comment-list").html("");
                 if(data.length>0){
                     $.each(data,function (index,item) {
-                        console.log(item.comment)
-                        console.log(item.user)
+                        console.log(item);
                         var html='<div class="question-answer-wrap">\n' +
-                            '            <div class="item-answer" data-answer-id=1>\n' +
+                            '            <div class="item-answer" data-answer-id='+item.comment.id+'>\n' +
                             '                <div class="votebar"><!--赞同和反对按钮，赞同数-->\n' +
-                            '                    <div class="zm-votebar js-vote" data-id="4">\n' +
-                            '                        <button class="up js-like" title="赞同">\n' +
-                            '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
-                            '                            <span class="count js-voteCount">0</span>\n' +
-                            '                            <!--<span class="label sr-only">赞同</span>-->\n' +
-                            '                        </button>\n' +
-                            '\n' +
-                            '                        <button class="down js-dislike" title="反对">\n' +
-                            '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
-                            '                            <!--<span class="label sr-only">反对，不会显示你的姓名</span>-->\n' +
+                            '                    <div class="zm-votebar js-vote" data-id="'+item.comment.id+'">\n' ;
+                        if(item.liked>0)
+                            html=html+'<button class="up js-like pressed" title="赞同" data-id="'+item.comment.id+'">\n';
+                        else
+                            html=html+'<button class="up js-like" title="赞同" data-id="'+item.comment.id+'">\n';
+
+                        html=html+ '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
+                            '                            <span class="count js-voteCount">'+item.likeCount+'</span>\n' +
+                            '                            <span class="label sr-only">赞同</span>\n' +
+                            '                        </button>\n';
+                        if(item.liked<0)
+                        {
+                            html+='                        <button class="down js-dislike pressed" title="反对">\n';
+                        }else {
+                            html+='                        <button class="down js-dislike" title="反对">\n';
+                        }
+                        html+= '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
+                            '                            <span class="label sr-only">反对，不会显示你的姓名</span>\n' +
                             '                        </button>\n' +
                             '                    </div>\n' +
                             '                </div>\n' +
@@ -54,7 +62,7 @@ $(document).ready(function () {
                             '                            爱生活\n' +
                             '                        </span>\n' +
                             '                    </div>\n' +
-                            '                    <div class="vote-count-info" data-vote-count=8>\n' +
+                            '                    <div class="vote-count-info" data-vote-count='+item.likeCount+'>\n' +
                             '                        <a href class="more texts">\n' +
                             '                            <span class="vote-info-text">\n' +
                             '                                <span class="js-vote-count">'+item.likeCount+'</span>人觉得赞同\n' +
@@ -96,7 +104,6 @@ $(document).ready(function () {
             console.log("always")
         });
     }
-
     function requestDataForPage(offset) {
         var that = this;
         var sUrl = '/question/requestMore' ;
@@ -118,18 +125,26 @@ $(document).ready(function () {
                         // console.log(item.comment)
                         // console.log(item.user)
                         var html='<div class="question-answer-wrap">\n' +
-                            '            <div class="item-answer" data-answer-id=1>\n' +
+                            '            <div class="item-answer" data-answer-id='+item.comment.id+'>\n' +
                             '                <div class="votebar"><!--赞同和反对按钮，赞同数-->\n' +
-                            '                    <div class="zm-votebar js-vote" data-id="4">\n' +
-                            '                        <button class="up js-like" title="赞同">\n' +
-                            '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
-                            '                            <span class="count js-voteCount">0</span>\n' +
-                            '                            <!--<span class="label sr-only">赞同</span>-->\n' +
-                            '                        </button>\n' +
-                            '\n' +
-                            '                        <button class="down js-dislike" title="反对">\n' +
-                            '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
-                            '                            <!--<span class="label sr-only">反对，不会显示你的姓名</span>-->\n' +
+                            '                    <div class="zm-votebar js-vote" data-id="'+item.comment.id+'">\n' ;
+                        if(item.liked>0)
+                            html=html+'<button class="up js-like pressed" title="赞同">\n';
+                        else
+                            html=html+'<button class="up js-like" title="赞同">\n';
+
+                        html=html+ '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
+                            '                            <span class="count js-voteCount">'+item.likeCount+'</span>\n' +
+                            '                            <span class="label sr-only">赞同</span>\n' +
+                            '                        </button>\n';
+                        if(item.liked<0)
+                        {
+                            html+='                        <button class="down js-dislike pressed" title="反对">\n';
+                        }else {
+                            html+='                        <button class="down js-dislike" title="反对">\n';
+                        }
+                        html+= '                            <i class="icon vote-arrow" aria-pressed="false"></i>\n' +
+                            '                            <span class="label sr-only">反对，不会显示你的姓名</span>\n' +
                             '                        </button>\n' +
                             '                    </div>\n' +
                             '                </div>\n' +
@@ -146,7 +161,7 @@ $(document).ready(function () {
                             '                            爱生活\n' +
                             '                        </span>\n' +
                             '                    </div>\n' +
-                            '                    <div class="vote-count-info" data-vote-count=8>\n' +
+                            '                    <div class="vote-count-info" data-vote-count='+item.likeCount+'>\n' +
                             '                        <a href class="more texts">\n' +
                             '                            <span class="vote-info-text">\n' +
                             '                                <span class="js-vote-count">'+item.likeCount+'</span>人觉得赞同\n' +
@@ -184,6 +199,35 @@ $(document).ready(function () {
         }).always(function () {
             console.log("always")
         });
+    }
+
+    function initLikeOrDisLike(){
+
+        $("js-like").each(
+            $(this).on('click',function (e) {
+                var oEl = e.currentTarget;
+                console.log(oEl==this)
+            })
+        );
+        $(".js-dislike").click(function(){
+            alert($(this).index());
+        })
+        // $('.js-load-more').on('click', function (oEvent) {
+        //     var oEl = $(oEvent.currentTarget);
+        //     var sAttName = 'data-load';
+        //     // 正在请求数据中，忽略点击事件
+        //     if (oEl.attr(sAttName) === '1') {
+        //         return;
+        //     }
+        //     // 增加标记，避免请求过程中的频繁点击
+        //     oEl.attr(sAttName, '1');
+        //     that.renderMore(function () {
+        //         // 取消点击标记位，可以进行下一次加载
+        //         oEl.removeAttr(sAttName);
+        //         // 没有数据隐藏加载更多按钮
+        //         !that.listHasNext && oEl.hide();
+        //     });
+        // });
     }
     /*发表回答ajax post*/
     $(".js-submitAnswer").on("click",function () {

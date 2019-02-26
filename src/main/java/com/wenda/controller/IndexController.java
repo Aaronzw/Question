@@ -103,9 +103,9 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(path={"/user/{userId}"},method ={RequestMethod.POST,RequestMethod.GET})
-    public String useIndex(Model model, @PathVariable("userId") int userId){
-        model.addAttribute("vos",getQuestions(userId,0,10));
-        return "index";
-    }
+//    @RequestMapping(path={"/user/{userId}"},method ={RequestMethod.POST,RequestMethod.GET})
+//    public String useIndex(Model model, @PathVariable("userId") int userId){
+//        model.addAttribute("vos",getQuestions(userId,0,10));
+//        return "index";
+//    }
 }

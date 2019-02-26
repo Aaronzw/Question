@@ -33,11 +33,15 @@ $(document).ready(function () {
                             '                <div class="operate-bar">\n' +
                             '                    <a href="/msg/detail?conversationId='+item.message.conversationId+'">共'+item.unReadCount+'条未读消息</a>\n' +
                             '                </div>\n' +
-                            '                <div class="chat-headbox">\n' +
-                            '                        <span class="msg-num">\n' +
-                            item.unReadCount+
-                            '                        </span>\n' +
-                            '                    <a class="list-head">\n' +
+                            '                <div class="chat-headbox">\n' ;
+                        if (item.unReadCount>0)
+                            html=html+'         <span class="msg-num">\n' +
+                                item.unReadCount+
+                                '                </span>\n';
+                            // '                        <span class="msg-num">\n' +
+                            // item.unReadCount+
+                            // '                        </span>\n' +
+                        html=html+'                    <a class="list-head">\n' +
                             '                        <img alt="头像" src="'+item.user.headUrl+'">\n' +
                             '                    </a>\n' +
                             '                </div>\n' +

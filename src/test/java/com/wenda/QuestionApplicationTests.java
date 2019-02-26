@@ -7,9 +7,11 @@ import com.wenda.controller.QuestionController;
 import com.wenda.dao.*;
 import com.wenda.model.*;
 import com.wenda.service.CommentService;
+import com.wenda.service.LikeService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
 import com.wenda.util.JedisAdapter;
+import com.wenda.util.WendaUtil;
 import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -126,10 +128,13 @@ public class QuestionApplicationTests {
 	}
 	@Autowired
 	JedisAdapter jedisAdapter;
+	@Autowired
+	LikeService likeService;
 	@Test
 	public void testq(){
-		String converstaionId="11_12";
-		int userId=11;
+		likeService.like(14,EntityType.ENTITY_COMMENT,186);
+		System.out.println("ok");
+
 
 	}
 }

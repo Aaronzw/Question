@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //init();
+    init();
     function init(){
         var that = this;
         // var sUrl = '/msg/detail/request' ;

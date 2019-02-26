@@ -9,7 +9,10 @@ public class RedisKeyUtil {
     private static String BIZ_FOLLOWER="FOLLOWER";//被关注的
     private static String BIZ_FOLLOWEE="FOLLOWEE";//关注别人的人
     private static String BIZ_TIMELINE="TIMELINE";//时间线推送
-
+    //user浏览过的问题
+    private static String BIZ_USER_BROWSE_RECORD="USER_BROWSE_RECORD";
+    //浏览过该问题人
+    private static String BIZ_QUESTION_BROWSED="QUESTION_BROWSED";
     public static String getLikeKey(int entityType,int entityId){
         return BIZ_LIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
     }

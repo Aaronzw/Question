@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenda.model.*;
 import com.wenda.service.CommentService;
+import com.wenda.service.LikeService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
 import com.wenda.util.WendaUtil;
@@ -28,6 +29,8 @@ public class QuestionController {
     UserService userService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(value = "/question/add",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
@@ -73,10 +76,11 @@ public class QuestionController {
                 vo.set("liked",0);
             }else {
                 //暂定
-                vo.set("liked",1);
+                int localUserId=hostHolder.getUser().getId();
+                vo.set("liked",likeService.getLikeStatus(localUserId,EntityType.ENTITY_COMMENT,comment.getId()));
             }
             //likeservice暂定
-            vo.set("likeCount",9);
+            vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
 //            vo.set("comments_count,);
             vo.set("user",userService.getUser(comment.getUserId()));
             comments.add(vo);
@@ -113,10 +117,10 @@ public class QuestionController {
                 map.put("liked",0);
             }else {
                 //暂定
-                map.put("liked",1);
+                map.put("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
             }
             //likeservice暂定
-            map.put("likeCount",9);
+            map.put("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
 //            vo.set("comments_count,);
             User user=userService.getUser(comment.getUserId());
             //避免密码暴露于ajax

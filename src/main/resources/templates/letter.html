@@ -4,31 +4,33 @@
         <div class="msg-list-header">全部消息</div>
         <ul class="letter-list conversation-list">
             #foreach($conversation in $conversations)
-            <!--<li class="conversation-item">-->
-                <!--<a class="letter-link" href="/msg/detail?conversationId=$!{$conversation.message.conversationId}"></a>-->
-                <!--<div class="letter-info">-->
-                    <!--<span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{$conversation.message.createdDate})</span>-->
-                <!--</div>-->
-                <!--<div class="operate-bar">-->
-                    <!--<a href="/msg/detail?conversationId=$conversation.message.conversationId">共$conversation.unReadCount条未读消息</a>-->
-                <!--</div>-->
-                <!--<div class="chat-headbox">-->
-                        <!--<span class="msg-num">-->
-                            <!--$conversation.unReadCount-->
-                        <!--</span>-->
-                    <!--<a class="list-head">-->
-                        <!--<img alt="头像" src="$conversation.user.headUrl">-->
-                    <!--</a>-->
-                <!--</div>-->
-                <!--<div class="letter-detail">-->
-                    <!--<a title="通知" class="letter-name level-color-1" href="/user/$conversation.user.id">-->
-                        <!--$conversation.user.name-->
-                    <!--</a>-->
-                    <!--<p class="letter-brief">-->
-                        <!--$conversation.message.content-->
-                    <!--</p>-->
-                <!--</div>-->
-            <!--</li>-->
+            <li class="conversation-item">
+                <a class="letter-link" href="/msg/detail?conversationId=$!{$conversation.message.conversationId}"></a>
+                <div class="letter-info">
+                    <span class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{$conversation.message.createdDate})</span>
+                </div>
+                <div class="operate-bar">
+                    <a href="/msg/detail?conversationId=$conversation.message.conversationId">共$conversation.unReadCount条未读消息</a>
+                </div>
+                <div class="chat-headbox">
+                    #if($conversation.unReadCount>0)
+                        <span class="msg-num">
+                            $conversation.unReadCount
+                        </span>
+                    #end
+                    <a class="list-head">
+                        <img alt="头像" src="$conversation.user.headUrl">
+                    </a>
+                </div>
+                <div class="letter-detail">
+                    <a title="通知" class="letter-name level-color-1" href="/user/$conversation.user.id">
+                        $conversation.user.name
+                    </a>
+                    <p class="letter-brief">
+                        $conversation.message.content
+                    </p>
+                </div>
+            </li>
             #end
         </ul>
         <div class="paginate"></div>

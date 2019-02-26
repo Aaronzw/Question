@@ -7,6 +7,7 @@ import com.wenda.dao.MessageDao;
 import com.wenda.model.*;
 import com.wenda.service.MessageService;
 import com.wenda.service.UserService;
+import com.wenda.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,17 +91,18 @@ public class MessageController {
         int localUserId=hostHolder.getUser().getId();
         List<Message> messageList=messageService.getConversationDetail(converstaionId);
         List<ViewObject> messages=new ArrayList<ViewObject>();
-        User targetUser=new User();
+//        User targetUser=new User();
         for(Message message :messageList){
             ViewObject vo=new ViewObject();
             vo.set("message",message);
             int targetId=(message.getFromId()!=localUserId?message.getFromId():message.getToId());
             vo.set("user",userService.getUser(message.getFromId()));
-            targetUser=userService.getUser(targetId);
+//            targetUser=userService.getUser(targetId);
             messages.add(vo);
         }
         model.addAttribute("messages",messages);
         model.addAttribute("conversationId",converstaionId);
+        User targetUser=userService.getUser(WendaUtil.getChatTarget(converstaionId,localUserId));
         model.addAttribute("targetUser",targetUser);
         return "letterDetail";
     }
@@ -134,7 +136,7 @@ public class MessageController {
         for(Message message :messageList){
             Map item=new HashMap();
             item.put("message",message);
-            if(message.getHasRead()==Constant.Msg_notRead){
+            if(message.getHasRead()==Constant.Msg_notRead&&message.getToId()==localUserId){
                 messageService.setMsgHasRead(message.getId(),Constant.Msg_hasRead);
             }
             //int targrtId=(message.getFromId()==localUserId?message.getFromId():message.getFromId());
@@ -161,6 +163,7 @@ public class MessageController {
         message.setToId(toId);
         message.setFromId(fromId);
         message.setCreatedDate(new Date());
+        message.setHasRead(0);
         message.setConversationId(message.getConversationId());
         try {
             int mid=messageService.add(message);

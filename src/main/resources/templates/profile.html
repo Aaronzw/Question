@@ -1,0 +1,74 @@
+#parse("header.html")
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a href="/index">最新动态</a>
+    </li>
+    <li>
+        <a href="/concern">关注</a>
+    </li>
+    <li >
+        <a href="/hotTop">热榜</a>
+    </li>
+</ul>
+
+<div class="content" style="margin:0 auto;">
+    <div class="zu-main-feed-con ">
+        <a href="javascript:;" class="zu-main-feed-fresh-button" id="zh-main-feed-fresh-button" style="display:none"></a>
+        <!--<div id="js-home-feed-list" class="zh-general-list topstory clearfix"></div>-->
+        <div id="js-home-feed-list" class="feed-list js-feed-list">
+            #foreach($vo in $vos)
+            <div class="feed-item" data-queestion-id="$!{vo.question.id}">
+                <div class="item-left">
+                    <div class="avatar">
+                        <a title="" class="item-link-avatar" target="_blank"
+                           href="/user/{userId}">
+                            <img src="$!{vo.user.headUrl}" class="zm-item-img-avatar"></a>
+                    </div>
+                    <div class="avatar item-vote">
+                        <a class="item-vote-cnt" href="javascript:;" data-bind-votecount="">4168</a>
+                    </div>
+                </div>
+                <div class="item-main">
+                    <h2 class="item-title">
+                        <a class="question_link" target="_blank" href="/question/$!{vo.question.id}">$!{vo.question.title}</a>
+                    </h2>
+                    <!--<a class="author-link" target="_blank" href="/user/$!{vo.user.id}">qq</a>-->
+                    <!--2018-12-19 19:40:23-->
+                    <div class="item-author-info">
+                        <a class="author-link" target="_blank" href="/user/$!{vo.user.id}">$!{vo.user.name}</a>
+                        ，$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.question.createdDate})
+                        <a href="/sendMsgTo/$!{vo.user.id}">发私信</a>
+                    </div>
+                    <div class="item-question-content" data-author-name="qq" data-entry-url="/question/$!{vo.question.id}/">
+                        <div class="answer-summary">
+                            $!{vo.question.content}
+                            <!--<a href="javascript:;"style="color: #1b6d85">查看全文</a>-->
+                        </div>
+
+                        <div class="whole-answer" style="display: none">
+                            $!{vo.question.content}
+                            <a href="javascript:;" style="color: #1b6d85">收起</a>
+                        </div>
+                    </div>
+                    <div class="feed-mata">
+                        <div class="meta-panel">
+                            <a data-follow="q:link" class="follow-link zg-follow meta-item" href="javascript:;">
+                                <i class="z-icon-follow"></i>关注问题</a>
+                            <a href="#" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
+                                <i class="z-icon-comment"></i>$!{vo.question.comment_count} 条评论</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            #end
+        </div>
+        <a href="javascript:;" id="zh-load-more" data-method="next" class="btn btn-block btn-info js-load-more" style="">更多</a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+#parse("footer.html")
+<link rel="stylesheet" href="/styles/common.css">
+<script type="text/javascript" src="/scripts/main/component/profile.js"></script>
+</html>

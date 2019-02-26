@@ -112,7 +112,7 @@ $(function () {
                             '<div class="item-author-info">'+
                             '<a class="author-link" target="_blank" href="/user/'+Item.user.id+'">'+Item.user.name+'</a>'+
                             '，'+Item.question.createdDate+
-                            '<a href="/sendMsgTo/'+Item.user.id+'">发私信</a>'
+                            '<a href="/sendMsgTo/'+Item.user.id+'">发私信</a>'+
                             '</div>'+
                             '<div class="item-question-content" data-author-name="qq" data-entry-url="/question/'+Item.question.id+'/answer/13174385">'+
                             '<div class="answer-summary">'+

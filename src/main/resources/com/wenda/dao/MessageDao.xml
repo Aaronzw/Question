@@ -26,7 +26,7 @@
              where to_id=#{userId} or from_id=#{userId}
              )tt
              GROUP  BY conversation_id
-          )ids WHERE message.id=ids.max_id
+          )ids WHERE message.id=ids.max_id order by created_date desc
 
     </select>
 </mapper>
