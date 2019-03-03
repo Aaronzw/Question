@@ -24,13 +24,16 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-
-    @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET, RequestMethod.POST})
+//    @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET, RequestMethod.POST})
+//    public String regloginPage(Model model,@RequestParam(value = "next",required = false) String next) {
+//        model.addAttribute("next", next);
+//        return "reglogin";
+//    }
+    @RequestMapping(path = {"/reg"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String regloginPage(Model model,@RequestParam(value = "next",required = false) String next) {
         model.addAttribute("next", next);
-        return "reglogin";
+        return "user/reg";
     }
-
     @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,

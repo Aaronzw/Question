@@ -1,9 +1,74 @@
-#parse("common/header.html")
-<div class="container-wrap">
-    <div class="container">
-        <div class="contar-wrap">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问答-分享知识</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <script>
+        layui.use(['element', 'layer'], function(){
+            var element = layui.element,layer = layui.layer;
 
-            <div class="item">
+            // element.on('tab(docDemoTabBrief)', function(data){
+            //     layer.msg('切到到了'+ data.index + '：' + this.innerHTML);
+            // });
+        });
+
+    </script>
+</head>
+<body class="lay-blog">
+    <div class="header ">
+        <div class="header-wrap">
+        <h1 class="logo pull-left">
+            <a href="/">
+                <img src="../static/images/logo4.png" alt="" class="logo-img">
+            </a>
+        </h1>
+        <div class="blog-nav pull-left">
+            <ul class="layui-nav pull-left">
+                <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
+                <li class="layui-nav-item"><a href="/recommend">推荐</a></li>
+            </ul>
+            <form class="layui-form blog-seach pull-left" action="">
+                <div class="layui-form-item blog-sewrap">
+                    <div class="layui-input-block blog-sebox">
+                        <i class="layui-icon layui-icon-search"></i>
+                        <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="blog-nav pull-right">
+            <ul class="layui-nav">
+                <li class="layui-nav-item">
+                    <a class="layui-btn">提问</a>
+                </li>
+                <!--<li class="layui-nav-item">-->
+                    <!--<a href="">控制台<span class="layui-badge">9</span></a>-->
+                <!--</li>-->
+                <!--<li class="layui-nav-item">-->
+                    <!--<a href="">个人中心<span class="layui-badge-dot"></span></a>-->
+                <!--</li>-->
+                <li class="layui-nav-item">
+                    <a href=""><img src="../static/images/logo.png" class="layui-nav-img">我</a>
+                    <input name="global-user-id" value="" hidden/>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/msglist">站内信</a></dd>
+                        <dd><a href="/safeSetting">安全管理</a></dd>
+                        <dd><a href="/logout">退出登录</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    <div class="container-wrap">
+        <div class="container">
+            <div class="contar-wrap">
+
+                <div class="item">
                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
                     <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
                     <h5>发布于：<span>刚刚</span></h5>
@@ -15,7 +80,7 @@
                     <a href="javascript:;" class="like">点赞</a>
                 </div>
             </div>
-            <div class="item">
+                <div class="item">
                 <div class="item-box  layer-photos-demo2 layer-photos-demo">
                     <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
                     <h5>发布于：<span>刚刚</span></h5>
@@ -27,7 +92,7 @@
                     <a href="javascript:;" class="like">点赞</a>
                 </div>
             </div>
-            <div class="item">
+                <div class="item">
                 <div class="item-box  layer-photos-demo3 layer-photos-demo">
                     <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
                     <h5>发布于：<span>刚刚</span></h5>
@@ -39,23 +104,18 @@
                     <a href="javascript:;" class="like">点赞</a>
                 </div>
             </div>
-        </div>
-        <div class="item-btn">
-            <button class="layui-btn layui-btn-normal">下一页</button>
+            </div>
+            <div class="item-btn">
+                <button class="layui-btn layui-btn-normal">下一页</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="footer">
-    <p>
-        <span>&copy; 2019</span>
-        <span><a href="/" target="_blank">zhuangwei</a></span>
-    </p>
-    <p><span>人生就是一场旅行</span></p>
-</div>
-<script>
-    layui.config({
-        base: '../static/js/'
-    }).use('index');
-</script>
+    <div class="footer">
+        <p>
+            <span>&copy; 2019</span>
+            <span><a href="/" target="_blank">zhuangwei</a></span>
+        </p>
+        <p><span>人生就是一场旅行</span></p>
+    </div>
 </body>
 </html>

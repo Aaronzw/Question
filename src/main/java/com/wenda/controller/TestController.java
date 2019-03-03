@@ -11,6 +11,6 @@ public class TestController {
     @RequestMapping(path={"/test"},method ={RequestMethod.POST,RequestMethod.GET})
     public String test(Model model){
 
-        return "test";
+        return "test/test";
     }
 }
