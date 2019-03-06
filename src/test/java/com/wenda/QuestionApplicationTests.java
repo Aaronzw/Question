@@ -11,6 +11,7 @@ import com.wenda.service.LikeService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.UserService;
 import com.wenda.util.JedisAdapter;
+import com.wenda.util.MailSender;
 import com.wenda.util.WendaUtil;
 import org.aspectj.bridge.MessageWriter;
 import org.junit.Test;
@@ -19,11 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = QuestionApplication.class)
@@ -130,11 +129,20 @@ public class QuestionApplicationTests {
 	JedisAdapter jedisAdapter;
 	@Autowired
 	LikeService likeService;
+	@Autowired
+	MailSender mailSender;
 	@Test
-	public void testq(){
-		likeService.like(14,EntityType.ENTITY_COMMENT,186);
-		System.out.println("ok");
+	public void testMail(){
+		Map<String,Object> model=new HashMap<>();
+		model.put("userName","紫珠状锥花");
+		if(mailSender.sendWithHTMLTemlate("905380097@qq.com","设计稿子","mail.html",model)){
+			System.out.println("ok");
+		}
 
 
 	}
+	@Test
+    public void testq(){
+
+    }
 }
