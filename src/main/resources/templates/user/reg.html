@@ -1,22 +1,52 @@
 #parse("common/header.html")
-<div class="container-wrap">
-    <div class="container">
-        <div class="contar-wrap">
-            <div class="item ">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">登入</li>
-                    <li><a href="/user/reg/">注册</a></li>
+<div class="content content-nav-base  login-content">
+    <div class="login-bg">
+        <div class="login-cont w1200">
+            <div class="form-box">
+                <ul class="layui-tab-title" style="margin-top:10px ">
+                    <li ><a href="/login">登入</a></li>
+                    <li class="layui-this"><a href="/reg">注册</a></li>
                 </ul>
+                <form class="layui-form" id="reg_forrm" action="/reg/" method="post">
+                    <legend>
+                        #if($msg)
+                        $!{msg}
+                        #end
+                    </legend>
+                    <div class="layui-form-item">
+                        <div class="layui-inline iphone">
+                            <div class="layui-input-inline">
+                                <i class="layui-icon layui-icon-username iphone-icon"></i>
+                                <input type="username" name="username" id="username" lay-verify="required" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline iphone">
+                            <div class="layui-input-inline">
+                                <i class="layui-icon layui-icon-password iphone-icon"></i>
+                                <input id="pswd" type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline iphone">
+                            <div class="layui-input-inline">
+                                <div id="slider_reg"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item login-btn">
+                        <div class="layui-input-block">
+                            <button class="layui-btn js-regBtn" lay-submit=""
+                                    onclick="form=document.getElementById('reg_form');form.action='/reg/'">注册</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    </div>
 </div>
-
 <script>
     layui.config({
-        base: '../static/js/'
+        base: '../js/'
     }).use('reglogin');
 </script>
-</body>
-</html>
+#parse("common/footer.html")

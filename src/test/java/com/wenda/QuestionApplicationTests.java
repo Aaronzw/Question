@@ -131,6 +131,7 @@ public class QuestionApplicationTests {
 	LikeService likeService;
 	@Autowired
 	MailSender mailSender;
+
 	@Test
 	public void testMail(){
 		Map<String,Object> model=new HashMap<>();
@@ -143,6 +144,7 @@ public class QuestionApplicationTests {
 	}
 	@Test
     public void testq(){
-
+		List<Comment> commentList=commentDao.getLatestAnswers(0);
+		System.out.println("ok");
     }
 }

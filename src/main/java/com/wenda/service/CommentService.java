@@ -37,5 +37,7 @@ public class CommentService {
         return commentDao.getUserCommentCount(userId);
     }
 
-
+    public List<Comment> getLatestAnswers(int userId){
+        return commentDao.getLatestAnswers(userId);
+    }
 }

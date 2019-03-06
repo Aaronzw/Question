@@ -56,14 +56,19 @@ public class LoginController {
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
-                return "reglogin";
+                return "user/reg";
             }
 
         } catch (Exception e) {
             logger.error("注册异常" + e.getMessage());
             model.addAttribute("msg", "服务器错误");
-            return "login";
+            return "user/reg";
         }
+    }
+    @RequestMapping(path = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String loginPage(Model model,@RequestParam(value = "next",required = false) String next) {
+        model.addAttribute("next", next);
+        return "user/login";
     }
     @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
@@ -87,13 +92,13 @@ public class LoginController {
                 return "redirect:/";
             } else {
                 model.addAttribute("msg", map.get("msg"));
-                return "reglogin";
+                return "user/login";
             }
 
         } catch (Exception e) {
             logger.error("登录异常" + e.getMessage());
             model.addAttribute("msg", "服务器错误");
-            return "reglogin";
+            return "user/login";
         }
     }
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})

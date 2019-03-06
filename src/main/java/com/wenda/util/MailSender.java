@@ -23,6 +23,10 @@ public class MailSender implements InitializingBean {
     @Autowired
     VelocityEngine velocityEngine;
 
+    /*model.put("userName","紫珠状锥花");
+		if(mailSender.sendWithHTMLTemlate("905380097@qq.com","设计稿子","mail.html",model)){
+			System.out.println("ok");
+		}*/
     public boolean sendWithHTMLTemlate(String to, String subject, String template, Map<String,Object> model){
         try {
             String nick= MimeUtility.encodeText("问答");

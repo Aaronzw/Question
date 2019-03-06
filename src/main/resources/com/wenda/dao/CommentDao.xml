@@ -14,4 +14,18 @@
         <include refid="insertFields"/>
         )VALUES   (#{userId},#{content},#{createdDate},#{entityId},#{entityType},#{status})
     </insert>
+
+    <select id="getLatestAnswers" resultType="com.wenda.model.Comment">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        <if test="userId != 0">
+             user_id = #{userId} and
+        </if>
+        entity_type =1
+        ORDER BY created_date DESC
+    </select>
+
 </mapper>

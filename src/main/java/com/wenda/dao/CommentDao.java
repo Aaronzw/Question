@@ -32,4 +32,6 @@ public interface CommentDao {
 
     @Select({"select count(*)", SELECT_FIELDS, " from ", TABLE_NAME, "where user_id=#{userId}"})
     int getUserCommentCount(@Param("userId")int userId);
+
+    List<Comment> getLatestAnswers(@Param("userId")int userId);
 }
