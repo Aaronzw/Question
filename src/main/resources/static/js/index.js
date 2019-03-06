@@ -5,15 +5,26 @@
 
 
  */
-layui.define(['element', 'form','laypage','jquery','laytpl'],function(exports){
+layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(exports){
     var element = layui.element
         ,form = layui.form
         ,laypage = layui.laypage
         ,$ = layui.jquery
-        ,laytpl = layui.laytpl;
-
+        ,laytpl = layui.laytpl
+        ,common=layui.common;
     //statr 分页
-
+    
+    common.ajax("/index/requestLatestAnswers",{
+        "userId":0,
+        "limit":5,
+        "offset":0,
+    },function (result) {
+        console.log(result);
+    })
+    
+    
+    
+    
     laypage.render({
         elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
         ,count: 50 //数据总数，从服务端得到

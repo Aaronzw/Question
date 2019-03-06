@@ -2,13 +2,14 @@
 <div class="container-wrap">
     <div class="container">
         <div class="contar-wrap">
+            <div id="questionList"></div>
             #foreach($vo in $vos)
             <div class="item">
                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
                     <div class="question_info" >
                         <h3 >
                             <a  class="question_title" href="/question/{}">
-                                $!{vo.question.title}
+                                $!{vo.questionMap.question.title}
                             </a>
                         </h3>
                     </div>

@@ -125,10 +125,21 @@ public class IndexController {
         }
         return vos;
     }
+//    private List<ViewObject> getAnswers(int userId, int offset, int limit){
+//        List<Comment> commentList=commentService.getLatestAnswers(0);
+//        List<ViewObject> vos=new ArrayList<>();
+//        for(Comment comment:commentList){
+//            ViewObject vo=new ViewObject();
+//            vo.set("comment",comment);
+//            vo.set("user",userService.getUser(question.getUserId()));
+//            vos.add(vo);
+//        }
+//        return vos;
+//    }
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
 //        model.addAttribute("vos",getQuestions(0,0,6));
-        model.addAttribute("vos",commentService.getLatestAnswers(0));
+//        model.addAttribute("vos",getAnswers(0,0,0));
         return "index";
     }
 
