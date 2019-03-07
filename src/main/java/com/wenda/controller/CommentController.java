@@ -35,6 +35,11 @@ public class CommentController {
     @Autowired
     QuestionService questionService;
 
+
+    /*
+    @param:questionId,content,userId
+    针对问题发表回答的接口
+    */
     @RequestMapping(value = {"/comment/add"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addComment(@RequestParam("questionId") int questionId,

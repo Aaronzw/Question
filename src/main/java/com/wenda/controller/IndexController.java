@@ -70,14 +70,14 @@ public class IndexController {
     public String MoreLatestAnswers(@RequestParam("userId") int userId,
                                @RequestParam("offset")int offset,
                                @RequestParam("limit") int limit){
-        //使用开源pageHelper插件
         PageHelper.startPage(offset,limit);
         Map<String,Object> result=new HashMap<>();
         Map<String,Object> map=new HashMap();
         List<Map> list=new ArrayList<>();
         List<Comment> commentList=new ArrayList<>();
-        //数据库不分页地查数据
+
         try {
+            //数据库不分页地查数据
             commentList=commentService.getLatestAnswers(userId);
         }catch (Exception e){
             result.put("code",1);
@@ -98,12 +98,6 @@ public class IndexController {
                 commentMap.put("likeStatus",0);
             }
             map.put("commentMap",commentMap);
-//            questionMap.put("followCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
-//            if(hostHolder.getUser()!=null){
-//                commentMap.put("likeStatus",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()))
-//            }else {
-//                commentMap.put("likeStatus",0);
-//            }
             questionMap.put("question",questionService.getById(comment.getEntityId()));
             map.put("questionMap",questionMap);
             map.put("user",userService.getUser(comment.getUserId()));

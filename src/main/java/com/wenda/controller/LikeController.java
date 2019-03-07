@@ -38,6 +38,8 @@ public class LikeController {
         //成功则返回code=0，msg=集合元素数；失败则返回code=999，下同
         return WendaUtil.getJSONString(0,String.valueOf(likeCount));
     }
+
+    /*对评论点踩，ajax*/
     @RequestMapping(path ={"/comment/dislike"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String disLikeComment(@RequestParam("commentId")int commentId){

@@ -23,6 +23,8 @@ public class MessageController {
     MessageService messageService;
     @Autowired
     UserService userService;
+
+    /*跳到消息列表页面*/
     @RequestMapping(value = "/msg/list", method = {RequestMethod.GET})
     public String getConversationList(Model model){
         if(hostHolder.getUser()==null)
@@ -83,7 +85,7 @@ public class MessageController {
         result.put("current_pages",pageInfo.getPageNum());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
-
+    /*跳转到消息详情页面*/
     @RequestMapping(value = "/msg/detail", method = {RequestMethod.GET})
     public String getConversationDetail(Model model, @RequestParam("conversationId") String converstaionId){
         if(hostHolder.getUser()==null)
@@ -91,13 +93,11 @@ public class MessageController {
         int localUserId=hostHolder.getUser().getId();
         List<Message> messageList=messageService.getConversationDetail(converstaionId);
         List<ViewObject> messages=new ArrayList<ViewObject>();
-//        User targetUser=new User();
         for(Message message :messageList){
             ViewObject vo=new ViewObject();
             vo.set("message",message);
             int targetId=(message.getFromId()!=localUserId?message.getFromId():message.getToId());
             vo.set("user",userService.getUser(message.getFromId()));
-//            targetUser=userService.getUser(targetId);
             messages.add(vo);
         }
         model.addAttribute("messages",messages);
@@ -106,7 +106,8 @@ public class MessageController {
         model.addAttribute("targetUser",targetUser);
         return "letterDetail";
     }
-    //ajax请求接口，conversationDetail
+
+    //ajax请求接口，conversationDetail，分页
     @RequestMapping(value = "/msg/detail/request", method = {RequestMethod.POST})
     @ResponseBody
     public String getMsgDetail(Model model,
@@ -151,6 +152,7 @@ public class MessageController {
         result.put("current_pages",pageInfo.getPageNum());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
+    /*发消息 content，fromId，toId*/
     @RequestMapping(value = "/msg/add", method = {RequestMethod.POST})
     @ResponseBody
     public String msgAdd(Model model,
@@ -175,6 +177,8 @@ public class MessageController {
         result.put("msg","success");
         return JSON.toJSONString(result);
     }
+
+    /*用于跳转到给某人发私信链接*/
     @RequestMapping(value = "/sendMsgTo/{sendToId}", method = {RequestMethod.GET})
     public String jumpToSendMsgTo(Model model, @PathVariable("sendToId") int sendToId){
         if(hostHolder.getUser()==null)

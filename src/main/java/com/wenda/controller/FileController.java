@@ -16,7 +16,7 @@ import java.io.File;
 public class FileController {
     @RequestMapping(path ={"/upload/"},method = {RequestMethod.POST})
     @ResponseBody
-    public String likeComment(@RequestParam("file")MultipartFile file){
+    public String likeComment(@RequestParam("file")MultipartFile multipartFile){
         int a=1+1;
         return "hi";
     }

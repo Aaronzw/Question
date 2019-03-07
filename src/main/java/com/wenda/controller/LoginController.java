@@ -29,11 +29,15 @@ public class LoginController {
 //        model.addAttribute("next", next);
 //        return "reglogin";
 //    }
+
+    /*新注册页*/
     @RequestMapping(path = {"/reg"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String regloginPage(Model model,@RequestParam(value = "next",required = false) String next) {
         model.addAttribute("next", next);
         return "user/reg";
     }
+
+    /*注册提交账号密码的form表单*/
     @RequestMapping(path = {"/reg/"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
@@ -65,11 +69,14 @@ public class LoginController {
             return "user/reg";
         }
     }
+
+    /*新登录页*/
     @RequestMapping(path = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String loginPage(Model model,@RequestParam(value = "next",required = false) String next) {
         model.addAttribute("next", next);
         return "user/login";
     }
+    /*登录提交账号密码form表单*/
     @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password,
@@ -101,6 +108,8 @@ public class LoginController {
             return "user/login";
         }
     }
+
+    /*注销，ticket置为失效*/
     @RequestMapping(path = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String logout(@CookieValue("ticket") String ticket) {
         userService.logout(ticket);

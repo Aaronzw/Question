@@ -54,6 +54,7 @@ public class UserService {
         map.put("ticket",ticket);
         return map;
     }
+
     public Map<String,Object> login(String name,String password){
         Map<String,Object> map=new HashMap<>();
         if(StringUtils.isBlank(name)){
