@@ -23,6 +23,7 @@ public class QuestionService {
         return questionDao.getById(id);
     }
     public int addQuestion(Question question){
+        //过滤html标签
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
 
