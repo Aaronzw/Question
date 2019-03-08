@@ -7,5 +7,5 @@ import java.util.List;
 public interface EventHandler {
     void doHandle(EventMode eventMode);
 
-    List<EventType> getSupportEventType();
+    List<EventType> getSupportEventTypes();
 }
