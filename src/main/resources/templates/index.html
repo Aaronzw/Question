@@ -71,12 +71,8 @@
                                         <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.commentMap.comment.createdDate})</span></h5>
                                     </div>
 
-                                    <p class="answer-content">$!{vo.commentMap.comment.content}</p>
+                                    <!--<p class="answer-content">$!{vo.commentMap.comment.content}</p>-->
                                 </div>
-                                <!--<div class="comment count">-->
-                                <!--<a href="details.html#comment">评论</a>-->
-                                <!--<a href="javascript:;" class="like">点赞</a>-->
-                                <!--</div>-->
                                 <div class="comment count" data-comment-id="$!{vo.commentMap.comment.id}">
                                     <a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>
                                     <a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>

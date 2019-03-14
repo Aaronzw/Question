@@ -11,6 +11,6 @@ public class ProfileController {
     @RequestMapping(path={"/user/{userId}"},method ={RequestMethod.POST,RequestMethod.GET})
     public String test(Model model, @PathVariable("userId")int userId){
 
-        return "test/test";
+        return "profile";
     }
 }
