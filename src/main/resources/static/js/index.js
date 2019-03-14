@@ -23,13 +23,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         $(".js-index-more").on("click",function (oEvent) {
 
             var oEl = $(oEvent.currentTarget);
-            // var sAttName = 'data-load';
-            // // 正在请求数据中，忽略点击事件
-            // if (oEl.attr(sAttName) === '1') {
-            //     return;
-            // }
-            // // 增加标记，避免请求过程中的频繁点击
-            // oEl.attr(sAttName, '1');
             if(that.loading==true)
                 return ;
             that.loading=true;
@@ -54,7 +47,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         });
 
     }
-
     //start 评论的特效
     (function ($) {
         $.extend({

@@ -1,6 +1,7 @@
 //封装ajax
-layui.define(['jquery'], function(exports){
+layui.define(['jquery','layer'], function(exports){
     var $ = layui.jquery;
+    var layer=layui.layer;
     var obj = {
         ajax: function (url, data, callback) {
             $.ajax({
@@ -13,6 +14,8 @@ layui.define(['jquery'], function(exports){
             });
         }
     };
+    //提问弹窗
+
     //输出接口
     exports('common', obj);
 });

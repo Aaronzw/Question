@@ -16,6 +16,28 @@
     </script>
 </head>
 <body class="lay-blog" style="text-align: center;">
+    <div class="addQuestionMod" style="display:none;font-size: 14px">
+        <form class="layui-form" id="new_question">
+            <div class="layui-form-item" >
+                <div class="layui-input-block" style="padding-top:20px;margin-left: 20px;margin-right: 20px">
+                    <input type="text" name="question_title" required="" lay-verify="required" placeholder="请输入问题" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text" >
+                <!--<label class="layui-form-label">文本域</label>-->
+                <div class="layui-input-block" style="margin-left: 20px;margin-right: 20px">
+                    <textarea name="question_content" placeholder="描述一下你的问题(可选)" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block pull-right" style="margin-left: 20px;margin-right: 20px">
+                    <button class="layui-btn js-submitNewQues"style="margin-right:20px" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="header ">
         <div class="header-wrap">
             <h1 class="logo pull-left">

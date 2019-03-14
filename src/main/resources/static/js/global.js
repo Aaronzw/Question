@@ -7,3 +7,65 @@ layui.config({
     common:'common',
     sliderVerify:'sliderVerify/sliderVerify'
 });
+/**
+
+ @Name：wenda首页
+ @Author：庄巍
+
+
+ */
+layui.define(['element', 'form','laypage','jquery','layer','common'],function(exports){
+    var element = layui.element
+        ,form = layui.form
+        ,laypage = layui.laypage
+        ,$ = layui.jquery
+        ,layer = layui.layer
+        ,common=layui.common;
+    //statr 分页
+
+    initClickMore();
+    function initClickMore() {
+        $(".js-askq").on("click",function () {
+            layer.open({
+                type: 1,
+                title: '提问',
+                // maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['500px' , '300px'],
+                content: $(".addQuestionMod")
+            });
+        });
+        $(".js-submitNewQues").on("click",function () {
+            var title=$("input[name='question_title']").val();
+            var content=$("textarea[name='question_content']").val();
+            if(title==""||title==undefined){
+                layer.msg("请输入问题标题！");
+                return
+            }
+            common.ajax("/question/add",{
+                "content":content,
+                "title":title
+            },function (result) {
+                console.log(result)
+                if(result.code=='1'){
+                    if(result.msg=="annoymous")
+                    {
+                        window.location="/reg"
+                    }else {
+                        layer.msg("发表问题出错，请联系管理员")
+                    }
+                    return
+                }else {
+                    layer.msg("发表问题成功");
+                    $.delayTime(3000);
+                    window.location="/question/"+question_id;
+                }
+
+            })
+        })
+    }
+
+
+    exports('global', {});
+});
+
