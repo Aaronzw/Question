@@ -8,7 +8,8 @@ layui.define(['jquery'], function(exports){
                 type: "post",
                 dataType:"json",
                 data: data,
-                success: callback
+                success: callback,
+
             });
         }
     };

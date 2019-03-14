@@ -8,33 +8,37 @@
                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
                     <div class="question_info" >
                         <h3 >
-                            <a  class="question_title" href="/question/{}">
+                            <a  class="question_title" href="/question/$!{vo.questionMap.question.id}">
                                 $!{vo.questionMap.question.title}
                             </a>
                         </h3>
                     </div>
                     <div class="ans_author_info" >
                         <div class="author_head pull-right">
-                            <a href="/user/11">
-                                <img src="$!{vo.user.headUrl}" class="author-head-img">
+                            <a href="/user/$!{vo.commentMap.user.id}">
+                                <img src="$!{vo.commentMap.user.headUrl}" class="author-head-img">
                             </a>
                         </div>
-                        <span class="author_info"><a href="/user/">$!{vo.user.name}</a> </span>
-                        <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.question.createdDate})</span></h5>
+                        <span class="author_info"><a href="/user/">$!{vo.commentMap.user.name}</a> </span>
+                        <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.commentMap.comment.createdDate})</span></h5>
                     </div>
 
-                    <p class="answer-content">父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
+                    <p class="answer-content">$!{vo.commentMap.comment.content}</p>
                 </div>
-                <div class="comment count">
-                    <a href="/question/{}">评论$!{vo.question.commentCount}</a>
-                    <a href="javascript:;" class="like">点赞</a>
-                    <a href="javascript:;" class="dislike">点踩</a>
+                <!--<div class="comment count">-->
+                    <!--<a href="details.html#comment">评论</a>-->
+                    <!--<a href="javascript:;" class="like">点赞</a>-->
+                <!--</div>-->
+                <div class="comment count" data-comment-id="$!{vo.commentMap.comment.id}">
+                    <a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>
+                    <a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>
+                    <a href="javascript:;" class="dislike"><i class="layui-icon layui-icon-tread"></i></a>
                 </div>
             </div>
             #end
         </div>
         <div class="item-btn">
-            <button class="layui-btn layui-btn-normal">下一页</button>
+            <button class="layui-btn layui-btn-normal js-index-more">更多</button>
         </div>
     </div>
 </div>

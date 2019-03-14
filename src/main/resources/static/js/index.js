@@ -13,25 +13,47 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         ,laytpl = layui.laytpl
         ,common=layui.common;
     //statr 分页
-    
-    common.ajax("/index/requestLatestAnswers",{
-        "userId":0,
-        "limit":5,
-        "offset":0,
-    },function (result) {
-        console.log(result);
-    })
-    
-    
-    
-    
-    laypage.render({
-        elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
-        ,count: 50 //数据总数，从服务端得到
-        ,theme: '#1e9fff'
-    });
 
-    // end 分頁
+    initClickMore();
+    function initClickMore() {
+        var that=this;
+        that.page=1;
+        that.pageSize=5;
+        that.listHasNext=true;
+        $(".js-index-more").on("click",function (oEvent) {
+
+            var oEl = $(oEvent.currentTarget);
+            // var sAttName = 'data-load';
+            // // 正在请求数据中，忽略点击事件
+            // if (oEl.attr(sAttName) === '1') {
+            //     return;
+            // }
+            // // 增加标记，避免请求过程中的频繁点击
+            // oEl.attr(sAttName, '1');
+            if(that.loading==true)
+                return ;
+            that.loading=true;
+            fRenderMore();
+            !that.listHasNext && oEl.hide();
+        })
+    }
+    function fRenderMore(){
+        var that=this;
+        if(that.listHasNext==false){
+            return ;
+        }
+        that.loading=false;
+        common.ajax("/index/requestLatestAnswers",{
+            "userId":0,
+            "limit":that.pageSize,
+            "offset":that.page+1,
+            },function (result) {
+            console.log(result)
+            that.page++;
+            that.listHasNext=result.has_next;
+        });
+
+    }
 
     //start 评论的特效
     (function ($) {
@@ -84,8 +106,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         $(".like").on('click',function () {
 
             if(!($(this).hasClass("layblog-this"))){
-                this.text = '已赞';
+                // this.text = '已赞';
                 $(this).addClass('layblog-this');
+                $(this).parent('.comment').children(".dislike").removeClass("layblog-this");
                 $.tipsBox({
                     obj: $(this),
                     str: "+1",
@@ -99,15 +122,33 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 })
             }
         });
+        $(".dislike").on('click',function () {
+
+            if(!($(this).hasClass("layblog-this"))){
+                $(this).addClass('layblog-this');
+                $(this).parent('.comment').children(".like").removeClass("layblog-this");
+                // $.tipsBox({
+                //     obj: $(this),
+                //     str: "+1",
+                //     callback: function () {
+                //     }
+                // });
+                // niceIn($(this));
+                // layer.msg('点赞成功', {
+                //     icon: 6
+                //     ,time: 1000
+                // })
+            }
+        });
     });
 
     //end 评论的特效
 
 
     // start点赞图标变身
-    $('#LAY-msg-box').on('click', '.info-img', function(){
-        $(this).addClass('layblog-this');
-    })
+    // $('#LAY-msg-box').on('click', '.info-img', function(){
+    //     $(this).addClass('layblog-this');
+    // })
 
 
     // end点赞图标变身

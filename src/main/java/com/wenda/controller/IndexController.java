@@ -97,10 +97,11 @@ public class IndexController {
             }else {
                 commentMap.put("likeStatus",0);
             }
+            commentMap.put("user",userService.getUser(comment.getUserId()));
             map.put("commentMap",commentMap);
             questionMap.put("question",questionService.getById(comment.getEntityId()));
             map.put("questionMap",questionMap);
-            map.put("user",userService.getUser(comment.getUserId()));
+
             list.add(map);
         }
         result.put("code",0);
@@ -108,13 +109,35 @@ public class IndexController {
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
-    private List<ViewObject> getQuestions(int userId, int offset, int limit){
-        List<Question> questionList=questionService.getLatestQuestions(userId,offset,limit);
+    private List<ViewObject> getQuestionsAndAnswers(int userId, int offset, int limit){
+        PageHelper.startPage(offset,limit);
+        Map<String,Object> result=new HashMap<>();
+        Map<String,Object> map=new HashMap();
+        List<Map> list=new ArrayList<>();
+        List<Comment> commentList=new ArrayList<>();
+        try{
+            commentList=commentService.getLatestAnswers(0);
+        }catch (Exception e){
+            logger.error("查询数据库异常");
+        }
         List<ViewObject> vos=new ArrayList<>();
-        for(Question question:questionList){
+        for(Comment comment :commentList){
             ViewObject vo=new ViewObject();
-            vo.set("question",question);
-            vo.set("user",userService.getUser(question.getUserId()));
+            Map<String,Object> commentMap=new HashMap<>();
+            Map<String,Object> questionMap=new HashMap<>();
+            commentMap.put("comment",comment);
+            commentMap.put("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
+            if(hostHolder.getUser()!=null){
+                commentMap.put("likeStatus",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
+            }else {
+                commentMap.put("likeStatus",0);
+            }
+            commentMap.put("commentCount",0);
+            commentMap.put("user",userService.getUser(comment.getUserId()));
+            vo.set("commentMap",commentMap);
+            questionMap.put("question",questionService.getById(comment.getEntityId()));
+            vo.set("questionMap",questionMap);
+
             vos.add(vo);
         }
         return vos;
@@ -133,7 +156,7 @@ public class IndexController {
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
 //        model.addAttribute("vos",getQuestions(0,0,6));
-//        model.addAttribute("vos",getAnswers(0,0,0));
+        model.addAttribute("vos",getQuestionsAndAnswers(0,0,5));
         return "index";
     }
 

@@ -230,7 +230,7 @@ body{
 /*}*/
 .lay-blog .container .item .answer-content{
     overflow: hidden;
-	height: 90px;
+	max-height: 90px;
 }
 .author-head-img{
 	width: 30px;
