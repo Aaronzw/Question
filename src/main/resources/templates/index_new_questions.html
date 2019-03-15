@@ -1,0 +1,58 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li ><a href="/">最新回答</a> </li>
+                    <li class="layui-this">最新问题</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div id="new-question-list">
+                        #foreach($vo in $vos)
+                        <div class="item">
+                            <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                                <div class="question_info" >
+                                    <h3 >
+                                        <a  class="question_title" href="/question/$!{vo.questionMap.question.id}">
+                                            $!{vo.questionMap.question.title}
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="ans_author_info" >
+                                    <div class="author_head pull-right">
+                                        <a href="/user/$!{vo.commentMap.user.id}">
+                                            <img src="$!{vo.commentMap.user.headUrl}" class="author-head-img">
+                                        </a>
+                                    </div>
+                                    <span class="author_info"><a href="/user/">$!{vo.commentMap.user.name}</a> </span>
+                                    <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.commentMap.comment.createdDate})</span></h5>
+                                </div>
+
+                                <!--<p class="answer-content">$!{vo.commentMap.comment.content}</p>-->
+                            </div>
+                            <div class="comment count" data-comment-id="$!{vo.commentMap.comment.id}">
+                                <a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>
+                                <a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>
+                                <a href="javascript:;" class="dislike"><i class="layui-icon layui-icon-tread"></i></a>
+                            </div>
+                        </div>
+                        #end
+                    </div>
+                    <div class="item-btn">
+                        <button class="layui-btn layui-btn-normal js-more-ques">更多</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('index');
+</script>
+#parse("common/footer.html")

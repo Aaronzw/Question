@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenda.model.*;
-import com.wenda.service.CommentService;
-import com.wenda.service.LikeService;
-import com.wenda.service.QuestionService;
-import com.wenda.service.UserService;
+import com.wenda.service.*;
 import com.wenda.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,38 +28,8 @@ public class IndexController {
     CommentService commentService;
     @Autowired
     LikeService likeService;
-//    /*利用分页插件*/
-//    @RequestMapping(value = "/index/renderMore",method = RequestMethod.POST)
-//    @ResponseBody
-//    public String MoreQuestion1(@RequestParam("userId") int userId,
-//                               @RequestParam("offset")int offset,
-//                               @RequestParam("limit") int limit){
-//        //使用开源pageHelper插件
-//        PageHelper.startPage(offset,limit);
-//        Map<String,Object> result=new HashMap<>();
-//        Map<String,Object> map=new HashMap();
-//        List<Map> list=new ArrayList<>();
-//        List<Question> questionList=new ArrayList<>();
-//        //数据库不分页地查数据
-//        try {
-//            questionList=questionService.getLatestQuestionsPageHelper(userId);
-//        }catch (Exception e){
-//            result.put("code",1);
-//            result.put("msg","请求数据库异常！");
-//            return JSON.toJSONString(result);
-//        }
-//        PageInfo<Question> pageInfo=new PageInfo<>(questionList);
-//        for(Question question:pageInfo.getList()){
-//            map=new HashMap<>();
-//            map.put("question",question);
-//            map.put("user",userService.getUser(question.getUserId()));
-//            list.add(map);
-//        }
-//        result.put("code",0);
-//        result.put("data",list);
-//        result.put("has_next",pageInfo.isHasNextPage());
-//        return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
-//    }
+    @Autowired
+    FollowService followService;
 
 /*利用分页插件*/
     @RequestMapping(value = "/index/requestLatestAnswers",method = RequestMethod.POST)
@@ -109,7 +76,7 @@ public class IndexController {
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
-    private List<ViewObject> getQuestionsAndAnswers(int userId, int offset, int limit){
+    public List<ViewObject> getQuestionsAndAnswers(int userId, int offset, int limit){
         PageHelper.startPage(offset,limit);
         Map<String,Object> result=new HashMap<>();
         Map<String,Object> map=new HashMap();
@@ -120,8 +87,9 @@ public class IndexController {
         }catch (Exception e){
             logger.error("查询数据库异常");
         }
+        PageInfo<Comment> pageInfo=new PageInfo<>(commentList);
         List<ViewObject> vos=new ArrayList<>();
-        for(Comment comment :commentList){
+        for(Comment comment :pageInfo.getList()){
             ViewObject vo=new ViewObject();
             Map<String,Object> commentMap=new HashMap<>();
             Map<String,Object> questionMap=new HashMap<>();
@@ -142,22 +110,48 @@ public class IndexController {
         }
         return vos;
     }
-//    private List<ViewObject> getAnswers(int userId, int offset, int limit){
-//        List<Comment> commentList=commentService.getLatestAnswers(0);
-//        List<ViewObject> vos=new ArrayList<>();
-//        for(Comment comment:commentList){
-//            ViewObject vo=new ViewObject();
-//            vo.set("comment",comment);
-//            vo.set("user",userService.getUser(question.getUserId()));
-//            vos.add(vo);
-//        }
-//        return vos;
-//    }
+    public List<ViewObject> getLatestQuestions(int userId, int offset, int limit){
+        PageHelper.startPage(offset,limit);
+        Map<String,Object> result=new HashMap<>();
+        Map<String,Object> map=new HashMap();
+        List<Map> list=new ArrayList<>();
+        List<Question> questionList=new ArrayList<>();
+        try{
+            questionList=questionService.getLatestQuestionsPageHelper(0);
+        }catch (Exception e){
+            logger.error("查询数据库异常"+e.getMessage());
+        }
+        PageInfo<Question> pageInfo=new PageInfo<>(questionList);
+        List<ViewObject> vos=new ArrayList<>();
+        for(Question question :pageInfo.getList()){
+            ViewObject vo=new ViewObject();
+            Map<String,Object> questionMap=new HashMap<>();
+            questionMap.put("user",userService.getUser(question.getUserId()));
+            questionMap.put("question",question);
+            questionMap.put("followCount",0);
+            if(hostHolder.getUser()!=null){
+                if(followService.isFollower(hostHolder.getUser().getId(),EntityType.ENTITY_QUESTION,question.getId()))
+                    questionMap.put("isFollower",1);
+                else
+                    questionMap.put("isFollower",0);
+            }else {
+                questionMap.put("isFollower",0);
+            }
+
+            vo.set("questionMap",questionMap);
+            vos.add(vo);
+        }
+        return vos;
+    }
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-//        model.addAttribute("vos",getQuestions(0,0,6));
-        model.addAttribute("vos",getQuestionsAndAnswers(0,0,5));
+        model.addAttribute("vos_ans",getQuestionsAndAnswers(0,0,5));
+        model.addAttribute("vos_ques",getLatestQuestions(0,0,5));
         return "index";
     }
-
+//    @RequestMapping(path = {"/index/questions"},method = {RequestMethod.POST,RequestMethod.GET})
+//    public String index_new_questions(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
+//        model.addAttribute("vos",getLatestQuestions(0,0,5));
+//        return "index_new_questions";
+//    }
 }

@@ -142,9 +142,13 @@ public class QuestionApplicationTests {
 
 
 	}
+	@Autowired
+	IndexController indexController;
 	@Test
     public void testq(){
-		List<Comment> commentList=commentDao.getLatestAnswers(0);
-		System.out.println("ok");
+
+		List<ViewObject> questionList=new ArrayList<>();
+		questionList=indexController.getLatestQuestions(0,0,6);
+		System.out.println(questionList);
     }
 }
