@@ -17,9 +17,10 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
     initClickMore();
     function initClickMore() {
         var that=this;
-        that.page=1;
+        that.ans_page=1;
+        that.ques_page=1;
         that.pageSize=5;
-        that.listHasNext=true;
+        that.quesListHasNext=true;
         $(".js-more-ans").on("click",function (oEvent) {
 
             var oEl = $(oEvent.currentTarget);
@@ -28,23 +29,34 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             that.loading=true;
             fRenderMoreAns();
             that.loading=false;
-            !that.listHasNext && oEl.hide();
+            !that.ansListHasNext && oEl.hide();
+        })
+        $(".js-more-ques").on("click",function (oEvent) {
+
+            var oEl = $(oEvent.currentTarget);
+            if(that.loading==true)
+                return ;
+            that.loading=true;
+            fRenderMoreQues();
+            that.loading=false;
+            !that.quesListHasNext && oEl.hide();
         })
     }
+
     function fRenderMoreAns(){
         var that=this;
-        if(that.listHasNext==false){
+        if(that.ansListHasNext==false){
             return ;
         }
         common.ajax("/index/requestLatestAnswers",{
             "userId":0,
             "limit":that.pageSize,
-            "offset":that.page+1,
+            "offset":that.ans_page+1,
             },function (result) {
             console.log(result)
             if(result.code=="0"){
                 that.page++;
-                that.listHasNext=result.has_next;
+                that.ansListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
                         '                                <div class="item-box  layer-photos-demo1 layer-photos-demo">\n' +
@@ -74,6 +86,55 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         '                                </div>\n' +
                         '                            </div>';
                     $("#new-answer-list").append(html);
+                });
+
+            }else {
+                layui.msg("请求失败")
+            }
+
+
+        });
+
+    }
+    function fRenderMoreQues(){
+        var that=this;
+        if(that.quesListHasNext==false){
+            return ;
+        }
+        common.ajax("/index/requestLatestQuestions",{
+            "userId":0,
+            "limit":that.pageSize,
+            "offset":that.ques_page+1,
+        },function (result) {
+            console.log(result)
+            if(result.code=="0"){
+                that.page++;
+                that.quesListHasNext=result.has_next;
+                $.each(result.data,function (Index, Item) {
+                    var html='<div class="item">\n' +
+                        '                                <div class="item-box  layer-photos-demo1 layer-photos-demo">\n' +
+                        '                                    <div class="question_info" >\n' +
+                        '                                        <h3 >\n' +
+                        '                                            <a  class="question_title" href="/question/'+Item.questionMap.question.id+'">\n' +
+                        '                                                '+Item.questionMap.question.title+'\n' +
+                        '                                            </a>\n' +
+                        '                                        </h3>\n' +
+                        '                                    </div>\n' +
+                        '                                    <div class="ans_author_info" >\n' +
+                        '                                        <div class="author_head pull-right">\n' +
+                        '                                            <a href="/user/'+Item.questionMap.user.id+'">\n' +
+                        '                                                <img src="'+Item.questionMap.user.headUrl+'" class="author-head-img">\n' +
+                        '                                            </a>\n' +
+                        '                                        </div>\n' +
+                        '                                        <span class="author_info"><a href="/user/">'+Item.questionMap.user.name+'</a> </span>\n' +
+                        '                                        <h5 class="answer_date p">提问于：<span>'+Item.questionMap.question.createdDate+'</span></h5>\n' +
+                        '                                    </div>\n' +
+                        '\n' +
+                        '                                    <!--<p class="answer-content">$!{vo.commentMap.comment.content}</p>-->\n' +
+                        '                                </div>\n' +
+
+                        '                            </div>'
+                    $("#new-question-list").append(html);
                 });
 
             }else {

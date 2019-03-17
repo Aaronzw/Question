@@ -136,11 +136,9 @@ public class IndexController {
         PageInfo<Question> pageInfo=new PageInfo<>(questionList);
         for(Question question:pageInfo.getList()){
             map=new HashMap<>();
-
             Map<String,Object> questionMap=new HashMap<>();
-
             questionMap.put("question",question);
-            questionMap.put("user",userService.getUser(question.getId()));
+            questionMap.put("user",userService.getUser(question.getUserId()));
             map.put("questionMap",questionMap);
             list.add(map);
         }
