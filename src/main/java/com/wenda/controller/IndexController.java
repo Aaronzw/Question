@@ -65,6 +65,8 @@ public class IndexController {
                 commentMap.put("likeStatus",0);
             }
             commentMap.put("user",userService.getUser(comment.getUserId()));
+            List<Comment> commentsForAnswer=commentService.getCommentListByEntity(comment.getId(),EntityType.ENTITY_COMMENT);
+            commentMap.put("commentCount",commentsForAnswer.size());
             map.put("commentMap",commentMap);
             questionMap.put("question",questionService.getById(comment.getEntityId()));
             map.put("questionMap",questionMap);
@@ -76,7 +78,7 @@ public class IndexController {
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
-    public List<ViewObject> getQuestionsAndAnswers(int userId, int offset, int limit){
+    public List<ViewObject> getLatestAnswers(int userId, int offset, int limit){
         PageHelper.startPage(offset,limit);
         Map<String,Object> result=new HashMap<>();
         Map<String,Object> map=new HashMap();
@@ -100,7 +102,9 @@ public class IndexController {
             }else {
                 commentMap.put("likeStatus",0);
             }
-            commentMap.put("commentCount",0);
+            List<Comment> commentsForAnswer=commentService.getCommentListByEntity(comment.getId(),EntityType.ENTITY_COMMENT);
+            commentMap.put("commentCount",commentsForAnswer.size());
+//            commentMap.put("commentCount",0);
             commentMap.put("user",userService.getUser(comment.getUserId()));
             vo.set("commentMap",commentMap);
             questionMap.put("question",questionService.getById(comment.getEntityId()));
@@ -109,6 +113,41 @@ public class IndexController {
             vos.add(vo);
         }
         return vos;
+    }
+    @RequestMapping(value = "/index/requestLatestQuestions",method = RequestMethod.POST)
+    @ResponseBody
+    public String MoreLatestQuestions(@RequestParam("userId") int userId,
+                                    @RequestParam("offset")int offset,
+                                    @RequestParam("limit") int limit){
+        PageHelper.startPage(offset,limit);
+        Map<String,Object> result=new HashMap<>();
+        Map<String,Object> map=new HashMap();
+        List<Map> list=new ArrayList<>();
+        List<Question> questionList=new ArrayList<>();
+
+        try {
+            //数据库不分页地查数据
+            questionList=questionService.getLatestQuestionsPageHelper(userId);
+        }catch (Exception e){
+            result.put("code",1);
+            result.put("msg","请求数据库异常！");
+            return JSON.toJSONString(result);
+        }
+        PageInfo<Question> pageInfo=new PageInfo<>(questionList);
+        for(Question question:pageInfo.getList()){
+            map=new HashMap<>();
+
+            Map<String,Object> questionMap=new HashMap<>();
+
+            questionMap.put("question",question);
+            questionMap.put("user",userService.getUser(question.getId()));
+            map.put("questionMap",questionMap);
+            list.add(map);
+        }
+        result.put("code",0);
+        result.put("data",list);
+        result.put("has_next",pageInfo.isHasNextPage());
+        return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
     public List<ViewObject> getLatestQuestions(int userId, int offset, int limit){
         PageHelper.startPage(offset,limit);
@@ -145,13 +184,8 @@ public class IndexController {
     }
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-        model.addAttribute("vos_ans",getQuestionsAndAnswers(0,0,5));
+        model.addAttribute("vos_ans",getLatestAnswers(0,0,5));
         model.addAttribute("vos_ques",getLatestQuestions(0,0,5));
         return "index";
     }
-//    @RequestMapping(path = {"/index/questions"},method = {RequestMethod.POST,RequestMethod.GET})
-//    public String index_new_questions(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-//        model.addAttribute("vos",getLatestQuestions(0,0,5));
-//        return "index_new_questions";
-//    }
 }

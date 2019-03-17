@@ -20,30 +20,67 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         that.page=1;
         that.pageSize=5;
         that.listHasNext=true;
-        $(".js-index-more").on("click",function (oEvent) {
+        $(".js-more-ans").on("click",function (oEvent) {
 
             var oEl = $(oEvent.currentTarget);
             if(that.loading==true)
                 return ;
             that.loading=true;
-            fRenderMore();
+            fRenderMoreAns();
+            that.loading=false;
             !that.listHasNext && oEl.hide();
         })
     }
-    function fRenderMore(){
+    function fRenderMoreAns(){
         var that=this;
         if(that.listHasNext==false){
             return ;
         }
-        that.loading=false;
         common.ajax("/index/requestLatestAnswers",{
             "userId":0,
             "limit":that.pageSize,
             "offset":that.page+1,
             },function (result) {
             console.log(result)
-            that.page++;
-            that.listHasNext=result.has_next;
+            if(result.code=="0"){
+                that.page++;
+                that.listHasNext=result.has_next;
+                $.each(result.data,function (Index, Item) {
+                    var html='<div class="item">\n' +
+                        '                                <div class="item-box  layer-photos-demo1 layer-photos-demo">\n' +
+                        '                                    <div class="question_info" >\n' +
+                        '                                        <h3 >\n' +
+                        '                                            <a  class="question_title" href="/question/'+Item.questionMap.question.id+'">\n' +
+                        Item.questionMap.question.title+
+                        '                                            </a>\n' +
+                        '                                        </h3>\n' +
+                        '                                    </div>\n' +
+                        '                                    <div class="ans_author_info" >\n' +
+                        '                                        <div class="author_head pull-right">\n' +
+                        '                                            <a href="/user/'+Item.commentMap.user.id+'">\n' +
+                        '                                                <img src="'+Item.commentMap.user.headUrl+'" class="author-head-img">\n' +
+                        '                                            </a>\n' +
+                        '                                        </div>\n' +
+                        '                                        <span class="author_info"><a href="/user/">'+Item.commentMap.user.name+'</a> </span>\n' +
+                        '                                        <h5 class="answer_date p">回答于：<span>'+Item.commentMap.comment.createdDate+'</span></h5>\n' +
+                        '                                    </div>\n' +
+                        '\n' +
+                        '                                    <p class="answer-content">'+Item.commentMap.comment.content+'</p>\n' +
+                        '                                </div>\n' +
+                        '                                <div class="comment count" data-comment-id="'+Item.commentMap.comment.id+'">\n' +
+                        // '                                    <a href="/question/{'+Item.ans.commentCount+'}">评论'+Item.commentMap.commentCount+'</a>\n' +
+                        '                                    <a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>\n' +
+                        '                                    <a href="javascript:;" class="dislike"><i class="layui-icon layui-icon-tread"></i></a>\n' +
+                        '                                </div>\n' +
+                        '                            </div>';
+                    $("#new-answer-list").append(html);
+                });
+
+            }else {
+                layui.msg("请求失败")
+            }
+
+
         });
 
     }
@@ -172,6 +209,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
 
     })
 
-    //输出test接口
+    //输出index接口
     exports('index', {});
 });  
