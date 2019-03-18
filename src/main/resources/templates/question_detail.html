@@ -20,8 +20,10 @@
                     <p>$!{question.content}</p>
                     <!--<img src="../res/static/images/item.png" alt="" layer-index="0">-->
                     <div class="count layui-clear">
-                        <span class="pull-left">阅读 <em>100000+</em></span>
-                        <span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>
+                        <span class="pull-left">阅读
+                            <!--<em>100000+</em>-->
+                        </span>
+                        <!--<span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>-->
                     </div>
                 </div>
             </div>
@@ -50,11 +52,19 @@
                     </div>
                     <div class="comment count" data-comment-id="$!{item.comment.id}">
                         <!--<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>-->
+                        #if($item.liked> 0)
+                        <a href="javascript:;" class="like layblog-this">
+                        #else
                         <a href="javascript:;" class="like ">
+                        #end
                             <i class="layui-icon layui-icon-praise"></i>
                             <span class="js-likecount">$!{item.likeCount}</span>
                         </a>
+                        #if($item.liked< 0)
+                        <a href="javascript:;" class="dislike layblog-this">
+                        #else
                         <a href="javascript:;" class="dislike ">
+                        #end
                             <i class="layui-icon layui-icon-tread"></i>
                         </a>
                     </div>
