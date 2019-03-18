@@ -2,9 +2,10 @@
 <div class="container-wrap">
     <div class="container">
         <div class="contar-wrap">
-            <div class="item"  data-question-id="122">
+            <div class="item "  data-question-id="$!{question.id}">
+                <input type="hidden" name="questionId" value="$!{question.id}">
                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
-                    <h3><a href="details.html">$!{question.title}</a></h3>
+                    <h3><a href="/question/$!{question.id}">$!{question.title}</a></h3>
                     <p><button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">关注问题</button></p>
                     <p>
                         <span class="js-follow-cnt" style="color: #01AAED">9</span>人关注了问题
@@ -27,10 +28,10 @@
                     </div>
                 </div>
             </div>
-            <h5 style="text-align: center">
+            <h5 style="text-align: center" >
                 <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
             </h5>
-            <div class="detail_page"></div>
+            <div class="detail_page" style="display: inline" id="detail_page"></div>
             <div class="answers-list">
                 #foreach($item in $comments)
                 <div class="item" >

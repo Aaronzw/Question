@@ -15,9 +15,40 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
     //statr 分页
 
     $(function () {
-
+        var question_id=$("input[name='questionId']").val();
+        var that=this;
+        that.page=0;
+        that.pageSize=5;
+        common.ajax("/question/requestMore",{
+            "limit":that.pageSize,
+            "offset":that.page,
+            "questionId":question_id,
+        },function (res) {
+            console.log(res);
+            if(res.code=="0"){
+                that.totals=res.totals;
+                initPages(that.totals,that.page,that.pageSize)
+            }
+        })
     })
+    function initPages(totals,cur,pageSize){
+        var that=this;
+        var data={count: that.totals,
+            curr: that.page,
+            limit: that.pageSize}
+        laypage.render({
+            elem: 'detail_page',
+            count: totals,
+            curr: cur,
+            limit: pageSize,
+            jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
 
+            }
+        });
+    }
 
     $(document).on('click','.like',function(){
         var here=$(this);
