@@ -22,7 +22,7 @@
                     <!--<img src="../res/static/images/item.png" alt="" layer-index="0">-->
                     <div class="count layui-clear">
                         <span class="pull-left">阅读
-                            <!--<em>100000+</em>-->
+                            0<!--<em>100000+</em>-->
                         </span>
                         <!--<span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>-->
                     </div>
@@ -31,7 +31,6 @@
             <h5 style="text-align: center" >
                 <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
             </h5>
-            <div class="detail_page" style="display: inline" id="detail_page"></div>
             <div class="answers-list">
                 #foreach($item in $comments)
                 <div class="item" >
@@ -72,7 +71,30 @@
                 </div>
                 #end
             </div>
-            <div class="detail_page"></div>
+            <div class="detail_page" style="display: inline" id="detail_page"></div>
+            <div class="item-btn">
+
+            </div>
+            #if(!$user)
+            <label style="color: gray">登陆后方可发布回答。<a href="/reglogin">去注册/登录</a></label>
+            <form class="layui-form" action="">
+                <div class="layui-form-item layui-form-text">
+                    <textarea class="layui-textarea" id="ans-content"disabled="disabled" style="resize:none"></textarea>
+                </div>
+            </form>
+            <div class="item-btn" style="text-align: right">
+                <button class="layui-btn layui-btn-normal" id="item-btn" disabled>提交</button>
+            </div>
+            #else
+            <form class="layui-form" action="">
+                <div class="layui-form-item layui-form-text">
+                    <textarea class="layui-textarea" id="ans-content" style="resize:none"></textarea>
+                </div>
+            </form>
+            <div class="item-btn" style="text-align: right">
+                <button class="layui-btn layui-btn-normal" id="item-btn">提交</button>
+            </div>
+            #end
         </div>
 
     </div>

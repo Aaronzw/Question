@@ -43,8 +43,9 @@ public class CommentController {
     @RequestMapping(value = {"/comment/add"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addComment(@RequestParam("questionId") int questionId,
-                             @RequestParam("content") String content,
-                             @RequestParam("userId")int userId ){
+                             @RequestParam("content") String content
+//            , @RequestParam("userId")int userId
+                            ){
         try{
             Comment comment=new Comment();
             comment.setContent(content);
