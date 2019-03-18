@@ -1,0 +1,74 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="item"  data-question-id="122">
+                <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                    <h3><a href="details.html">$!{question.title}</a></h3>
+                    <p><button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">关注问题</button></p>
+                    <p>
+                        <span class="js-follow-cnt" style="color: #01AAED">9</span>人关注了问题
+                        <div class="follow-list">
+                            <a href="/user/123">
+                                <img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">
+                            </a>
+                            <a href="/user/223">
+                                <img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">
+                            </a>
+                        </div>
+                    </p>
+                    <p>$!{question.content}</p>
+                    <!--<img src="../res/static/images/item.png" alt="" layer-index="0">-->
+                    <div class="count layui-clear">
+                        <span class="pull-left">阅读 <em>100000+</em></span>
+                        <span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>
+                    </div>
+                </div>
+            </div>
+            <h5 style="text-align: center">
+                <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
+            </h5>
+            <div class="detail_page"></div>
+            <div class="answers-list">
+                #foreach($item in $comments)
+                <div class="item" >
+                    <div class="item-box  layer-photos-demo1 layer-photos-demo">
+
+                        <div class="ans_author_info" >
+                            <div class="author_head pull-right">
+                                <a href="/user/$!{item.user.id}">
+                                    <img src="$!{item.user.headUrl}" class="author-head-img">
+                                </a>
+                            </div>
+                            <span class="author_info">
+                            <a href="/user/$!{item.user.id}">$!{item.user.name}</a>
+                        </span>
+                            <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>
+                        </div>
+
+                        <p class="answer-content">$!{item.comment.content}</p>
+                    </div>
+                    <div class="comment count" data-comment-id="$!{item.comment.id}">
+                        <!--<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>-->
+                        <a href="javascript:;" class="like ">
+                            <i class="layui-icon layui-icon-praise"></i>
+                            <span class="js-likecount">$!{item.likeCount}</span>
+                        </a>
+                        <a href="javascript:;" class="dislike ">
+                            <i class="layui-icon layui-icon-tread"></i>
+                        </a>
+                    </div>
+                </div>
+                #end
+            </div>
+            <div class="detail_page"></div>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('question_detail');
+</script>
+#parse("common/footer.html")
