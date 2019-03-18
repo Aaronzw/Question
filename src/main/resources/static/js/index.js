@@ -21,6 +21,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         that.ques_page=1;
         that.pageSize=5;
         that.quesListHasNext=true;
+        that.ansListHasNext=true;
         $(".js-more-ans").on("click",function (oEvent) {
 
             var oEl = $(oEvent.currentTarget);
@@ -55,7 +56,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             },function (result) {
             console.log(result)
             if(result.code=="0"){
-                that.page++;
+                that.ans_page++;
                 that.ansListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
@@ -79,10 +80,17 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         '\n' +
                         '                                    <p class="answer-content">'+Item.commentMap.comment.content+'</p>\n' +
                         '                                </div>\n' +
-                        '                                <div class="comment count" data-comment-id="'+Item.commentMap.comment.id+'">\n' +
-                        // '                                    <a href="/question/{'+Item.ans.commentCount+'}">评论'+Item.commentMap.commentCount+'</a>\n' +
-                        '                                    <a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>\n' +
-                        '                                    <a href="javascript:;" class="dislike"><i class="layui-icon layui-icon-tread"></i></a>\n' +
+                        '                                <div class="comment count" data-comment-id="'+Item.commentMap.comment.id+'">\n' ;
+                        if(Item.commentMap.likeStatus>0)
+                            html=html+ '<a href="javascript:;" class="like layblog-this">';
+                        else
+                            html=html+ '<a href="javascript:;" class="like">';
+                        html=html+'<i class="layui-icon layui-icon-praise"></i><span class="js-likecount">'+Item.commentMap.likeCount+'</span></a>\n' ;
+                        if(Item.commentMap.likeStatus<0)
+                            html=html+ '<a href="javascript:;" class="dislike layblog-this">';
+                        else
+                            html=html+ '<a href="javascript:;" class="dislike">';
+                        html=html+'<i class="layui-icon layui-icon-tread"></i></a>\n' +
                         '                                </div>\n' +
                         '                            </div>';
                     $("#new-answer-list").append(html);
@@ -108,7 +116,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         },function (result) {
             console.log(result)
             if(result.code=="0"){
-                that.page++;
+                that.ques_page++;
                 that.quesListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
@@ -185,52 +193,68 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         });
     })($);
 
-    function niceIn(prop){
-        prop.find('i').addClass('niceIn');
-        setTimeout(function(){
-            prop.find('i').removeClass('niceIn');
-        },1000);
-    }
+    $(document).on('click','.like',function(){
+        var here=$(this);
+        var comment_id=here.parent('.comment').attr("data-comment-id");
 
-    $(function () {
-        $(".like").on('click',function () {
+        // if((here.hasClass("layblog-this"))){
+        //     here.removeClass('layblog-this');
+        //     here.find('.js-likecount').text(Number(here.find('.js-likecount').text())-1);
+        //     layer.msg('取消点赞成功', {
+        //         icon: 6
+        //         ,time: 1000
+        //     })
+        //     return ;
+        // }
+        if(!($(this).hasClass("layblog-this"))){
+            common.ajax("/comment/like",{commentId:comment_id},function (res) {
+                if(res.code=="0"){
+                    here.addClass('layblog-this');
+                    here.parent('.comment').children(".dislike").removeClass("layblog-this");
+                    here.find('.js-likecount').text(Number(here.find('.js-likecount').text())+1);
+                    $.tipsBox({
+                        obj: here,
+                        str: "+1",
+                        callback: function () {
+                        }
+                    });
+                    layer.msg('点赞成功', {
+                        icon: 6
+                        ,time: 1000
+                    })
+                }else {
+                    layer.msg("点赞失败");
+                }
 
-            if(!($(this).hasClass("layblog-this"))){
-                // this.text = '已赞';
-                $(this).addClass('layblog-this');
-                $(this).parent('.comment').children(".dislike").removeClass("layblog-this");
-                $.tipsBox({
-                    obj: $(this),
-                    str: "+1",
-                    callback: function () {
+            })
+            return
+        }
+    })
+    $(document).on('click','.dislike',function(){
+        var here=$(this);
+        var comment_id=here.parent('.comment').attr("data-comment-id");
+        if(!($(this).hasClass("layblog-this"))){
+            common.ajax("/comment/dislike",{commentId:comment_id},function (res) {
+                if(res.code=="0"){
+                    here.addClass('layblog-this');
+                    if(here.parent('.comment').children(".like").hasClass("layblog-this")) {
+                        here.parent('.comment').children(".like").removeClass("layblog-this");
+                        var likeCnt=Number(here.parent('.comment').find('.js-likecount').text());
+                        here.parent('.comment').find('.js-likecount').text(likeCnt-1);
                     }
-                });
-                niceIn($(this));
-                layer.msg('点赞成功', {
-                    icon: 6
-                    ,time: 1000
-                })
-            }
-        });
-        $(".dislike").on('click',function () {
+                    return
+                }else {
+                    layer.msg("点踩失败");
+                }
+            })
 
-            if(!($(this).hasClass("layblog-this"))){
-                $(this).addClass('layblog-this');
-                $(this).parent('.comment').children(".like").removeClass("layblog-this");
-                // $.tipsBox({
-                //     obj: $(this),
-                //     str: "+1",
-                //     callback: function () {
-                //     }
-                // });
-                // niceIn($(this));
-                // layer.msg('点赞成功', {
-                //     icon: 6
-                //     ,time: 1000
-                // })
-            }
-        });
-    });
+        }
+
+    })
+
+    // $(function () {
+    //
+    // });
 
     //end 评论的特效
 
