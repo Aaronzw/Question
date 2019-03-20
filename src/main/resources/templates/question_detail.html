@@ -76,10 +76,11 @@
 
             </div>
             #if(!$user)
-            <label style="color: gray">登陆后方可发布回答。<a href="/reglogin">去注册/登录</a></label>
+            <label style="color: gray">登陆后方可发布回答。<a href="/reg">去注册</a>/<a href="/login">登录</a></label>
             <form class="layui-form" action="">
                 <div class="layui-form-item layui-form-text">
-                    <textarea class="layui-textarea" id="ans-content"disabled="disabled" style="resize:none"></textarea>
+                    <textarea class="layui-textarea" id="ans-content"disabled="disabled" placeholder="未登录无法回答"
+                              readonly style="resize:none" ></textarea>
                 </div>
             </form>
             <div class="item-btn" style="text-align: right">
@@ -88,7 +89,7 @@
             #else
             <form class="layui-form" action="">
                 <div class="layui-form-item layui-form-text">
-                    <textarea class="layui-textarea" id="ans-content" style="resize:none"></textarea>
+                    <textarea class="layui-textarea" id="ans-content" style="resize:none" placeholder="分享你的回答"></textarea>
                 </div>
             </form>
             <div class="item-btn" style="text-align: right">

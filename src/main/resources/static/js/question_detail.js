@@ -76,7 +76,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                                 html=html+'                            <i class="layui-icon layui-icon-praise"></i>\n' +
                                 '                            <span class="js-likecount">'+item.likeCount+'</span>\n' +
                                 '                        </a>\n' ;
-                                if(item.liked>0)
+                                if(item.liked<0)
                                     html=html+'                        <a href="javascript:;" class="dislike layblog-this">\n';
                                 else
                                     html=html+'                        <a href="javascript:;" class="dislike ">\n';
