@@ -10,6 +10,12 @@ import redis.clients.jedis.Transaction;
 import java.util.Date;
 import java.util.List;
 
+/*
+* 用户浏览记录
+* 问题被浏览记录
+* 问题热度统计
+* */
+
 @Service
 public class ReadRecordService {
     @Autowired

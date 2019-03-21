@@ -24,6 +24,7 @@ CREATE TABLE `question` (
     `salt` varchar(32) NOT NULL DEFAULT '',
     `head_url` varchar(256) NOT NULL DEFAULT '',
     `status` int NULL DEFAULT 0,
+    `active_status` int NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
