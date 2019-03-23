@@ -25,6 +25,7 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
 
     initClickMore();
     function initClickMore() {
+        /*弹窗事件*/
         $(".js-askq").on("click",function () {
             layer.open({
                 type: 1,
@@ -63,6 +64,11 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
 
             })
         })
+        /*回到顶部*/
+        $("#to_top").on("click",function() {
+            <!--$("html,body").animate({scrollTop:0}, 200);-->
+            $(window).scrollTop(0);
+        });
     }
 
 

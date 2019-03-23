@@ -11,7 +11,8 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         ,laypage = layui.laypage
         ,$ = layui.jquery
         ,laytpl = layui.laytpl
-        ,common=layui.common;
+        ,common=layui.common
+        ,layer=layui.layer;
     //statr 分页
 
     $(function () {
@@ -96,7 +97,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         });
     }
-
+    /*点赞点踩*/
     $(document).on('click','.like',function(){
         var here=$(this);
         var comment_id=here.parent('.comment').attr("data-comment-id");
@@ -107,12 +108,12 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                     here.addClass('layblog-this');
                     here.parent('.comment').children(".dislike").removeClass("layblog-this");
                     here.find('.js-likecount').text(Number(here.find('.js-likecount').text())+1);
-                    $.tipsBox({
-                        obj: here,
-                        str: "+1",
-                        callback: function () {
-                        }
-                    });
+                    // $.tipsBox({
+                    //     obj: here,
+                    //     str: "+1",
+                    //     callback: function () {
+                    //     }
+                    // });
                     layer.msg('点赞成功', {
                         icon: 6
                         ,time: 1000
@@ -149,30 +150,27 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
 
 
 
-    //end 提交
-    $('#item-btn').on('click', function(){
-        var elemCont = $('#LAY-msg-content'),content = elemCont.val();
-        if(content.replace(/\s/g, '') == ""){
-            layer.msg('请先输入留言');
-            return elemCont.focus();
+    //start 提交
+    $('#sub_ans').on('click', function(){
+        var answer_content=$("#ans-content").val();
+        var question_id=$("input[name='questionId']").val();
+        console.log(answer_content+","+question_id);
+        var userId=$("input[name='global-user-id']").val();
+        if(userId==""||userId==undefined){
+            layer.msg("请登录后发表回答！");
+            return
         }
-
-        var view = $('#LAY-msg-tpl').html(),
-            data = {
-                username: '闲心'
-                ,avatar: '../res/static/images/info-img.png'
-                ,praise: 0
-                ,content: content
-            };
-
-        //模板渲染
-        laytpl(view).render(data, function(html){
-            $('#LAY-msg-box').prepend(html);
-            elemCont.val('');
-            layer.msg('留言成功', {
-                icon: 1
-            })
-        });
+        if(answer_content==""||answer_content==undefined){
+            layer.msg("回答不能为空！");
+            return
+        }
+        common.ajax("/comment/add",{
+            "questionId":question_id,
+            "content":answer_content,
+            "userId":userId,
+        },function (result) {
+            console.log(result);
+        })
 
     });
 
