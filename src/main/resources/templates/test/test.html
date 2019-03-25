@@ -1,121 +1,167 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>问答-分享知识</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../layui/css/layui.css">
-    <script src="../layui/layui.js"></script>
-    <link rel="stylesheet" href="../static/css/main.css">
-    <script>
-        layui.use(['element', 'layer'], function(){
-            var element = layui.element,layer = layui.layer;
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="item">
+                <div class="fly-home fly-panel" style="background-image: url();">
+                    <form method="post" action="/upload/" enctype="multipart/form-data">
+                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+                        <input name="file" type="file" onchange="this.parentNode.submit()" style="opacity:0;position:absolute;top:0;left:0;display:block;width:100%;height:100%;">
+                    </form>
 
-            // element.on('tab(docDemoTabBrief)', function(data){
-            //     layer.msg('切到到了'+ data.index + '：' + this.innerHTML);
-            // });
-        });
+                    <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
+                    <h1>
+                        贤心
+                        <i class="iconfont icon-nan"></i>
+                        <i class="layui-badge fly-badge-vip">VIP3</i>
+                    </h1>
 
-    </script>
-</head>
-<body class="lay-blog">
-    <div class="header ">
-        <div class="header-wrap">
-        <h1 class="logo pull-left">
-            <a href="/">
-                <img src="../static/images/logo4.png" alt="" class="logo-img">
-            </a>
-        </h1>
-        <div class="blog-nav pull-left">
-            <ul class="layui-nav pull-left">
-                <li class="layui-nav-item layui-this"><a href="index.html">首页</a></li>
-                <li class="layui-nav-item"><a href="/recommend">推荐</a></li>
-            </ul>
-            <form class="layui-form blog-seach pull-left" action="">
-                <div class="layui-form-item blog-sewrap">
-                    <div class="layui-input-block blog-sebox">
-                        <i class="layui-icon layui-icon-search"></i>
-                        <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+                    <p class="fly-home-sign">（人生仿若一场修行）</p>
+
+                    <div class="fly-sns" data-user="">
+                        <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注</a>
+                        <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="item">
+                <div class="layui-container">
+                    <div class="layui-row layui-col-space15">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">最近的提问</li>
+                            <li >最近的回答</li>
+
+                        </ul>
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show tab1">
+                                <div id="new-answer-list">
+                                    <ul class="jie-row">
+                                        <li>
+                                            <span class="fly-jing">精</span>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>刚刚</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>2017-10-30</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="page-pro-ans">
+
+                                </div>
+                            </div>
+                            <div class="layui-tab-item  tab2">
+                                <div id="new-question-list">
+                                    <ul class="jie-row">
+                                        <li>
+                                            <span class="fly-jing">精</span>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>刚刚</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>2017-10-30</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                        <li>
+                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
+                                            <i>1天前</i>
+                                            <em class="layui-hide-xs">1136阅/27答</em>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="page-pro-ques">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="blog-nav pull-right">
-            <ul class="layui-nav">
-                <li class="layui-nav-item">
-                    <a class="layui-btn">提问</a>
-                </li>
-                <!--<li class="layui-nav-item">-->
-                    <!--<a href="">控制台<span class="layui-badge">9</span></a>-->
-                <!--</li>-->
-                <!--<li class="layui-nav-item">-->
-                    <!--<a href="">个人中心<span class="layui-badge-dot"></span></a>-->
-                <!--</li>-->
-                <li class="layui-nav-item">
-                    <a href=""><img src="../static/images/logo.png" class="layui-nav-img">我</a>
-                    <input name="global-user-id" value="" hidden/>
-                    <dl class="layui-nav-child">
-                        <dd><a href="/msglist">站内信</a></dd>
-                        <dd><a href="/safeSetting">安全管理</a></dd>
-                        <dd><a href="/logout">退出登录</a></dd>
-                    </dl>
-                </li>
-            </ul>
+            </div>
         </div>
     </div>
-    </div>
-    <div class="container-wrap">
-        <div class="container">
-            <div class="contar-wrap">
+</div>
+<div class="item" style="display: none">
+    <div class="fly-home fly-panel" style="background-image: url();">
+        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+        <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
+        <h1>
+            贤心
+            <i class="iconfont icon-nan"></i>
+            <!-- <i class="iconfont icon-nv"></i>  -->
+            <i class="layui-badge fly-badge-vip">VIP3</i>
+        </h1>
 
-                <div class="item">
-                <div class="item-box  layer-photos-demo1 layer-photos-demo">
-                    <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
-                    <h5>发布于：<span>刚刚</span></h5>
-                    <p>父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
-                    <img src="../static/images/item.png" alt="">
-                </div>
-                <div class="comment count">
-                    <a href="details.html#comment">评论</a>
-                    <a href="javascript:;" class="like">点赞</a>
-                </div>
-            </div>
-                <div class="item">
-                <div class="item-box  layer-photos-demo2 layer-photos-demo">
-                    <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
-                    <h5>发布于：<span>刚刚</span></h5>
-                    <p>父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
-                    <img src="../static/images/item.png" alt="">
-                </div>
-                <div class="comment count">
-                    <a href="details.html#comment">评论</a>
-                    <a href="javascript:;" class="like">点赞</a>
-                </div>
-            </div>
-                <div class="item">
-                <div class="item-box  layer-photos-demo3 layer-photos-demo">
-                    <h3><a href="details.html">拥有诗意的心态,才能拥有诗意的生活</a></h3>
-                    <h5>发布于：<span>刚刚</span></h5>
-                    <p>父爱如山，不善表达。回想十多年前，总记得父亲有个宽厚的肩膀，小小的自己跨坐在上面，越过人山人海去看更广阔的天空，那个时候期望自己有一双翅膀，能够像鸟儿一样飞得高，看得远。虽然父亲有时会和自己开玩笑，但在做错事的时候会受到严厉的训斥。父亲有双粗糙的大手掌，手把手教我走路、骑车，却会在该放手的时刻果断地放开让自己去大胆尝试，那个时候期望快快长大，能够做自己想做的事，不用受父亲的“控制”。父亲是智慧树，他无所不知、无所不晓，虽然你有十万个为什么，但是也难不倒他。</p>
-                    <img src="../static/images/item.png" alt="">
-                </div>
-                <div class="comment count">
-                    <a href="details.html#comment">评论</a>
-                    <a href="javascript:;" class="like">点赞</a>
-                </div>
-            </div>
-            </div>
-            <div class="item-btn">
-                <button class="layui-btn layui-btn-normal">下一页</button>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <p>
-            <span>&copy; 2019</span>
-            <span><a href="/" target="_blank">zhuangwei</a></span>
+        <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>
+
+        <p class="fly-home-info">
+            <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
+            <i class="iconfont icon-shijian"></i><span>2015-6-17 加入</span>
+            <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
         </p>
-        <p><span>人生就是一场旅行</span></p>
+
+        <p class="fly-home-sign">（人生仿若一场修行）</p>
+
+        <div class="fly-sns" data-user="">
+            <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
+            <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
+        </div>
+
     </div>
-</body>
-</html>
+</div>
+
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('profile');
+</script>
+#parse("common/footer.html")
