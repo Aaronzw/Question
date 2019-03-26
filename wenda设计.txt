@@ -1,0 +1,10 @@
+用户 id,name,sex,headUrl，actived,deleted，email,privage（0用户，管理员1）    
+     follower followee FollowCount，ReadRecord(zsort)
+问题 id,title,content,userId,content                                 redis(user_read_record)  热度readCount
+回答 id.content,entityType,entityId，deleted（0正常1删除）           redis(like,dislike,likeCount    对回答进行评论
+设置：修改密码，修改资料
+profile：提问记录，发帖记录，自己的浏览记录（访问别人主页时候不可见）
+
+管理员后台：1.网站统计 用户数，问题数，评论数
+2.举报处理（用户举报，问题举报，回答举报），管理员公告（试试）
+3.用户列表，可查询，提升某人权限或降权
