@@ -1,7 +1,7 @@
-用户 id,name,sex,headUrl，actived,deleted，email,privage（0用户，管理员1）    
+用户 id,name,sex,headUrl，actived,status，email,privage（0用户，管理员1）  试试email激活
      follower followee FollowCount，ReadRecord(zsort)
-问题 id,title,content,userId,content                                 redis(user_read_record)  热度readCount
-回答 id.content,entityType,entityId，deleted（0正常1删除）           redis(like,dislike,likeCount    对回答进行评论
+问题 id,title,content,userId,content,status                                redis(user_read_record)  热度readCount
+回答 id.content,entityType,entityId，status（0正常1删除）           redis(like,dislike,likeCount    对回答进行评论
 设置：修改密码，修改资料
 profile：提问记录，发帖记录，自己的浏览记录（访问别人主页时候不可见）
 
