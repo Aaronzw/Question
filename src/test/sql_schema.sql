@@ -29,6 +29,22 @@ CREATE TABLE `question` (
     UNIQUE KEY `name` (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+  /*新user表*/
+  CREATE TABLE `user` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(64) NOT NULL DEFAULT '',
+    `gender` int NOT NULL DEFAULT 0,
+    `password` varchar(128) NOT NULL DEFAULT '',
+    `salt` varchar(32) NOT NULL DEFAULT '',
+    `head_url` varchar(256) NOT NULL DEFAULT '',
+    `email` varchar(128) NOT NULL DEFAULT '',
+    `status` int NULL DEFAULT 0,
+    `actived` int NULL DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name` (`name`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
   DROP TABLE IF EXISTS `login_ticket`;
   CREATE TABLE `login_ticket` (
     `id` INT NOT NULL AUTO_INCREMENT,
