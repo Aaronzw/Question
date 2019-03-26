@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenda.dao.UserDao">
+    <sql id="table">user</sql>
+    <sql id="selectFields">id, name, password, salt, head_url
+    </sql>
+    <sql id="insertFields">name, password, salt, head_url
+    </sql>
+
+    <select id="getUsers" parameterType="string" resultType="com.wenda.model.User">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        name LIKE '%${user_name}%'
+    </select>
+
+</mapper>

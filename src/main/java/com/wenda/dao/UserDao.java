@@ -4,6 +4,8 @@ import com.wenda.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface UserDao {
@@ -32,4 +34,7 @@ public interface UserDao {
     //账号封禁
     @Update({"update ", TABLE_NAME, " set status=#{status} where id=#{id}"})
     void updateStatus(@Param("id") int id, @Param("status") int status);
+
+    /*获取用户列表+name模糊查询*/
+    List<User> getUsers(@Param("user_name")String user_name);
 }

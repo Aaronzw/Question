@@ -147,8 +147,7 @@ public class QuestionApplicationTests {
 	@Test
     public void testq(){
 
-		List<ViewObject> questionList=new ArrayList<>();
-		questionList=indexController.getLatestQuestions(0,0,6);
-		System.out.println(questionList);
+		List<User> userList=userDao.getUsers("m");
+		System.out.println(userList);
     }
 }
