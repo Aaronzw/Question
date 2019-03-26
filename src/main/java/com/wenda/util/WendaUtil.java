@@ -11,6 +11,11 @@ public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
     public static int ANONYMOUS_USERID=3;
     public static int SYSTEM_USERID=4;
+    /*性别常量*/
+    public static int SEX_UNKNOW=0;
+    public static int SEX_MALE=1;
+    public static int SEX_FEMALE=2;
+
     public static String MD5(String key) {
 
         char hexDigits[] = {
