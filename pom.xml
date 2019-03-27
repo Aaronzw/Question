@@ -24,20 +24,15 @@
 	</properties>
 
 	<dependencies>
+		<!--<dependency>-->
+			<!--<groupId>com.octo.captcha</groupId>-->
+			<!--<artifactId>jcaptcha</artifactId>-->
+			<!--<version>1.0</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>com.qcloud</groupId>
 			<artifactId>cos_api</artifactId>
 			<version>5.4.10</version>
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<groupId>ch.qos.logback</groupId>-->
-					<!--<artifactId>logback-classic</artifactId>-->
-				<!--</exclusion>-->
-				<!--<exclusion>-->
-					<!--<groupId>ch.qos.logback</groupId>-->
-					<!--<artifactId>logback-c</artifactId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
 		</dependency>
 		<dependency>
 			<groupId>com.qcloud</groupId>

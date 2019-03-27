@@ -6,10 +6,7 @@ import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
 import com.wenda.dao.*;
 import com.wenda.model.*;
-import com.wenda.service.CommentService;
-import com.wenda.service.LikeService;
-import com.wenda.service.QuestionService;
-import com.wenda.service.UserService;
+import com.wenda.service.*;
 import com.wenda.util.JedisAdapter;
 import com.wenda.util.MailSender;
 import com.wenda.util.WendaUtil;
@@ -144,10 +141,11 @@ public class QuestionApplicationTests {
 	}
 	@Autowired
 	IndexController indexController;
+	@Autowired
+	ReadRecordService readRecordService;
 	@Test
     public void testq(){
-
-		List<User> userList=userDao.getUsers("m");
-		System.out.println(userList);
+//		boolean ok=readRecordService.AssertHasBrowse(11,EntityType.ENTITY_QUESTION,15);
+		System.out.println();
     }
 }

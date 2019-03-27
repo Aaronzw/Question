@@ -42,15 +42,12 @@ public class TencentCloudService implements InitializingBean{
         ClientConfig clientConfig = new ClientConfig(new Region("ap-guangzhou"));
     }
     public URL uploadFile(File file,String new_name){
-
         // 3 生成cos客户端
         cosClient = new COSClient(cred, clientConfig);
-
         String newFileName = fileFolder+new Date().getTime() + ".png";
         // 简单文件上传, 最大支持 5 GB, 适用于小文件上传, 建议 20 M 以下的文件使用该接口
         // 大文件上传请参照 API 文档高级 API 上传
         // 指定要上传到 COS 上的路径
-
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newFileName,file);
         cosClient.putObject(putObjectRequest);
         cosClient.shutdown();

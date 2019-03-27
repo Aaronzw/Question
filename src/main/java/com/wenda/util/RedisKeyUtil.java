@@ -10,13 +10,16 @@ public class RedisKeyUtil {
     private static String BIZ_DISLIKE="DISLIKE";
     private static String BIZ_FOLLOWER="FOLLOWER";//被关注的
     private static String BIZ_FOLLOWEE="FOLLOWEE";//关注别人的人
-    private static String BIZ_HASREAD="HASREAD";//浏览记录信息
-    private static String BIZ_BEENHASREAD="BEENREAD";//被用户浏览，用户集合key
+
+//    private static String BIZ_HASREAD="HASREAD";//浏览记录信息
+//    private static String BIZ_BEENHASREAD="BEENREAD";//被用户浏览，用户集合key
+
     private static String BIZ_TIMELINE="TIMELINE";//时间线推送
-    //user浏览过的问题
-    private static String BIZ_USER_BROWSE_RECORD="USER_BROWSE_RECORD";
-    //浏览过该问题人
-    private static String BIZ_QUESTION_BROWSED="QUESTION_BROWSED";
+
+    //user浏览过的实体
+    private static String BIZ_BROWSE_RECORD="BROWSE_RECORD";
+    //浏览过该实体的人
+    private static String BIZ_BROWSED_RECORD="BROWSED_RECORD";
 
     public static String getLikeKey(int entityType,int entityId){
         return BIZ_LIKE+SPLIT+String.valueOf(entityType)+SPLIT+String.valueOf(entityId);
@@ -39,11 +42,12 @@ public class RedisKeyUtil {
 
 
     //浏览某一类实体记录集合，一般是问题记录
-    public static String getHasReadKey(int userId, int EntityType){
-        return BIZ_HASREAD+SPLIT+String.valueOf(EntityType);
+    public static String getBrowseRecord(int userId, int EntityType){
+        return BIZ_BROWSE_RECORD+SPLIT+String.valueOf(userId)+SPLIT+String.valueOf(EntityType);
     }
-    //浏览过某一问题的用户集合
-    public static String getBeenReadKey( int EntityType,int EntityId){
-        return BIZ_HASREAD+SPLIT+String.valueOf(EntityType)+SPLIT+String.valueOf(EntityId);
+    //浏览过某一实体的用户集合
+    public static String getBrowsedRecord( int EntityType,int EntityId){
+        return BIZ_BROWSED_RECORD+SPLIT+String.valueOf(EntityType)+SPLIT+String.valueOf(EntityId);
     }
+
 }
