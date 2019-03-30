@@ -72,15 +72,6 @@ public class QuestionApplicationTests {
 	CommentDao commentDao;
 	@Test
 	public void testQuestionDao() {
-//		Question question=new Question();
-//		question.setCommentCount(0);
-//		question.setUserId(1);
-//		question.setCreatedDate(new Date());
-//		question.setStatus(0);
-//		question.setTitle("Title "+1);
-//		question.setContent("This is a test question "+1+",这是一条测试数据");
-//
-//		int val=questionDao.addQuestion(question);
 		Comment comment=new Comment();
 		comment.setUserId(1);
 		comment.setStatus(0);

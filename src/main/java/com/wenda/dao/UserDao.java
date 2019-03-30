@@ -33,8 +33,9 @@ public interface UserDao {
 
     //账号封禁
     @Update({"update ", TABLE_NAME, " set status=#{status} where id=#{id}"})
-    void updateStatus(@Param("id") int id, @Param("status") int status);
-
+    int updateStatus(@Param("id") int id, @Param("status") int status);
+    @Update({"update ", TABLE_NAME, " set head_url=#{url} where id=#{id}"})
+    int updateHeadUrl(@Param("id") int id,@Param("url") String url);
     /*获取用户列表+name模糊查询*/
     List<User> getUsers(@Param("user_name")String user_name);
 }

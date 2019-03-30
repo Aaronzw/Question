@@ -98,4 +98,8 @@ public class UserService {
     public void logout(String ticket){
         loginTicketDao.updateStatus(ticket,1);
     }
+
+    public int updateHeadUrl(int userId,String newUrl){
+        return userDao.updateHeadUrl(userId,newUrl);
+    }
 }

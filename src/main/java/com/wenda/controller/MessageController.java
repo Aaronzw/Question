@@ -41,7 +41,7 @@ public class MessageController {
             conversations.add(vo);
         }
         model.addAttribute("conversations",conversations);
-        return "letter";
+        return "msg_list";
     }
     //ajax请求接口，conversationList
     @RequestMapping(value = "/msg/list/request", method = {RequestMethod.POST})
@@ -104,7 +104,7 @@ public class MessageController {
         model.addAttribute("conversationId",converstaionId);
         User targetUser=userService.getUser(WendaUtil.getChatTarget(converstaionId,localUserId));
         model.addAttribute("targetUser",targetUser);
-        return "letterDetail";
+        return "msg_detail";
     }
 
     //ajax请求接口，conversationDetail，分页
@@ -189,6 +189,5 @@ public class MessageController {
         newmsg.setToId(sendToId);
         String conversationId=newmsg.getConversationId();
         return "redirect:/msg/detail?conversationId="+conversationId;
-        //return "letterDetail";
     }
 }

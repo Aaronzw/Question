@@ -41,7 +41,7 @@ public class TencentCloudService implements InitializingBean{
         // https://cloud.tencent.com/document/product/436/6224
         ClientConfig clientConfig = new ClientConfig(new Region("ap-guangzhou"));
     }
-    public URL uploadFile(File file,String new_name){
+    public String uploadHeadPic(File file,String new_name){
         // 3 生成cos客户端
         cosClient = new COSClient(cred, clientConfig);
         String newFileName = fileFolder+new Date().getTime() + ".png";
@@ -53,7 +53,7 @@ public class TencentCloudService implements InitializingBean{
         cosClient.shutdown();
         Date expiration = new Date(new Date().getTime() + 5 * 60 * 10000);
         URL url = cosClient.generatePresignedUrl(bucketName, new_name, expiration);
-        return url;
+        return url.getProtocol()+"://"+url.getHost()+"/"+newFileName;
     }
 
 }
