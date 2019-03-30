@@ -22,8 +22,25 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
         ,layer = layui.layer
         ,common=layui.common;
     //statr 分页
+    $(function () {
+        initClickMore();
+        initWordsLimit();
+    })
+    // initClickMore();
+    function initWordsLimit(){
+        var text=$("input[name='question_title']").val();
+        var counter=text.length;
+        $("#input_Statistics").text(String(counter)+"/50");
+        $(document).keyup(function(){
+            var text=$("input[name='question_title']").val();
+            var counter=text.length;
+            if(counter>=100){
+                $("#input_Statistics").text("你输入的字符超出限制了！！！");
+            }else
+                $("#input_Statistics").text(String(counter)+"/50");
 
-    initClickMore();
+        });
+    }
     function initClickMore() {
         /*弹窗事件*/
         $(".js-askq").on("click",function () {
@@ -40,7 +57,7 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
             var title=$("input[name='question_title']").val();
             var content=$("textarea[name='question_content']").val();
             if(title==""||title==undefined){
-                layer.msg("请输入问题标题！");
+                // layer.msg("请输入问题标题！");
                 return
             }
             common.ajax("/question/add",{

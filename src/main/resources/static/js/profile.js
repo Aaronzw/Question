@@ -30,7 +30,126 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                 layer.msg("上传失败！");
             }
         });
+        initList();
     });
+    function initList(){
+        var that=this;
+        that.page_user=$("input[name='current_page_user']").val();
+        that.pageSize=10;
+        that.q_page=1;
+        that.a_page=1;
+        common.ajax("/index/requestLatestQuestions",{
+            "userId":that.page_user,
+            "limit":that.pageSize,
+            "offset":that.q_page++,
+        },function (result) {
+            console.log(result)
+            if(result.code=="0"){
+                var total=result.totals;
+                init_question_list(total,that.page-1,that.pageSize)
+
+            }else {
+                layui.msg("请求失败")
+            }
+        });
+        common.ajax("/index/requestLatestAnswers",{
+            "userId":that.page_user,
+            "limit":that.pageSize,
+            "offset":that.a_page++,
+        },function (result) {
+            console.log(result)
+            if(result.code=="0"){
+                var total=result.totals;
+                init_answer_list(total,that.a_page-1,that.pageSize)
+
+            }else {
+                layui.msg("请求失败")
+            }
+        });
+    }
+    function init_question_list(totals,cur,pageSize){
+        var that=this;
+        laypage.render({
+            elem: 'page-pro-ques',
+            count: totals,
+            curr: cur,
+            limit: pageSize,
+            jump: function(obj, first){
+                console.log(obj.curr+""+obj.limit);
+                common.ajax("/index/requestLatestQuestions",{
+                    "limit":pageSize,
+                    "offset":obj.curr,
+                    "userId":that.page_user,
+                },function (res) {
+                    if(res.code=="0"){
+                        console.log(res);
+                        $("#new-question-list").html("");
+                        if(res.totals==0){
+                            var html='<div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;">\n' +
+                                '          <i style="font-size:14px;">没有发表任何求解</i>\n' +
+                                '     </div>';
+                            $("#new-question-list").html(html);
+                            return
+                        }
+                        $.each(res.data,function (index, item) {
+                            console.log(item);
+                            var html='<li>\n' +
+                                '         <a href="/question/'+item.questionMap.question.id+'" class="jie-title"> '+item.questionMap.question.title+'</a>\n' +
+                                '         <i class="pull-right">'+item.questionMap.question.createdDate+'</i>\n' +
+                                '     </li>';
+                            $("#new-question-list").append(html);
+                        });
+                    }else {
+                        layer.msg("ajax请求失败");
+                    }
+                });
+            }
+        });
+    }
+    function init_answer_list(totals,cur,pageSize){
+        var that=this;
+        laypage.render({
+            elem: 'page-pro-ans',
+            count: totals,
+            curr: cur,
+            limit: pageSize,
+            jump: function(obj, first){
+                console.log(obj.curr+""+obj.limit);
+                common.ajax("/index/requestLatestAnswers",{
+                    "limit":pageSize,
+                    "offset":obj.curr,
+                    "userId":that.page_user,
+                },function (res) {
+                    if(res.code=="0"){
+                        console.log(res);
+                        $("#new-answer-list").html("");
+                        if(res.totals==0){
+                            var html='<div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;">\n' +
+                                '          <i style="font-size:14px;">没有发表任何回答</i>\n' +
+                                '     </div>';
+                            $("#new-answer-list").html(html);
+                            return
+                        }
+                        $.each(res.data,function (index, item) {
+                            console.log(item);
+                            var html='<li>\n' +
+                                '          <p class="jie-title" style="max-width:750px">\n' +
+                                '          在<a  href=/question/"'+item.questionMap.question.id+'" target="_blank">'+item.questionMap.question.title+'</a>中回答：\n' +
+                                '          </p>\n' +
+                                '          <div class="home-dacontent">\n' +
+                                item.commentMap.comment.content+
+                                '          </div>\n' +
+
+                                '        </li>';
+                            $("#new-answer-list").append(html);
+                        });
+                    }else {
+                        layer.msg("ajax请求失败");
+                    }
+                })
+            }
+        });
+    }
     //输出index接口
     exports('profile', {});
 });

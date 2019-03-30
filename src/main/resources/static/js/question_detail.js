@@ -172,6 +172,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             console.log(result);
             if(result.code=="0"){
                 layer.msg("发表成功");
+                window.location.reload();
             }else {
                 result.msg("发表失败");
             }

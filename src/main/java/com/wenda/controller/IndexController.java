@@ -75,6 +75,7 @@ public class IndexController {
         }
         result.put("code",0);
         result.put("data",list);
+        result.put("totals",pageInfo.getTotal());
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
@@ -144,6 +145,7 @@ public class IndexController {
         }
         result.put("code",0);
         result.put("data",list);
+        result.put("totals",pageInfo.getTotal());
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
