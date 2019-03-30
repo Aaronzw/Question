@@ -17,9 +17,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
 
     });
 
-
-
-
     //输出index接口
     exports('index', {});
 });

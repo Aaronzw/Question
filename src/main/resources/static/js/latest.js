@@ -52,11 +52,11 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         common.ajax("/index/requestLatestAnswers",{
             "userId":0,
             "limit":that.pageSize,
-            "offset":that.ans_page+1,
+            "offset":(that.ans_page++)+1,
             },function (result) {
             console.log(result)
             if(result.code=="0"){
-                that.ans_page++;
+
                 that.ansListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
@@ -99,10 +99,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }else {
                 layui.msg("请求失败")
             }
-
-
         });
-
     }
     function fRenderMoreQues(){
         var that=this;
@@ -112,11 +109,11 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         common.ajax("/index/requestLatestQuestions",{
             "userId":0,
             "limit":that.pageSize,
-            "offset":that.ques_page+1,
+            "offset":(that.ques_page++)+1,
         },function (result) {
             console.log(result)
             if(result.code=="0"){
-                that.ques_page++;
+                // that.ques_page++;
                 that.quesListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
@@ -252,20 +249,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
 
     })
 
-    // $(function () {
-    //
-    // });
-
-    //end 评论的特效
-
-
-    // start点赞图标变身
-    // $('#LAY-msg-box').on('click', '.info-img', function(){
-    //     $(this).addClass('layblog-this');
-    // })
-
-
-    // end点赞图标变身
 
     //end 提交
     $('#item-btn').on('click', function(){
@@ -293,7 +276,28 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         });
 
     })
+    $(window).scroll(function(){
+        // alert("ok");
+        var scrolltop=$(window).scrollTop()
+        var windowHeight=$(window).height();
+        var docHeight=$(document).height();
+        var loading=false;
+        if(loading==true)
+            return;
+        loading=true;
+        if(scrolltop+windowHeight>=docHeight-1){
+            if($(".tab1").hasClass("layui-show")){
+                console.log("tab1");
+                $(".js-more-ans").trigger("click");
+            }else {
+                console.log("tab2");
+                $(".js-more-ques").trigger("click");
+            }
+        }
+        loading=false;
+        return
 
+    });
     //输出latest接口
     exports('latest', {});
 });  
