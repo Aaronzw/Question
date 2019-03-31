@@ -1,0 +1,35 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container" style="width:1000px">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+            <li class="layui-nav-item">
+                <a href="/user/$!{user.id}">
+                    <i class="layui-icon">&#xe609;</i>
+                    我的主页
+                </a>
+            </li>
+            <li class="layui-nav-item layui-this">
+                <a href="/setting">
+                    <i class="layui-icon">&#xe620;</i>
+                    基本设置
+                </a>
+            </li>
+            <li class="layui-nav-item ">
+                <a href="/msg/list">
+                    <i class="layui-icon">&#xe611;</i>
+                    我的消息
+                </a>
+            </li>
+        </ul>
+        <div class="msg-panel msg-panel-user" pad20="">
+
+
+        </div>
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('setting');
+</script>
+#parse("common/footer.html")

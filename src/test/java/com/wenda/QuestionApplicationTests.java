@@ -137,6 +137,6 @@ public class QuestionApplicationTests {
 	@Test
     public void testq(){
 //		boolean ok=readRecordService.AssertHasBrowse(11,EntityType.ENTITY_QUESTION,15);
-		System.out.println();
+
     }
 }

@@ -1,14 +1,64 @@
 #parse("common/header.html")
 <div class="container-wrap">
-    <div class="container">
-        <div class="contar-wrap">
-            <div class="item">
+    <div class="container" style="width:1000px">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+            <li class="layui-nav-item">
+                <a href="/user/$!{user.id}">
+                    <i class="layui-icon">&#xe609;</i>
+                    我的主页
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/setting">
+                    <i class="layui-icon">&#xe620;</i>
+                    基本设置
+                </a>
+            </li>
+            <li class="layui-nav-item layui-this">
+                <a href="/msg/list">
+                    <i class="layui-icon">&#xe611;</i>
+                    我的消息
+                </a>
+            </li>
+        </ul>
+        <div class="msg-panel msg-panel-user" pad20="">
+            <!--<div class="layui-tab layui-tab-brief" lay-filter="user">-->
+                <!---->
+            <!--</div>-->
+            <div id="LAY_minemsg" style="margin-top: 10px;min-height: inherit">
+                <!--<div class="fly-none">您暂时没有最新消息</div>-->
+                <ul class="mine-msg js-msg-list">
+                    <!--<li data-id="123">-->
+                        <!--<p><span>1小时前</span></p>-->
+                        <!--<blockquote class="layui-elem-quote" >-->
+                            <!--<img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png" class="author-head-img">-->
+                            <!--<a href="/user/11"><cite>Absolutely</cite>-->
+                                <!--<a class="msg-dtatil-link pull-right" href="/msg/detail/11_12">查看会话</a>-->
+                                <!--<a class="pull-right msg-unread-cnt">共5条未读</a>-->
+                                <!--:-->
+                                <!--<p class="msg-content">回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解</p>-->
+                            <!--</a>-->
+                        <!--</blockquote>-->
+                    <!--</li>-->
+                    <!--<li data-id="123">-->
+                        <!--<p><span>1小时前</span></p>-->
+                        <!--<blockquote class="layui-elem-quote" >-->
+                            <!--<img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png" class="author-head-img">-->
+                            <!--<a href="/user/11"><cite>Absolutely</cite>-->
+                                <!--<a class="msg-dtatil-link pull-right" href="/msg/detail/11_12">查看会话</a>-->
+                                <!--<a class="pull-right msg-unread-cnt">共5条未读</a>-->
+                                <!--:-->
+                                <!--<p class="msg-content">回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解回答了您的求解</p>-->
+                            <!--</a>-->
+                        <!--</blockquote>-->
+                    <!--</li>-->
 
-
-
+                </ul>
+                <div id="msg-list-page" style="bottom:0;float: bottom">
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
 <script>

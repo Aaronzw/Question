@@ -183,6 +183,10 @@ public class MessageController {
     public String jumpToSendMsgTo(Model model, @PathVariable("sendToId") int sendToId){
         if(hostHolder.getUser()==null)
             return "redirect:/reglogin";
+//        User toUser=userService.getUser(sendToId);
+//        if(toUser==null){
+//            return "redirect:/404";
+//        }
         int localUserId=hostHolder.getUser().getId();
         Message newmsg=new Message();
         newmsg.setFromId(localUserId);
