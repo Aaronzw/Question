@@ -92,7 +92,6 @@ body{
 	padding: 0 34px;
 }
 
-.lay-blog .blog-nav ul li.layui-this:after,
 .lay-blog .layui-nav-bar{
 	background: #C1E4FF;
 }
@@ -337,6 +336,9 @@ body{
 .jie-row li .jie-status-ok{background-color:#8FCDA0;}
 .jie-row li a{
 	/*padding-right:15px; */
+	padding-left: 5px;
+	padding-right: 5px;
+	text-decoration: underline;
 	font-size:14px;
 }
 .jie-row li cite{padding-right:15px;}
@@ -347,6 +349,12 @@ body{
 .jie-row li .jie-title{max-width: 600px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .jie-row li .jie-user img{position:relative; top: 16px; width: 35px; height: 35px;}
 
+.msg-panel .layui-tab-content .form-item{
+	margin-bottom: 15px;
+}
+/*.msg-panel .layui-tab-content .layui-form-item ::after{*/
+	/*display: none;*/
+/*}*/
 /*profile*/
 
 /*msgList start*/

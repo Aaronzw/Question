@@ -137,6 +137,7 @@ public class QuestionApplicationTests {
 	@Test
     public void testq(){
 //		boolean ok=readRecordService.AssertHasBrowse(11,EntityType.ENTITY_QUESTION,15);
-
+		List<Comment> commentList=commentService.getLatestAnswers(0);
+		System.out.println(commentList);
     }
 }

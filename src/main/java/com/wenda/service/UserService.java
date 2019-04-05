@@ -101,4 +101,11 @@ public class UserService {
     public int updateHeadUrl(int userId,String newUrl){
         return userDao.updateHeadUrl(userId,newUrl);
     }
+    public int updatePassword(int userId,String password){
+        User user=getUser(userId);
+        String md5_pass=WendaUtil.MD5(password+user.getSalt());
+        if(md5_pass==user.getPassword())
+            System.out.println("ok");
+        return userDao.updatepassword(userId,md5_pass);
+    }
 }

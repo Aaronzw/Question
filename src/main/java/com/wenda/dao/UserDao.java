@@ -25,17 +25,20 @@ public interface UserDao {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where name=#{name}"})
     User selectByName(String name);
 
-    @Update({"update ", TABLE_NAME, " set password=#{password} where id=#{id}"})
-    void updatePassword(User user);
-
     @Delete({"delete from ", TABLE_NAME, " where id=#{id}"})
     void deleteById(int id);
 
     //账号封禁
     @Update({"update ", TABLE_NAME, " set status=#{status} where id=#{id}"})
     int updateStatus(@Param("id") int id, @Param("status") int status);
+
     @Update({"update ", TABLE_NAME, " set head_url=#{url} where id=#{id}"})
     int updateHeadUrl(@Param("id") int id,@Param("url") String url);
+
+    @Update({"update ", TABLE_NAME, " set password=#{password} where id=#{id}"})
+    int updatepassword(@Param("id") int id,@Param("password") String password);
     /*获取用户列表+name模糊查询*/
     List<User> getUsers(@Param("user_name")String user_name);
+
+
 }

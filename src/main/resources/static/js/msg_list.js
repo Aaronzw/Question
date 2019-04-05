@@ -58,8 +58,8 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                                 '                        <blockquote class="layui-elem-quote" >\n' +
                                 '                            <img src="'+item.user.headUrl+'" class="author-head-img">\n' +
                                 '                            <a href="/user/11"><cite>'+item.user.name+'</cite>\n' +
-                                '                                <a class="msg-dtatil-link pull-right" href="/msg/detail/'+item.message.conversationId+'">查看会话</a>\n' +
-                                '                                <a class="pull-right msg-unread-cnt">共'+item.unReadCount+'条未读</a>\n' +
+                                '                                <a style="color: #2D93CA;font-size: small"  class="msg-dtatil-link pull-right" href="/msg/detail/'+item.message.conversationId+'">查看会话</a>\n' +
+                                '                                <a style="color: #2D93CA;font-size: small" class="pull-right msg-unread-cnt">共'+item.unReadCount+'条未读</a>\n' +
                                 '                                :\n' +
                                 '                                <p class="msg-content">'+item.message.content+'</p>\n' +
                                 '                            </a>\n' +
