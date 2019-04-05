@@ -20,10 +20,17 @@
                         <a href="/follower/$!{data.user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注你的人</a>
                         <a href="/followee/$!{data.user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="chat">你关注的人</a>
                         #else
-                        <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注</a>
-                        <a href="/sendMsgTo/$!{user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="chat">发起会话</a>
-                        <a href="/follower/$!{user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注Ta的人</a>
-                        <a href="/followee/$!{user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="chat">Ta关注的人</a>
+                            <a class="js-replacebtn">
+                                #if($data.isFollower=="1")
+                                <a href="javascript:;" class="layui-btn layui-btn-primary js-cancel-follow fly-imActive" data-type="addFriend">取消关注</a>
+                                #else
+                                <a href="javascript:;" class="layui-btn layui-btn-primary js-follow fly-imActive" data-type="addFriend">关注</a>
+                                #end
+                            </a>
+
+                        <a href="/sendMsgTo/$!{data.user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="chat">发起会话</a>
+                        <a href="/follower/$!{data.user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注Ta的人</a>
+                        <a href="/followee/$!{data.user.id}" class="layui-btn layui-btn-primary fly-imActive" data-type="chat">Ta关注的人</a>
                         #end
                     </div>
 

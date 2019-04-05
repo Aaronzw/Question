@@ -1,8 +1,10 @@
 package com.wenda.controller;
 
+import com.wenda.model.EntityType;
 import com.wenda.model.HostHolder;
 import com.wenda.model.User;
 import com.wenda.model.ViewObject;
+import com.wenda.service.FollowService;
 import com.wenda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ public class ProfileController {
     UserService userService;
     @Autowired
     HostHolder hostHolder;
+    @Autowired
+    FollowService followService;
     @RequestMapping(path={"/user/{userId}"},method ={RequestMethod.POST,RequestMethod.GET})
     public String test(Model model, @PathVariable("userId")int userId){
         User user=userService.getUser(userId);
@@ -25,6 +29,11 @@ public class ProfileController {
             vo.set("myProfile","1");
         }else {
             vo.set("myProfile","0");
+        }
+        if(hostHolder.getUser()!=null){
+            vo.set("isFollower",followService.isFollower(hostHolder.getUser().getId(),EntityType.ENTITY_USER,userId)?1:0);
+        }else {
+            vo.set("isFollower",0);
         }
         vo.set("user",user);
         model.addAttribute("data",vo);

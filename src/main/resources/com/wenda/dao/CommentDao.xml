@@ -15,17 +15,28 @@
         )VALUES   (#{userId},#{content},#{createdDate},#{entityId},#{entityType},#{status})
     </insert>
 
+    <!--<select id="getLatestAnswers" resultType="com.wenda.model.Comment">-->
+        <!--SELECT-->
+        <!--<include refid="selectFields"/>-->
+        <!--FROM-->
+        <!--<include refid="table"/>-->
+        <!--WHERE-->
+        <!--<if test="userId != 0">-->
+             <!--user_id = #{userId} and-->
+        <!--</if>-->
+        <!--entity_type =1-->
+        <!--ORDER BY created_date DESC-->
+    <!--</select>-->
     <select id="getLatestAnswers" resultType="com.wenda.model.Comment">
         SELECT
-        <include refid="selectFields"/>
+        c.id, c.user_id , c.content , c.created_date , c.entity_id , c.entity_type , c.status
         FROM
-        <include refid="table"/>
+        comment c,user u
         WHERE
         <if test="userId != 0">
-             user_id = #{userId} and
+            c.user_id = #{userId} and
         </if>
-        entity_type =1
+        c.entity_type =1 and u.id=c.user_id
         ORDER BY created_date DESC
     </select>
-
 </mapper>

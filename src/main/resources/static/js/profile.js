@@ -31,7 +31,56 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
             }
         });
         initList();
+        initFollowEvent();
     });
+    function initFollowEvent() {
+        $(".js-follow").on("click",function () {
+            var to_user=$("input[name='current_page_user']").val();
+            if(to_user==""||to_user==undefined)
+            {
+                layer.msg("关注异常，请重试！");
+                return
+            }
+            common.ajax("/followUser",{
+                "userId":to_user
+            },function (result) {
+                console.log(result);
+                if(result.code=='0'){
+                    layer.msg("关注成功");
+                    var cancel_btn='<a href="javascript:;" class="layui-btn layui-btn-primary js-cancel-follow fly-imActive" data-type="addFriend">取消关注</a>';
+                    // $(".js-replacebtn").html("");
+                    // $(".js-replacebtn").html(cancel_btn);
+                }else if(result.code=="1"){
+                    layer.msg("关注失败"+result.msg);
+                }else {
+                    layer.msg("请重新登陆");
+                }
+            })
+        })
+        $(".js-cancel-follow").on("click",function () {
+            var to_user=$("input[name='current_page_user']").val();
+            if(to_user==""||to_user==undefined)
+            {
+                layer.msg("取消关注异常，请重试！");
+                return
+            }
+            common.ajax("/unFollowUser",{
+                "userId":to_user
+            },function (result) {
+                console.log(result);
+                if(result.code=='0'){
+                    layer.msg("取关成功");
+                    var followbtn='<a href="javascript:;" class="layui-btn layui-btn-primary js-follow fly-imActive" data-type="addFriend">关注</a>';
+                    // $(".js-replacebtn").html("");
+                    // $(".js-replacebtn").html(followbtn);
+                }else if(result.code=="1"){
+                    layer.msg("取关失败"+result.msg);
+                }else {
+                    layer.msg("请重新登陆");
+                }
+            })
+        })
+    }
     function initList(){
         var that=this;
         that.page_user=$("input[name='current_page_user']").val();
@@ -75,14 +124,13 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
             curr: cur,
             limit: pageSize,
             jump: function(obj, first){
-                console.log(obj.curr+""+obj.limit);
+                // console.log(obj.curr+""+obj.limit);
                 common.ajax("/index/requestLatestQuestions",{
                     "limit":pageSize,
                     "offset":obj.curr,
                     "userId":that.page_user,
                 },function (res) {
                     if(res.code=="0"){
-                        console.log(res);
                         $("#new-question-list").html("");
                         if(res.totals==0){
                             var html='<div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;">\n' +
@@ -92,7 +140,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                             return
                         }
                         $.each(res.data,function (index, item) {
-                            console.log(item);
+                            // console.log(item);
                             var html='<li>\n' +
                                 '         <a href="/question/'+item.questionMap.question.id+'" class="jie-title"> '+item.questionMap.question.title+'</a>\n' +
                                 '         <i class="pull-right">'+item.questionMap.question.createdDate+'</i>\n' +
@@ -114,7 +162,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
             curr: cur,
             limit: pageSize,
             jump: function(obj, first){
-                console.log(obj.curr+""+obj.limit);
+                // console.log(obj.curr+""+obj.limit);
                 common.ajax("/index/requestLatestAnswers",{
                     "limit":pageSize,
                     "offset":obj.curr,
@@ -131,7 +179,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                             return
                         }
                         $.each(res.data,function (index, item) {
-                            console.log(item);
+                            // console.log(item);
                             var html='<li>\n' +
                                 '          <p class="jie-title" style="max-width:750px">\n' +
                                 '          在<a  href=/question/"'+item.questionMap.question.id+'" target="_blank">'+item.questionMap.question.title+'</a>中回答：\n' +
