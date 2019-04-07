@@ -1,0 +1,61 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">关注$!{cur_user.name}的人</li>
+                    <li >$!{cur_user.name}关注的人 </li>
+                    <input name="cur_page_user" hidden value="$!{cur_user.id}">
+                </ul>
+                <div class="layui-tab-content follow">
+                    <div class="layui-tab-item layui-show tab1">
+                        <div class="follower-list">
+                            <!--<li class="item">-->
+                                <!--<div class="letter-info">-->
+                                    <!--<span class="l-time">-->
+                                        <!--关注于-->
+                                        <!--2018-12-18 11:29:27-->
+                                    <!--</span>-->
+                                    <!--<div class="l-operate-bar">-->
+                                        <!--<a class="layui-btn layui-btn-sm" data-sender-id="9702202" data-sender-name="累了倦了困了" href="javascript:void(0);">联系TA</a>-->
+                                        <!--<a class="layui-btn layui-btn-sm follow-btn click-follow" href="javascript:void(0);" data-value="9702202">-->
+                                            <!--<span class="fui-plus"></span>-->
+                                            <!--关注TA-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="chat-headbox">-->
+                                    <!--<a class="list-head" data-card-uid="9702202" href="/profile/9702202" data-card-index="3">-->
+                                        <!--<img alt="头像" src="https://images.nowcoder.com/images/20190319/9702202_1552974169175_E17C58AE124FB07BA868024FFA12FA50@0e_100w_100h_0c_1i_1o_90Q_1x">-->
+                                    <!--</a>-->
+                                <!--</div>-->
+                                <!--<div class="letter-detail">-->
+                                    <!--<a href="/profile/9702202" data-card-uid="9702202" class="letter-name level-color-7" data-card-index="4">累了倦了困了</a>-->
+                                    <!--<p class="letter-brief"></p>-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        </div>
+                        <div id="follower-page"></div>
+                    </div>
+                    <div class="layui-tab-item  tab2">
+                        <div id="new-question-list">
+                            <div class="followee-list">
+                                <div class="item">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="followee-page"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('follow');
+</script>
+#parse("common/footer.html")

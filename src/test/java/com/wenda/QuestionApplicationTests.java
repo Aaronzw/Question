@@ -29,22 +29,32 @@ public class QuestionApplicationTests {
 	UserDao userDao;
 	@Autowired
 	LoginTicketDao loginTicketDao;
-
 	@Autowired
 	UserService userService;
 	@Autowired
 	QuestionService questionService;
-
 	@Autowired
 	QuestionDao questionDao;
-
 	@Autowired
 	QuestionController questionController;
 	@Autowired
 	CommentService commentService;
-
 	@Autowired
 	MessageDao messageDao;
+	@Autowired
+	CommentDao commentDao;
+	@Autowired
+	JedisAdapter jedisAdapter;
+	@Autowired
+	LikeService likeService;
+	@Autowired
+	MailSender mailSender;
+	@Autowired
+	IndexController indexController;
+	@Autowired
+	ReadRecordService readRecordService;
+	@Autowired
+	FollowService followService;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -68,8 +78,7 @@ public class QuestionApplicationTests {
 			questionDao.addQuestion(question);
 		}
 	}
-	@Autowired
-	CommentDao commentDao;
+
 	@Test
 	public void testQuestionDao() {
 		Comment comment=new Comment();
@@ -113,12 +122,6 @@ public class QuestionApplicationTests {
 			}
 		}
 	}
-	@Autowired
-	JedisAdapter jedisAdapter;
-	@Autowired
-	LikeService likeService;
-	@Autowired
-	MailSender mailSender;
 
 	@Test
 	public void testMail(){
@@ -127,17 +130,13 @@ public class QuestionApplicationTests {
 		if(mailSender.sendWithHTMLTemlate("905380097@qq.com","设计稿子","mail.html",model)){
 			System.out.println("ok");
 		}
-
-
 	}
-	@Autowired
-	IndexController indexController;
-	@Autowired
-	ReadRecordService readRecordService;
 	@Test
     public void testq(){
-//		boolean ok=readRecordService.AssertHasBrowse(11,EntityType.ENTITY_QUESTION,15);
-		List<Comment> commentList=commentService.getLatestAnswers(0);
-		System.out.println(commentList);
+//		double timeScore=followService.getFollowerTime(24,26);
+		/*fasttime转date转string*/
+		double timeScore=0;
+		String time=WendaUtil.DateFormat(WendaUtil.longFastTime2Date((long)timeScore));
+		System.out.println(time);
     }
 }

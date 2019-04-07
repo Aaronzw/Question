@@ -1,5 +1,6 @@
 package com.wenda.service;
 
+import com.wenda.model.EntityType;
 import com.wenda.util.JedisAdapter;
 import com.wenda.util.RedisKeyUtil;
 import org.apache.velocity.runtime.directive.Parse;
@@ -80,7 +81,7 @@ public class FollowService {
 
     //偏移offsert个，取offset到offset+count之间的元素
     public List<Integer> getFollowees(int userId,int entityType,int offset,int count){
-        String followeeKey=RedisKeyUtil.getFollowerKey(userId,entityType);
+        String followeeKey=RedisKeyUtil.getFolloweeKey(userId,entityType);
         return getIdsFromSet(jedisAdapter.zrevrange(followeeKey,offset,offset+count));
     }
 
@@ -110,4 +111,13 @@ public class FollowService {
         return idList;
     }
 
+    //获取关注时间
+    public Double getFollowerTime(int userId, int member) {
+        String followerKey = RedisKeyUtil.getFollowerKey(EntityType.ENTITY_USER, userId);
+        return jedisAdapter.zscore(followerKey, String.valueOf(member));
+    }
+    public Double getFolloweeTime(int userId, int entityType,int member) {
+        String followeeKey = RedisKeyUtil.getFolloweeKey(userId, entityType);
+        return jedisAdapter.zscore(followeeKey, String.valueOf(member));
+    }
 }

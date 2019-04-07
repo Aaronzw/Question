@@ -34,7 +34,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
         initFollowEvent();
     });
     function initFollowEvent() {
-        $(".js-follow").on("click",function () {
+        $(document).on('click','.js-follow',function(){
             var to_user=$("input[name='current_page_user']").val();
             if(to_user==""||to_user==undefined)
             {
@@ -48,8 +48,8 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                 if(result.code=='0'){
                     layer.msg("关注成功");
                     var cancel_btn='<a href="javascript:;" class="layui-btn layui-btn-primary js-cancel-follow fly-imActive" data-type="addFriend">取消关注</a>';
-                    // $(".js-replacebtn").html("");
-                    // $(".js-replacebtn").html(cancel_btn);
+                    $(".js-replacebtn").html("");
+                    $(".js-replacebtn").html(cancel_btn);
                 }else if(result.code=="1"){
                     layer.msg("关注失败"+result.msg);
                 }else {
@@ -57,7 +57,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                 }
             })
         })
-        $(".js-cancel-follow").on("click",function () {
+        $(document).on('click','.js-cancel-follow',function(){
             var to_user=$("input[name='current_page_user']").val();
             if(to_user==""||to_user==undefined)
             {
@@ -71,15 +71,16 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                 if(result.code=='0'){
                     layer.msg("取关成功");
                     var followbtn='<a href="javascript:;" class="layui-btn layui-btn-primary js-follow fly-imActive" data-type="addFriend">关注</a>';
-                    // $(".js-replacebtn").html("");
-                    // $(".js-replacebtn").html(followbtn);
+                    $(".js-replacebtn").html("");
+                    $(".js-replacebtn").html(followbtn);
                 }else if(result.code=="1"){
                     layer.msg("取关失败"+result.msg);
                 }else {
                     layer.msg("请重新登陆");
                 }
             })
-        })
+        });
+
     }
     function initList(){
         var that=this;
@@ -198,6 +199,6 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
             }
         });
     }
-    //输出index接口
+    //输出profile接口
     exports('profile', {});
 });

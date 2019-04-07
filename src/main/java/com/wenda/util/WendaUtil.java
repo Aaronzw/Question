@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class WendaUtil {
@@ -78,5 +80,22 @@ public class WendaUtil {
             }else
                 return -1;
         }
+    }
+    public static Date longFastTime2Date(double fastTime) {
+        return new Date((long)fastTime );
+    }
+
+    /*重载函数，Date to string*/
+    public static String DateFormat(Date date){
+        String formatPattern="yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf =new SimpleDateFormat(formatPattern);
+        String str = sdf.format(date);
+        return str;
+    }
+    public static String DateFormat(Date date,String formatPattern){
+        SimpleDateFormat sdf =new SimpleDateFormat(formatPattern);
+        Date d= new Date();
+        String str = sdf.format(date);
+        return str;
     }
 }

@@ -75,7 +75,7 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
                     return
                 }else {
                     layer.msg("发表问题成功");
-                    window.location="/question/"+question_id;
+                    // window.location="/question/"+question_id;
                 }
 
             })

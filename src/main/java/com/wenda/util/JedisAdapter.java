@@ -230,7 +230,7 @@ public class JedisAdapter implements InitializingBean {
         Jedis jedis=null;
         try {
             jedis=pool.getResource();
-            return jedis.scard(key);
+            return jedis.zcard(key);
         }catch (Exception e){
             logger.error("发生异常！获取redis 连接池资源失败！"+e.getMessage());
         }finally {

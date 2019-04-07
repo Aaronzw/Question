@@ -56,7 +56,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             },function (result) {
             console.log(result)
             if(result.code=="0"){
-
                 that.ansListHasNext=result.has_next;
                 $.each(result.data,function (Index, Item) {
                     var html='<div class="item">\n' +
@@ -95,7 +94,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         '                            </div>';
                     $("#new-answer-list").append(html);
                 });
-
             }else {
                 layui.msg("请求失败")
             }
@@ -141,14 +139,10 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         '                            </div>'
                     $("#new-question-list").append(html);
                 });
-
             }else {
                 layui.msg("请求失败")
             }
-
-
         });
-
     }
     //start 评论的特效
     (function ($) {
@@ -163,9 +157,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                     color: "red",    //文字颜色
                     callback: function () { }    //回调函数
                 }, options);
-
                 $("body").append("<span class='num'>" + options.str + "</span>");
-
                 var box = $(".num");
                 var left = options.obj.offset().left + options.obj.width() / 2;
                 var top = options.obj.offset().top - 10;
@@ -222,7 +214,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 }else {
                     layer.msg("点赞失败");
                 }
-
             })
             return
         }
@@ -244,38 +235,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                     layer.msg("点踩失败");
                 }
             })
-
         }
-
     })
 
-
-    //end 提交
-    $('#item-btn').on('click', function(){
-        var elemCont = $('#LAY-msg-content'),content = elemCont.val();
-        if(content.replace(/\s/g, '') == ""){
-            layer.msg('请先输入留言');
-            return elemCont.focus();
-        }
-
-        var view = $('#LAY-msg-tpl').html(),
-            data = {
-                username: '闲心'
-                ,avatar: '../res/static/images/info-img.png'
-                ,praise: 0
-                ,content: content
-            };
-
-        //模板渲染
-        laytpl(view).render(data, function(html){
-            $('#LAY-msg-box').prepend(html);
-            elemCont.val('');
-            layer.msg('留言成功', {
-                icon: 1
-            })
-        });
-
-    })
     $(window).scroll(function(){
         // alert("ok");
         var scrolltop=$(window).scrollTop()
@@ -296,7 +258,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         }
         loading=false;
         return
-
     });
     //输出latest接口
     exports('latest', {});

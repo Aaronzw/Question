@@ -20,6 +20,7 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
         //登陆控制
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/user/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/msg/list");
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/follow/*");
         super.addInterceptors(registry);
     }
 }
