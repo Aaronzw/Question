@@ -21,7 +21,7 @@ public class HotController {
 
     @RequestMapping(path = {"/hottop"},method = {RequestMethod.POST,RequestMethod.GET})
     public String latest(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-        model.addAttribute("hot_ques",getTopQues(20));
+        model.addAttribute("hot_ques",getTopQues(10));
         return "hot_top";
     }
     public List<ViewObject> getTopQues(int topNum){
