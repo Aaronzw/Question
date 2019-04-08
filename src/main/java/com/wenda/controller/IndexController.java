@@ -184,7 +184,7 @@ public class IndexController {
     }
     @RequestMapping(path = {"/","/index"},method = {RequestMethod.POST,RequestMethod.GET})
     public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-
+        model.addAttribute("vos_ques",getLatestQuestions(0,0,5));
         return "index";
     }
     @RequestMapping(path = {"/latest"},method = {RequestMethod.POST,RequestMethod.GET})

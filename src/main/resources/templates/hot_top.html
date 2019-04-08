@@ -1,0 +1,69 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">热榜</li>
+                    <!--<li >最新问题 </li>-->
+
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show tab1">
+                        <div id="top-question-list">
+                            #foreach($vo in $vos_ans)
+                            <div class="item">
+                                <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                                    <div class="question_info" >
+                                        <h3 >
+                                            <a  class="question_title" href="/question/$!{vo.questionMap.question.id}">
+                                                $!{vo.questionMap.question.title}
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="ans_author_info" >
+                                        <div class="author_head pull-right">
+                                            <a href="/user/$!{vo.commentMap.user.id}">
+                                                <img src="$!{vo.commentMap.user.headUrl}" class="author-head-img">
+                                            </a>
+                                        </div>
+                                        <span class="author_info"><a href="/user/">$!{vo.commentMap.user.name}</a> </span>
+                                        <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.commentMap.comment.createdDate})</span></h5>
+                                    </div>
+
+                                    <p class="answer-content">$!{vo.commentMap.comment.content}</p>
+                                </div>
+                                <div class="comment count" data-comment-id="$!{vo.commentMap.comment.id}">
+                                    <!--<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>-->
+                                    #if($vo.commentMap.likeStatus > 0)
+                                    <a href="javascript:;" class="like layblog-this">
+                                        #else
+                                        <a href="javascript:;" class="like">
+                                            #end
+                                            <i class="layui-icon layui-icon-praise"></i>
+                                            <span class="js-likecount">$!{vo.commentMap.likeCount}</span>
+                                        </a>
+                                        #if($vo.commentMap.likeStatus < 0)
+                                        <a href="javascript:;" class="dislike layblog-this">
+                                            #else
+                                            <a href="javascript:;" class="dislike">
+                                                #end
+                                                <i class="layui-icon layui-icon-tread"></i>
+                                            </a>
+                                </div>
+                            </div>
+                            #end
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('hot_top');
+</script>
+#parse("common/footer.html")

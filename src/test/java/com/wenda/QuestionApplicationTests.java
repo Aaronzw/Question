@@ -55,6 +55,7 @@ public class QuestionApplicationTests {
 	ReadRecordService readRecordService;
 	@Autowired
 	FollowService followService;
+
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -139,4 +140,23 @@ public class QuestionApplicationTests {
 		String time=WendaUtil.DateFormat(WendaUtil.longFastTime2Date((long)timeScore));
 		System.out.println(time);
     }
+
+    @Test
+	public void testBrowseRecord(){
+		long num=readRecordService.getBrowseCount(24,EntityType.ENTITY_QUESTION);
+		List<Integer> list=readRecordService.getBrowseRecordList(24,EntityType.ENTITY_QUESTION,0,(int)num);
+		long num1=readRecordService.getBrowsedCount(EntityType.ENTITY_QUESTION,116);
+		List<Integer> list1=readRecordService.getBrowsedRecordList(EntityType.ENTITY_QUESTION,116,0,(int)num);
+		System.out.println();
+	}
+
+	@Test
+	public void testHotTOP(){
+
+		List<Question> list=readRecordService.getHotQuestionDesc();
+		for(int i=1;i<=10;i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println();
+	}
 }

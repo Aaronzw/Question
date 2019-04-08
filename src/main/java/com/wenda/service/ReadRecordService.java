@@ -1,5 +1,9 @@
 package com.wenda.service;
 
+import com.sun.org.apache.regexp.internal.RE;
+import com.wenda.model.EntityType;
+import com.wenda.model.Question;
+import com.wenda.model.SortItem;
 import com.wenda.util.JedisAdapter;
 import com.wenda.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +11,7 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /*
 * 用户浏览记录
@@ -22,7 +23,8 @@ import java.util.Set;
 public class ReadRecordService {
     @Autowired
     JedisAdapter jedisAdapter;
-
+    @Autowired
+    QuestionService questionService;
     //userId浏览过某一类实体 entityType entityId
     public  boolean userBrowseAdd(int userId,int entityType,int entityId){
 
@@ -68,11 +70,23 @@ public class ReadRecordService {
         String browseRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
         return getIdsFromSet(jedisAdapter.zrevrange(browseRecordkey,offset,offset+count));
     }
+
     /*获取访问者列表*/
     public List<Integer> getBrowsedRecordList(int entityType,int entityId,int offset,int count){
         String browsedRecordkey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
         return getIdsFromSet(jedisAdapter.zrevrange(browsedRecordkey,offset,offset+count));
     }
+    /*获取被访问记录次数*/
+    public long getBrowsedCount(int entityType,int entityId) {
+        String browsedRecordkey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        return jedisAdapter.zcard(browsedRecordkey);
+    }
+    /**获取访问记录次数**/
+    public long getBrowseCount(int userId,int entityType) {
+        String browsedRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
+        return jedisAdapter.zcard(browsedRecordkey);
+    }
+
     /*判断userId是否浏览过entitType,entityId*/
     public boolean AssertHasBrowse(int userId,int entityType,int entityId){
         String browseRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
@@ -85,5 +99,25 @@ public class ReadRecordService {
             idList.add(Integer.parseInt(item));
         }
         return idList;
+    }
+
+    public List<Question> getHotQuestionDesc(){
+        List<Question> questionList=questionService.getLatestQuestionsPageHelper(0);
+        List<SortItem<Question>> sortItems=new ArrayList<>();
+        for(Question question :questionList){
+            long num=getBrowsedCount(EntityType.ENTITY_QUESTION,question.getId());
+            System.out.println(question.getId()+","+num);
+            SortItem<Question> sortItem=new SortItem<>();
+            sortItem.setItem(question);
+            sortItem.setSortItem((int)num);
+            sortItem.setSortSecond(question.getCreatedDate().getTime());
+            sortItems.add(sortItem);
+        }
+        Collections.sort(sortItems);
+        List<Question> result=new ArrayList<>();
+        for(SortItem<Question> sortItem:sortItems){
+            result.add(sortItem.getItem());
+        }
+        return result;
     }
 }

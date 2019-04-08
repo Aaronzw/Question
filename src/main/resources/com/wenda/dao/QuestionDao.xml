@@ -7,6 +7,7 @@
     </sql>
     <sql id="insertFields">title, content, comment_count,created_date,user_id
     </sql>
+
     <select id="selectLatestQuestions" resultType="com.wenda.model.Question">
         SELECT
         <include refid="selectFields"/>
