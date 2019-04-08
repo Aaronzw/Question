@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenda.model.*;
-import com.wenda.service.CommentService;
-import com.wenda.service.LikeService;
-import com.wenda.service.QuestionService;
-import com.wenda.service.UserService;
+import com.wenda.service.*;
 import com.wenda.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +28,8 @@ public class QuestionController {
     CommentService commentService;
     @Autowired
     LikeService likeService;
-
+    @Autowired
+    ReadRecordService readRecordService;
     @RequestMapping(value = "/question/add",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,@RequestParam("content") String content){
@@ -65,6 +63,9 @@ public class QuestionController {
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
+        if(question!=null&&hostHolder.getUser()!=null){
+            readRecordService.userBrowseAdd(hostHolder.getUser().getId(),EntityType.ENTITY_QUESTION,qid);
+        }
         model.addAttribute("question",question);
         List<Comment> commentList=commentService.getCommentListByEntity(qid,EntityType.ENTITY_QUESTION);
         List<ViewObject> comments=new ArrayList<ViewObject>();

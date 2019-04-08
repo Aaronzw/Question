@@ -29,14 +29,14 @@ public class ReadRecordService {
         //目标实体的粉丝集合加一
         String browseRecordKey= RedisKeyUtil.getBrowseRecord(userId,entityType);
         //userId浏览的某一类实体集合
-        String browsedRecord=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        String browsedRecordKey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
 
         Date date=new Date();
         Jedis jedis=jedisAdapter.getJedis();
         Transaction tx=jedisAdapter.multi(jedis);
         /*事务操作*/
         tx.zadd(browseRecordKey,date.getTime(),String.valueOf(entityId));
-        tx.zadd(browsedRecord,date.getTime(),String.valueOf(userId));
+        tx.zadd(browsedRecordKey,date.getTime(),String.valueOf(userId));
 
         //返回执行成功的指令的数量，2
         List<Object> ret=jedisAdapter.exec(tx,jedis);
