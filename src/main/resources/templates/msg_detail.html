@@ -1,10 +1,66 @@
 #parse("common/header.html")
 <div class="container-wrap">
-    <div class="container">
-        <div class="contar-wrap">
+    <div class="container" style="width:1000px">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+            <li class="layui-nav-item">
+                <a href="/user/$!{user.id}">
+                    <i class="layui-icon">&#xe609;</i>
+                    我的主页
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/setting">
+                    <i class="layui-icon">&#xe620;</i>
+                    基本设置
+                </a>
+            </li>
+            <li class="layui-nav-item layui-this">
+                <a href="/msg/list">
+                    <i class="layui-icon">&#xe611;</i>
+                    我的消息
+                </a>
+            </li>
+        </ul>
+        <div class="msg-panel msg-panel-user" pad20="">
+            <div class="minemsg_detail" style="margin-top: 10px;min-height: inherit">
+                <!--<div class="fly-none">您暂时没有最新消息</div>-->
+                <div class="">
+                    <input name="conversationId" hidden value="$!{conversationId}">
+                    <input name="toUserId" hidden value="$!{targetUser.id}">
+                </div>
+                <hr/>
+                <ul class="mine-msg js-msg-detail">
+                    <li class="msg-right" data-id="123" >
+                        <p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>
+                        <blockquote class="layui-elem-quote" >
+                            <a href="/user/11">
+                                <img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"
+                                     class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>
+                            </a>
+                            <p class="msg-content">
+                                您的求解回答了
+                            </p>
+                        </blockquote>
+
+                    </li>
+                    <li class="msg-left" data-id="123" >
+                        <p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>
+                        <blockquote class="layui-elem-quote">
+                            <a href="/user/11">
+                                <img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"
+                                     class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>
+                            </a>
+                            <p class="msg-content">
+                                您的求解回答了
+                            </p>
+                        </blockquote>
+                    </li>
+                </ul>
+                <div id="msg-detail-page" style="bottom:0;float: bottom">
+                </div>
+            </div>
 
         </div>
-
     </div>
 </div>
 <script>

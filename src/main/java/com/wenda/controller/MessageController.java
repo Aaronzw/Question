@@ -28,7 +28,7 @@ public class MessageController {
     @RequestMapping(value = "/msg/list", method = {RequestMethod.GET})
     public String getConversationList(Model model){
         if(hostHolder.getUser()==null)
-            return "redirect:/reglogin";
+            return "redirect:/login";
         int localUserId=hostHolder.getUser().getId();
         List<Message> messageList=messageService.getConversationList(localUserId);
         List<ViewObject> conversations=new ArrayList<ViewObject>();
@@ -51,10 +51,10 @@ public class MessageController {
                              @RequestParam("offset")int offset,
                              @RequestParam("userId")int userId){
         if(hostHolder.getUser()==null)
-            return "redirect:/reglogin";
+            return "redirect:/login";
         int localUserId=hostHolder.getUser().getId();
         if(localUserId!=userId)
-            return "redirect:/reglogin";
+            return "redirect:/login";
 
         PageHelper.startPage(offset,limit);
         Map result=new HashMap();
@@ -89,7 +89,7 @@ public class MessageController {
     @RequestMapping(value = "/msg/detail", method = {RequestMethod.GET})
     public String getConversationDetail(Model model, @RequestParam("conversationId") String converstaionId){
         if(hostHolder.getUser()==null)
-            return "redirect:/reglogin";
+            return "redirect:/login";
         int localUserId=hostHolder.getUser().getId();
         List<Message> messageList=messageService.getConversationDetail(converstaionId);
         List<ViewObject> messages=new ArrayList<ViewObject>();
@@ -115,10 +115,10 @@ public class MessageController {
                              @RequestParam("offset")int offset,
                              @RequestParam("conversationId")String conversationId){
         if(hostHolder.getUser()==null)
-            return "redirect:/reglogin";
+            return "redirect:/login";
         int localUserId=hostHolder.getUser().getId();
         if(!conversationId.startsWith(""+localUserId)&&!conversationId.endsWith(""+localUserId))
-            return "redirect:/reglogin";
+            return "redirect:/login";
         PageHelper.startPage(offset,limit);
         Map result=new HashMap();
         Map data=new HashMap();
@@ -182,7 +182,7 @@ public class MessageController {
     @RequestMapping(value = "/sendMsgTo/{sendToId}", method = {RequestMethod.GET})
     public String jumpToSendMsgTo(Model model, @PathVariable("sendToId") int sendToId){
         if(hostHolder.getUser()==null)
-            return "redirect:/reglogin";
+            return "redirect:/login";
 //        User toUser=userService.getUser(sendToId);
 //        if(toUser==null){
 //            return "redirect:/404";

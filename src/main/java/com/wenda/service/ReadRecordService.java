@@ -106,7 +106,6 @@ public class ReadRecordService {
         List<SortItem<Question>> sortItems=new ArrayList<>();
         for(Question question :questionList){
             long num=getBrowsedCount(EntityType.ENTITY_QUESTION,question.getId());
-            System.out.println(question.getId()+","+num);
             SortItem<Question> sortItem=new SortItem<>();
             sortItem.setItem(question);
             sortItem.setSortItem((int)num);

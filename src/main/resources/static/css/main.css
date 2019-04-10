@@ -490,7 +490,39 @@ ul li .msg-content{
 }
 /* end hot */
 
-
+/*msg detail start*/
+.minemsg_detail .msg-right .msg-sender-name{
+	float: right;
+	line-height: 30px;
+	padding-right: 5px;
+	color: #2D93CA;
+	font-size: small;
+}
+.minemsg_detail .msg-left .msg-sender-name{
+	float:left;
+	line-height: 30px;
+	padding-right: 5px;
+	color: #2D93CA;
+	font-size: small;
+}
+.minemsg_detail .msg-right .author-head-img{
+	float: right;
+	border-radius: 50%
+}
+.minemsg_detail .msg-left .author-head-img{
+	float: left;
+	border-radius: 50%
+}
+.minemsg_detail .msg-right .msg-content{
+	text-align: right;
+}
+.minemsg_detail .msg-left .msg-content{
+	text-align: left;
+}
+.minemsg_detail .msg-time{
+	font-size: 15px;
+}
+/*msg detail end*/
 
 
 
@@ -512,6 +544,14 @@ ul li .msg-content{
 .lay-blog .container-message .title .info-img i{font-size: 24px;padding-right: 5px;position: relative;top: 4px;}
 .lay-blog .container-message .paging{text-align:center;padding-top:30px;}
 /* end message*/
+
+/*msg detail start*/
+.minemsg_detail .layui-elem-quote{
+	border-left: none
+}
+/*msg detail end*/
+
+
 
 
 /* start details */
