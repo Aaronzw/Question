@@ -79,7 +79,7 @@ public class QuestionController {
         model.addAttribute("questionMap",questionMap);
 
         followerInfo.put("followerCnt",followService.getFollowerCount(EntityType.ENTITY_QUESTION,qid));
-        List<User> followerList=userService.UserIdsToUserList(followService.getFollowers(EntityType.ENTITY_QUESTION,qid,10));
+        List<User> followerList=userService.UserIdsToUserList(followService.getFollowers(EntityType.ENTITY_QUESTION,qid,11));
         followerInfo.put("followerList",followerList);
         followerInfo.put("browseCnt",readRecordService.getBrowsedCount(EntityType.ENTITY_QUESTION,qid));
         model.addAttribute("followInfo",followerInfo);
