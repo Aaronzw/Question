@@ -1,12 +1,17 @@
 package com.wenda.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wenda.model.User;
+import com.wenda.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class WendaUtil {
@@ -17,6 +22,7 @@ public class WendaUtil {
     public static int SEX_UNKNOW=0;
     public static int SEX_MALE=1;
     public static int SEX_FEMALE=2;
+
 
     public static String MD5(String key) {
 
@@ -98,4 +104,5 @@ public class WendaUtil {
         String str = sdf.format(date);
         return str;
     }
+
 }

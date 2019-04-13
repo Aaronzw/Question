@@ -31,7 +31,57 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 initPages(that.totals,that.page,that.pageSize)
             }
         })
+        initFollow();
     })
+    function initFollow() {
+        $(document).on("click",".js-follow-question",function () {
+            var questionId=$("input[name='questionId']").val();
+            common.ajax("/followQuestion",{
+                "questionId":questionId
+            },function (result) {
+                console.log(result);
+                if(result.code=="0"){
+                    layer.msg("收藏问题成功")
+                    $(".js-replace-btn").html("");
+                    var cancelBtn='<button class="layui-btn layui-btn-sm js-cancel-follow">\n' +
+                        '                            取消收藏\n' +
+                        '                        </button>';
+                    $(".js-replace-btn").html(cancelBtn);
+                    var cnt=$(".js-follow-cnt").html();
+                    $(".js-follow-cnt").html("");
+                    $(".js-follow-cnt").html(Number(cnt)+1);
+                }else if(result.code=="999"){
+                    layer.msg("请登录后操作");
+                }else {
+                    layer.msg("收藏问题失败")
+                }
+            })
+        })
+        $(document).on("click",".js-cancel-follow",function () {
+            var questionId=$("input[name='questionId']").val();
+            common.ajax("/unFollowQuestion",{
+                "questionId":questionId
+            },function (result) {
+                console.log(result);
+                if(result.code=="0"){
+                    layer.msg("取消收藏问题成功")
+                    $(".js-replace-btn").html("");
+                    var cancelBtn='<button class="layui-btn layui-btn-sm js-follow-question">\n' +
+                        '                            收藏问题\n' +
+                        '                        </button>';
+                    $(".js-replace-btn").html(cancelBtn);
+                    var cnt=$(".js-follow-cnt").html();
+                    $(".js-follow-cnt").html("");
+                    $(".js-follow-cnt").html(Number(cnt)-1);
+                }else if(result.code=="999"){
+                    layer.msg("请登录后操作");
+
+                }else {
+                    layer.msg("取消操作失败")
+                }
+            })
+        })
+    }
     function initPages(totals,cur,pageSize){
         var that=this;
         laypage.render({
@@ -126,6 +176,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             return
         }
     })
+    /*评论点踩*/
     $(document).on('click','.dislike',function(){
         var here=$(this);
         var comment_id=here.parent('.comment').attr("data-comment-id");
@@ -147,8 +198,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         }
 
     })
-
-
 
     //start 提交
     $('#sub_ans').on('click', function(){

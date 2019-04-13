@@ -2,27 +2,53 @@
 <div class="container-wrap">
     <div class="container">
         <div class="contar-wrap">
-            <div class="item "  data-question-id="$!{question.id}">
-                <input type="hidden" name="questionId" value="$!{question.id}">
+            <div class="item "  data-question-id="$!{questionMap.question.id}">
+                <input type="hidden" name="questionId" value="$!{questionMap.question.id}">
                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
-                    <h3><a href="/question/$!{question.id}">$!{question.title}</a></h3>
-                    <p><button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">关注问题</button></p>
+                    <h3><a href="/question/$!{questionMap.question.id}">$!{questionMap.question.title}</a></h3>
+                    <p>$!{questionMap.question.content}</p>
+                    <span class="js-replace-btn">
+                        <!--<button class="layui-btn layui-btn-sm js-cancel-follow">-->
+                            <!--取消收藏-->
+                        <!--</button>-->
+                        <!--<button class="layui-btn layui-btn-sm js-follow-question">-->
+                            <!--收藏问题-->
+                        <!--</button>-->
+                        #if($questionMap.followStatus > 0)
+                        <button class="layui-btn layui-btn-sm js-cancel-follow">
+                            取消收藏
+                        </button>
+                        #else
+                        <button class="layui-btn layui-btn-sm js-follow-question">
+                            收藏问题
+                        </button>
+                        #end
+                    </span>
                     <p>
-                        <span class="js-follow-cnt" style="color: #01AAED">9</span>人关注了问题
+                        <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>人收藏了问题
                         <div class="follow-list">
-                            <a href="/user/123">
-                                <img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">
+                            <!--<a href="/user/123">-->
+                                <!--<img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">-->
+                            <!--</a>-->
+                            <!--<a href="/user/223">-->
+                                <!--<img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">-->
+                            <!--</a>-->
+                            #foreach($follower in $followInfo.followerList)
+                            <a href="/user/$!{follower.id}">
+                                <img src="$!{follower.headUrl}" class="layui-nav-img" style="border-radius: unset">
                             </a>
-                            <a href="/user/223">
-                                <img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">
-                            </a>
+                            #end
+                            #if($followInfo.followerList.size()==9)
+                            等……
+                            #end
                         </div>
+
                     </p>
-                    <p>$!{question.content}</p>
+
                     <!--<img src="../res/static/images/item.png" alt="" layer-index="0">-->
                     <div class="count layui-clear">
                         <span class="pull-left">阅读
-                            0<!--<em>100000+</em>-->
+                            <em>$!{followInfo.browseCnt}</em>
                         </span>
                         <!--<span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>-->
                     </div>

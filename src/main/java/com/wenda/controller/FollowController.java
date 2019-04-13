@@ -75,7 +75,7 @@ public class FollowController {
 
     @RequestMapping(path ={"/followQuestion"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String followQuestion(@RequestParam("question")int questionId){
+    public String followQuestion(@RequestParam("questionId")int questionId){
         if(hostHolder.getUser()==null){
             return WendaUtil.getJSONString(999);
         }
@@ -92,7 +92,7 @@ public class FollowController {
 
     @RequestMapping(path ={"/unFollowQuestion"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String unFollowQuestion(@RequestParam("question")int questionId){
+    public String unFollowQuestion(@RequestParam("questionId")int questionId){
         if(hostHolder.getUser()==null){
             return WendaUtil.getJSONString(999);
         }

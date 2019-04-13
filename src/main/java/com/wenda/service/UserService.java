@@ -108,4 +108,15 @@ public class UserService {
             System.out.println("ok");
         return userDao.updatepassword(userId,md5_pass);
     }
+
+    public List<User> UserIdsToUserList(List<Integer> integerList){
+        List<User> userList=new ArrayList<>();
+        for(Integer i :integerList){
+            User user=userDao.selectById(i);
+            if(user==null)
+                continue;
+            userList.add(user);
+        }
+        return userList;
+    }
 }

@@ -30,6 +30,8 @@ public class QuestionController {
     LikeService likeService;
     @Autowired
     ReadRecordService readRecordService;
+    @Autowired
+    FollowService followService;
     @RequestMapping(value = "/question/add",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,@RequestParam("content") String content){
@@ -63,10 +65,24 @@ public class QuestionController {
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
+        Map questionMap=new HashMap();
+        Map followerInfo=new HashMap();
         if(question!=null&&hostHolder.getUser()!=null){
             readRecordService.userBrowseAdd(hostHolder.getUser().getId(),EntityType.ENTITY_QUESTION,qid);
         }
-        model.addAttribute("question",question);
+        questionMap.put("question",question);
+        if(hostHolder.getUser()==null){
+            questionMap.put("followStatus",0);
+        }else {
+            questionMap.put("followStatus",followService.isFollower(hostHolder.getUser().getId(),EntityType.ENTITY_QUESTION,qid)?1:0);
+        }
+        model.addAttribute("questionMap",questionMap);
+
+        followerInfo.put("followerCnt",followService.getFollowerCount(EntityType.ENTITY_QUESTION,qid));
+        List<User> followerList=userService.UserIdsToUserList(followService.getFollowers(EntityType.ENTITY_QUESTION,qid,10));
+        followerInfo.put("followerList",followerList);
+        followerInfo.put("browseCnt",readRecordService.getBrowsedCount(EntityType.ENTITY_QUESTION,qid));
+        model.addAttribute("followInfo",followerInfo);
         List<Comment> commentList=commentService.getCommentListByEntity(qid,EntityType.ENTITY_QUESTION);
         List<ViewObject> comments=new ArrayList<ViewObject>();
         for(Comment comment :commentList){
@@ -76,13 +92,10 @@ public class QuestionController {
             if(hostHolder.getUser()==null){
                 vo.set("liked",0);
             }else {
-                //暂定
                 int localUserId=hostHolder.getUser().getId();
                 vo.set("liked",likeService.getLikeStatus(localUserId,EntityType.ENTITY_COMMENT,comment.getId()));
             }
-            //likeservice暂定
             vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
-//            vo.set("comments_count,);
             vo.set("user",userService.getUser(comment.getUserId()));
             comments.add(vo);
         }
