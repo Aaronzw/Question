@@ -25,36 +25,42 @@
             <div class="minemsg_detail" style="margin-top: 10px;min-height: inherit">
                 <!--<div class="fly-none">您暂时没有最新消息</div>-->
                 <div class="">
+                    <a href="/msg/list" style="color: #2D93CA;font-size: small"><<返回消息列表</a>
+                    <p style="font-size: small">发消息给<a href="/user/$!{targetUser.id}" style="color: #2D93CA;font-size: small">$!{targetUser.name}</a> </p>
+                </div>
+                <div class="">
                     <input name="conversationId" hidden value="$!{conversationId}">
                     <input name="toUserId" hidden value="$!{targetUser.id}">
+                    <textarea class="layui-textarea" name="addMsg"></textarea>
+                    <a class="layui-btn pull-right js-sendMsg">发送</a>
                 </div>
                 <hr/>
                 <ul class="mine-msg js-msg-detail">
-                    <li class="msg-right" data-id="123" >
-                        <p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>
-                        <blockquote class="layui-elem-quote" >
-                            <a href="/user/11">
-                                <img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"
-                                     class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>
-                            </a>
-                            <p class="msg-content">
-                                您的求解回答了
-                            </p>
-                        </blockquote>
+                    <!--<li class="msg-right" data-id="123" >-->
+                        <!--<p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>-->
+                        <!--<blockquote class="layui-elem-quote" >-->
+                            <!--<a href="/user/11">-->
+                                <!--<img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"-->
+                                     <!--class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>-->
+                            <!--</a>-->
+                            <!--<p class="msg-content">-->
+                                <!--您的求解回答了-->
+                            <!--</p>-->
+                        <!--</blockquote>-->
 
-                    </li>
-                    <li class="msg-left" data-id="123" >
-                        <p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>
-                        <blockquote class="layui-elem-quote">
-                            <a href="/user/11">
-                                <img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"
-                                     class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>
-                            </a>
-                            <p class="msg-content">
-                                您的求解回答了
-                            </p>
-                        </blockquote>
-                    </li>
+                    <!--</li>-->
+                    <!--<li class="msg-left" data-id="123" >-->
+                        <!--<p class="pull-right msg-time" style="font-size: 10px"><span >1小时前</span></p>-->
+                        <!--<blockquote class="layui-elem-quote">-->
+                            <!--<a href="/user/11">-->
+                                <!--<img src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554034581045.png"-->
+                                     <!--class="author-head-img"><cite class="msg-sender-name">Absolutely</cite>-->
+                            <!--</a>-->
+                            <!--<p class="msg-content">-->
+                                <!--您的求解回答了-->
+                            <!--</p>-->
+                        <!--</blockquote>-->
+                    <!--</li>-->
                 </ul>
                 <div id="msg-detail-page" style="bottom:0;float: bottom">
                 </div>
