@@ -18,6 +18,6 @@ public class AdminController {
     }
     @RequestMapping(path = {"/admin"},method = {RequestMethod.POST,RequestMethod.GET})
     public String admminIndex(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
-        return "admin/index";
+        return "admin/admin";
     }
 }
