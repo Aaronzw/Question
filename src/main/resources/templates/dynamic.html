@@ -1,0 +1,29 @@
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container">
+        <div class="contar-wrap">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">动态</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show tab1">
+                        <div id="new-answer-list">
+
+                        </div>
+                        <div class="item-btn">
+                            <button class="layui-btn layui-btn-normal js-more-ans">更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('dynamic');
+</script>
+#parse("common/footer.html")

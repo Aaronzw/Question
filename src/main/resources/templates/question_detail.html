@@ -8,12 +8,6 @@
                     <h3><a href="/question/$!{questionMap.question.id}">$!{questionMap.question.title}</a></h3>
                     <p>$!{questionMap.question.content}</p>
                     <span class="js-replace-btn">
-                        <!--<button class="layui-btn layui-btn-sm js-cancel-follow">-->
-                            <!--取消收藏-->
-                        <!--</button>-->
-                        <!--<button class="layui-btn layui-btn-sm js-follow-question">-->
-                            <!--收藏问题-->
-                        <!--</button>-->
                         #if($questionMap.followStatus > 0)
                         <button class="layui-btn layui-btn-sm js-cancel-follow">
                             取消收藏
@@ -59,44 +53,44 @@
             </h5>
             <div class="answers-list">
                 <!--以下内容将不显示-->
-                #foreach($item in $comments)
-                <div class="item" >
-                    <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                <!--#foreach($item in $comments)-->
+                <!--<div class="item" >-->
+                    <!--<div class="item-box  layer-photos-demo1 layer-photos-demo">-->
 
-                        <div class="ans_author_info" >
-                            <div class="author_head pull-right">
-                                <a href="/user/$!{item.user.id}">
-                                    <img src="$!{item.user.headUrl}" class="author-head-img">
-                                </a>
-                            </div>
-                            <span class="author_info">
-                            <a href="/user/$!{item.user.id}">$!{item.user.name}</a>
-                        </span>
-                            <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>
-                        </div>
+                        <!--<div class="ans_author_info" >-->
+                            <!--<div class="author_head pull-right">-->
+                                <!--<a href="/user/$!{item.user.id}">-->
+                                    <!--<img src="$!{item.user.headUrl}" class="author-head-img">-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--<span class="author_info">-->
+                            <!--<a href="/user/$!{item.user.id}">$!{item.user.name}</a>-->
+                        <!--</span>-->
+                            <!--<h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>-->
+                        <!--</div>-->
 
-                        <p class="answer-content">$!{item.comment.content}</p>
-                    </div>
-                    <div class="comment count" data-comment-id="$!{item.comment.id}">
-                        <!--<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>-->
-                        #if($item.liked> 0)
-                        <a href="javascript:;" class="like layblog-this">
-                        #else
-                        <a href="javascript:;" class="like ">
-                        #end
-                            <i class="layui-icon layui-icon-praise"></i>
-                            <span class="js-likecount">$!{item.likeCount}</span>
-                        </a>
-                        #if($item.liked< 0)
-                        <a href="javascript:;" class="dislike layblog-this">
-                        #else
-                        <a href="javascript:;" class="dislike ">
-                        #end
-                            <i class="layui-icon layui-icon-tread"></i>
-                        </a>
-                    </div>
-                </div>
-                #end
+                        <!--<p class="answer-content">$!{item.comment.content}</p>-->
+                    <!--</div>-->
+                    <!--<div class="comment count" data-comment-id="$!{item.comment.id}">-->
+                        <!--&lt;!&ndash;<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>&ndash;&gt;-->
+                        <!--#if($item.liked> 0)-->
+                        <!--<a href="javascript:;" class="like layblog-this">-->
+                        <!--#else-->
+                        <!--<a href="javascript:;" class="like ">-->
+                        <!--#end-->
+                            <!--<i class="layui-icon layui-icon-praise"></i>-->
+                            <!--<span class="js-likecount">$!{item.likeCount}</span>-->
+                        <!--</a>-->
+                        <!--#if($item.liked< 0)-->
+                        <!--<a href="javascript:;" class="dislike layblog-this">-->
+                        <!--#else-->
+                        <!--<a href="javascript:;" class="dislike ">-->
+                        <!--#end-->
+                            <!--<i class="layui-icon layui-icon-tread"></i>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--#end-->
             </div>
             <div class="detail_page" style="display: inline" id="detail_page"></div>
             <div class="item-btn">

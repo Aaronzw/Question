@@ -206,7 +206,12 @@ body{
 .lay-blog .container .item h5{line-height: 38px;color:#a5a5a5;}
 .lay-blog .container .item p{line-height:25px; padding-bottom: 10px;}
 .lay-blog .container .item .comment{width: 100%; line-height: 56px; background: #f9f9f9; font-size: 14px; overflow:hidden;}
-.lay-blog .container .item .comment a{display:inline-block;width:50%;text-align:center;float: left;}
+.lay-blog .container .item .comment a{
+	display:inline-block;
+	width:33%;
+	text-align:center;
+	float: left;
+}
 .lay-blog .container .item .comment a+a{border-left:1px solid #efefef;margin-left:-1px;}
 .lay-blog .container .item-btn{text-align:center;margin-top:20px}
 .lay-blog .container .item{
@@ -232,9 +237,10 @@ body{
 	/*max-height: 90px;*/
 }
 .author-head-img{
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	margin-right: 10px;
+	border-radius: 10%;
 }
 .lay-blog .container.item .author_head{
 	margin-top: 10px;
@@ -526,7 +532,7 @@ ul li .msg-content{
 
 
 
-/* start message*/
+/* start answer-detail*/
 .container-message textarea{
 	font-size:14px;
 }
@@ -534,16 +540,62 @@ ul li .msg-content{
 	text-align: right;
 }
 .lay-blog .container-message .item-btn{margin-bottom: 50px;}
-.lay-blog .container-message .info-item{font-size:14px;margin-bottom:66px;}
-.lay-blog .container-message .info-img{cursor: pointer;float: left;padding-right:20px;}
-.lay-blog .container-message .info-text{padding-left:88px;}
-.lay-blog .container-message .title{overflow:hidden;margin-bottom:10px;}
+.lay-blog .container-message .info-item{
+	font-size:14px;
+	margin-bottom:20px;
+}
+.lay-blog .container-message .info-img{
+	cursor: pointer;
+	float: left;
+	width: 50px;
+	height: 50px;
+}
+.lay-blog .container-message .info-like{
+	float: right;
+	color: #4b5a75;
+}
+.lay-blog .container-message .info-text{
+	padding-left:60px;
+}
+.lay-blog .container-message .title{
+	overflow:hidden;
+	margin-bottom:5px;
+}
 .lay-blog .container-message .title .name{float: left; display: block; line-height: 38px; color:#787878;}
 .info-intr{line-height: 24px;}
 .lay-blog .container-message .title .info-img{float: right;font-size;color:#4b5a75;}
 .lay-blog .container-message .title .info-img i{font-size: 24px;padding-right: 5px;position: relative;top: 4px;}
 .lay-blog .container-message .paging{text-align:center;padding-top:30px;}
-/* end message*/
+.lay-blog .container-message .review-version{
+	padding: 20px;
+	border-top: 1px dashed #dddddd;
+}
+.lay-blog .container-message .form{
+	margin-bottom: 16px;
+}
+.lay-blog .container-message .form img{
+	float: left;
+}
+.lay-blog .container-message .layui-input-block{
+	margin-left: 60px;
+}
+.lay-blog .container-message .list-cont .cont{
+	adding: 40px 0 30px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.lay-blog .container-message .list-cont .text{
+	margin-left: 70px;
+	line-height: 22px;
+	color: #333;
+	clear: none;
+}
+.lay-blog .container-message .list-cont .text .tit{
+	margin-bottom: 18px;
+}
+.lay-blog .container-message .list-cont
+
+	/* end answer-detail*/
+
 
 /*msg detail start*/
 .minemsg_detail .layui-elem-quote{
@@ -552,16 +604,14 @@ ul li .msg-content{
 /*msg detail end*/
 
 
-
-
 /* start details */
 .lay-blog .container-details .item{
 	margin-bottom: 30px;
 }
-.lay-blog .container-details .comt{
+.lay-blog .container-message .comt{
 	padding:0 20px;
 	font-size: 18px;
-	margin-bottom:90px;
+	/*margin-bottom:30px;*/
 }
 .lay-blog .container-details .count{
 	margin-top:35px;

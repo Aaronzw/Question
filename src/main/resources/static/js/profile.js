@@ -183,7 +183,7 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                             // console.log(item);
                             var html='<li>\n' +
                                 '          <p class="jie-title" style="max-width:750px">\n' +
-                                '          在<a  href=/question/"'+item.questionMap.question.id+'" target="_blank">'+item.questionMap.question.title+'</a>中回答：\n' +
+                                '          在<a  href="/question/'+item.questionMap.question.id+'" target="_blank">'+item.questionMap.question.title+'</a>中回答：\n' +
                                 '          </p>\n' +
                                 '          <div class="home-dacontent">\n' +
                                 item.commentMap.comment.content+

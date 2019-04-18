@@ -104,9 +104,12 @@ public class QuestionController {
         model.addAttribute("commentCount",commentCount);
         return "question_detail";
     }
+
+    /*entityType.question=1,comment=2*/
     @RequestMapping(value = "/question/requestMore",method = RequestMethod.POST)
     @ResponseBody
-    public String MoreQuestion1(@RequestParam("questionId") int questionId,
+    public String MoreQuestion1(@RequestParam("entityId") int entityId,
+                                @RequestParam("entityType") int entityType,
                                 @RequestParam("offset")int offset,
                                 @RequestParam("limit") int limit){
         //使用开源pageHelper插件
@@ -117,7 +120,7 @@ public class QuestionController {
         List<Comment> commentList=new ArrayList<>();
         //数据库不分页地查数据
         try {
-            commentList=commentService.getCommentListByEntity(questionId,EntityType.ENTITY_QUESTION);
+            commentList=commentService.getCommentListByEntity(entityId,entityType);
         }catch (Exception e){
             result.put("code",1);
             result.put("msg","请求数据库异常！");
@@ -135,6 +138,7 @@ public class QuestionController {
             }
             //likeservice暂定
             map.put("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
+            map.put("commentCount",commentService.getCommentCount(comment.getId(),EntityType.ENTITY_COMMENT));
 //            vo.set("comments_count,);
             User user=userService.getUser(comment.getUserId());
             //避免密码暴露于ajax

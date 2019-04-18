@@ -21,11 +21,24 @@ public class SettingController {
     @Autowired
     UserService userService;
     @RequestMapping(path={"/setting"},method ={RequestMethod.POST,RequestMethod.GET})
-    public String test(Model model){
+    public String setting(Model model){
         ViewObject vo=new ViewObject();
         model.addAttribute("data",vo);
         return "setting";
     }
+    @RequestMapping(path={"/history"},method ={RequestMethod.POST,RequestMethod.GET})
+    public String browseHistory(Model model){
+        ViewObject vo=new ViewObject();
+        model.addAttribute("data",vo);
+        return "browseHistory";
+    }
+    @RequestMapping(path={"/followQuestion/list"},method ={RequestMethod.POST,RequestMethod.GET})
+    public String followQuesList(Model model){
+        ViewObject vo=new ViewObject();
+        model.addAttribute("data",vo);
+        return "follow_question_list";
+    }
+
     @RequestMapping(path={"/updatePassword"},method ={RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String test(@RequestParam("nowpass")String nowpass,@RequestParam("pass")String pass){

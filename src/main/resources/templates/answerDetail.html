@@ -1,0 +1,143 @@
+#set($containerClass="container-message")
+#parse("common/header.html")
+<div class="container-wrap">
+    <div class="container container-message">
+        <div class="contar-wrap">
+            <div class="item "  data-question-id="$!{questionMap.question.id}">
+                <input type="hidden" name="questionId" value="$!{questionMap.question.id}">
+                <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                    <h3><a href="/question/$!{questionMap.question.id}">$!{questionMap.question.title}</a></h3>
+                    <p>$!{questionMap.question.content}</p>
+                    <span class="js-replace-btn">
+                        #if($questionMap.followStatus > 0)
+                        <button class="layui-btn layui-btn-sm js-cancel-follow">
+                            取消收藏
+                        </button>
+                        #else
+                        <button class="layui-btn layui-btn-sm js-follow-question">
+                            收藏问题
+                        </button>
+                        #end
+                    </span>
+                    <p>
+                        <span class="js-follow-cnt" style="color: #01AAED">$!{questionMap.followerCnt}</span>人收藏了问题
+                    </p>
+                    <div class="count layui-clear">
+                        <span class="pull-left">阅读
+                            <em>$!{questionMap.browseCount}</em>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-btn layui-btn-primary layui-btn-fluid">
+                <h5 style="text-align: center" >
+                <a href="/question/$!{questionMap.question.id}">
+                    查看全部
+                    <span href="/question/$!{questionMap.question.id}" class="js-comment-count">$!{commentInfo.commentCount}</span>
+                    个回答
+                </a>
+                </h5>
+            </div>
+            <div class="item" >
+                <div class="item-box  layer-photos-demo1 layer-photos-demo">
+
+                    <div class="ans_author_info" >
+                        <div class="author_head pull-right">
+                            <a href="/user/$!{answerMap.user.id}">
+                                <img src="$!{answerMap.user.headUrl}" class="author-head-img">
+                            </a>
+                        </div>
+                        <span class="author_info">
+                            <a href="/user/$!{answerMap.user.id}">$!{answerMap.user.name}</a>
+                        </span>
+                        <h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{answerMap.answer.createdDate})</span></h5>
+                    </div>
+
+                    <p class="answer-content">$!{answerMap.answer.content}</p>
+                </div>
+                <div class="comment count" data-comment-id="$!{answerMap.answer.id}">
+                    #if($answerMap.liked> 0)
+                    <a href="javascript:;" class="like layblog-this">
+                        #else
+                        <a href="javascript:;" class="like ">
+                            #end
+                            <i class="layui-icon layui-icon-praise"></i>
+                            <span class="js-likecount">$!{answerMap.likeCount}</span>
+                        </a>
+                        #if($answerMap.liked< 0)
+                        <a href="javascript:;" class="dislike layblog-this">
+                        #else
+                        <a href="javascript:;" class="dislike ">
+                        #end
+                            <i class="layui-icon layui-icon-tread"></i>
+                        </a>
+                        <a href="javascript:;" class="off">
+                            <i class="layui-icon layui-icon-up">收起</i>
+                        </a>
+                </div>
+            </div>
+            <div class="comt layui-clear">
+                <input name="answerId" hidden value="$!{answerMap.answer.id}">
+                <input name="commentCount" hidden value="$!{answerMap.commentCount}">
+                <a href="javascript:;" class="pull-left">评论</a>
+                <a href="comment.html" class="pull-right">写评论</a>
+            </div>
+            <div class="review-version">
+                #if(!$user)
+                <!--<div class="form">-->
+                    <!--&lt;!&ndash;<img class="author-head-img" src="$!{user.headUrl}">&ndash;&gt;-->
+                    <!--<form class="layui-form" action="">-->
+                        <!--<div class="layui-form-item layui-form-text" style="clear: none">-->
+                            <!--<div class="layui-input-block">-->
+                                <!--<textarea name="desc" class="layui-textarea" disabled placeholder="请登录后发表评论"></textarea>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="layui-form-item">-->
+                            <!--<div class="layui-input-block" style="text-align: right;">-->
+                                <!--<button class="layui-btn layui-btn-disabled" disabled>確定</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+                <p >请<a href="/login">登录</a> 后再发表评论</p>
+                #else
+                <div class="form">
+                    <img class="author-head-img" src="$!{user.headUrl}">
+                    <div class="layui-form">
+                        <div class="layui-form-item" style="clear: none">
+                            <div class="layui-input-block">
+                                <textarea name="new_content" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block" style="text-align: right;">
+                                <button class="layui-btn js-sub-comment">確定</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                #end
+                <div id="answer-detail-page"></div>
+                <div class="list-cont js-comment-list">
+                    <!--<div class="cont">-->
+                        <!--<div class="img pull-left">-->
+                            <!--<img  class="author-head-img" src="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1554812606183.png" alt="">-->
+                        <!--</div>-->
+                        <!--<div class="text">-->
+                            <!--<p class="tit"><span class="name">吳亦凡</span><span class="data pull-right">2018/06/06</span></p>-->
+                            <!--<p class="ct">敢问大师，师从何方？上古高人呐逐一地看完你的作品后，我的心久久 不能平静！这世间怎么可能还有如此精辟的作品？我不敢相信自己的眼睛。自从改革开放以后，我就以为再也不会有任何作品能打动我，没想到今天看到这个如此精妙绝伦的作品好厉害！</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '../js/'
+    }).use('answer_detail');
+</script>
+#parse("common/footer.html")

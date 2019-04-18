@@ -16,16 +16,16 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
     //statr 分页
 
     $(function () {
-        var question_id=$("input[name='questionId']").val();
         var that=this;
+        that.question_id=$("input[name='questionId']").val();
         that.page=0;
         that.pageSize=5;
         common.ajax("/question/requestMore",{
             "limit":that.pageSize,
             "offset":that.page,
-            "questionId":question_id
+            "entityId":that.question_id,
+            "entityType":1
         },function (res) {
-            // console.log(res);
             if(res.code=="0"){
                 that.totals=res.totals;
                 initPages(that.totals,that.page,that.pageSize)
@@ -95,7 +95,8 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 common.ajax("/question/requestMore",{
                     "limit":pageSize,
                     "offset":obj.curr,
-                    "questionId":question_id
+                    "entityId":question_id,
+                    "entityType":1,
                 },function (res) {
                     if(res.code=="0"){
                         $(".answers-list").html("");
@@ -133,6 +134,10 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                                     html=html+'                        <a href="javascript:;" class="dislike ">\n';
                                 html=html+ '                            <i class="layui-icon layui-icon-tread"></i>\n' +
                                 '                        </a>\n' +
+                                '<a href="/answer/Detail?questionId='+item.comment.entityId+'&&answerId='+item.comment.id+'" class="comment-link">\n' +
+                                '                            <i class="layui-icon layui-icon-reply-fill"></i>\n' +
+                                '<span class="js-comment-count">'+item.commentCount+'</span>'+
+                                '                        </a>'+
                                 '                    </div>\n' +
                                 '                </div>';
                             $(".answers-list").append(html);
@@ -171,7 +176,6 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 }else {
                     layer.msg("点赞失败");
                 }
-
             })
             return
         }
@@ -214,9 +218,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             return
         }
         common.ajax("/comment/add",{
-            "questionId":question_id,
+            "entityId":question_id,
             "content":answer_content,
-            "userId":userId,
+            "entityType":1,
         },function (result) {
             console.log(result);
             if(result.code=="0"){

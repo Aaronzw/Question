@@ -53,7 +53,7 @@
                 <ul class="layui-nav pull-left">
                     <li class="layui-nav-item "><a href="/">首页</a></li>
                     <li class="layui-nav-item"><a href="/latest">最新</a></li>
-                    <li class="layui-nav-item"><a href="/trends">关注</a></li>
+                    <li class="layui-nav-item"><a href="/dynamic">关注</a></li>
                     <li class="layui-nav-item"><a href="/hottop">热榜</a></li>
                 </ul>
                 <form class="layui-form blog-seach pull-right" action="">
@@ -80,7 +80,8 @@
                         <a href="/user/$!{user.id}"><img src="$!{user.headUrl}" class="layui-nav-img">$!{user.name}</a>
                         <input name="global-user-id" value="$!{user.id}" hidden/>
                         <dl class="layui-nav-child">
-                            <dd><a href="/user/$!{user.id}">我的主页</a></dd>
+                            <!--<dd><a href="/user/$!{user.id}">我的主页</a></dd>-->
+                            <dd><a href="/history">浏览历史</a></dd>
                             <dd><a href="/msg/list">我的消息</a></dd>
                             <dd><a href="/setting">基本设置</a></dd>
                             <dd><a href="/logout">退出登录</a></dd>
