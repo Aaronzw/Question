@@ -42,11 +42,11 @@ public class RedisKeyUtil {
 
 
     //浏览某一类实体记录集合，一般是问题记录
-    public static String getBrowseRecord(int userId, int EntityType){
+    public static String getBrowseRecordKey(int userId, int EntityType){
         return BIZ_BROWSE_RECORD+SPLIT+String.valueOf(userId)+SPLIT+String.valueOf(EntityType);
     }
     //浏览过某一实体的用户集合
-    public static String getBrowsedRecord( int EntityType,int EntityId){
+    public static String getBrowsedRecordKey( int EntityType,int EntityId){
         return BIZ_BROWSED_RECORD+SPLIT+String.valueOf(EntityType)+SPLIT+String.valueOf(EntityId);
     }
 

@@ -117,7 +117,6 @@ public class FollowController {
     public String getFollowerList(@RequestParam("limit")int limit,
                              @RequestParam("offset")int offset,
                              @RequestParam("userId")int userId){
-        offset=offset-1;
         Map result=new HashMap();
         long count=0;
         List<Integer> followerList=new ArrayList<>();
@@ -125,6 +124,7 @@ public class FollowController {
         try {
             count=followService.getFollowerCount(EntityType.ENTITY_USER,userId);
             /*redis底层offset从0开始*/
+            offset=offset-1;
             followerList=followService.getFollowers(EntityType.ENTITY_USER,userId,offset*limit,limit);
         }catch (Exception e){
             return WendaUtil.getJSONString(1,e.getMessage());
@@ -162,7 +162,7 @@ public class FollowController {
     public String getFolloweeList(@RequestParam("limit")int limit,
                              @RequestParam("offset")int offset,
                              @RequestParam("userId")int userId){
-        offset=offset-1;
+
         Map result=new HashMap();
         long count=0;
         List<Integer> followeeList=new ArrayList<>();
@@ -170,6 +170,7 @@ public class FollowController {
         try {
             count=followService.getFolloweeCount(userId,EntityType.ENTITY_USER);
             /*redis底层offset从0开始*/
+            offset=offset-1;
             followeeList=followService.getFollowees(userId,EntityType.ENTITY_USER,offset*limit,limit);
         }catch (Exception e){
             return WendaUtil.getJSONString(1,e.getMessage());

@@ -33,14 +33,33 @@
                 </a>
             </li>
         </ul>
-        <div class="msg-panel msg-panel-user" pad20="">
+        <div class="msg-panel msg-panel-user history" pad20="">
+            <div class="item">
+                <input name="totals" hidden value="$!{browseTotals}">
+                <div>
+                    <h3 >浏览问题历史/浏览时间</h3>
+                </div>
 
+                <ul class="jie-row" id="history-question-list">
+                    <!--<li >-->
+                        <!--<a href="/question/442" class="jie-title">-->
+                            <!--&lt;script type="text/javascript" src="../js/admin/login.js"&gt;&lt;/script&gt;-->
+                        <!--</a>-->
+                    <!--<i class="pull-right">2019-04-14 18:15:25</i>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="/question/441" class="jie-title"> hello</a>-->
+                        <!--<i class="pull-right">2019-04-14 18:13:12</i>-->
+                    <!--</li>-->
+                </ul>
+                <div id="his-page"></div>
+            </div>
         </div>
     </div>
 </div>
 <script>
     layui.config({
         base: '../js/'
-    }).use('msg_list');
+    }).use('browserHistory');
 </script>
 #parse("common/footer.html")

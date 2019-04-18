@@ -17,20 +17,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         initFollow();
         initLike();
         initList();
-        // common.ajax("/comment/add",{
-        //     "entityId":1430,
-        //     "content":"ok",
-        //     "entityType":2,
-        // },function (result) {
-        //     console.log(result);
-        //     if(result.code=="0"){
-        //         layer.msg("发表成功");
-        //
-        //     }else {
-        //         result.msg("发表失败");
-        //     }
-        // })
-
+        initExpand();
     });
     function initFollow() {
         $(document).on("click",".js-follow-question",function () {
@@ -207,7 +194,15 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         })
     });
-
+    function initExpand(){
+        $(".off").on("click",function () {
+            if($(".review-version").show){
+                $(".review-version").show();
+            }else {
+                $(".review-version").hide();
+            }
+        })
+    }
     //输出answer接口
     exports('answer_detail', {});
 });

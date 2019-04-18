@@ -28,10 +28,10 @@ public class ReadRecordService {
     //userId浏览过某一类实体 entityType entityId
     public  boolean userBrowseAdd(int userId,int entityType,int entityId){
 
-        //目标实体的粉丝集合加一
-        String browseRecordKey= RedisKeyUtil.getBrowseRecord(userId,entityType);
+        //目标实体的浏览者集合加一
+        String browseRecordKey= RedisKeyUtil.getBrowseRecordKey(userId,entityType);
         //userId浏览的某一类实体集合
-        String browsedRecordKey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        String browsedRecordKey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
 
         Date date=new Date();
         Jedis jedis=jedisAdapter.getJedis();
@@ -50,9 +50,9 @@ public class ReadRecordService {
     public  boolean userBrowseRemove(int userId,int entityType,int entityId){
 
         //目标实体的粉丝集合加一
-        String browseRecordKey= RedisKeyUtil.getBrowseRecord(userId,entityType);
+        String browseRecordKey= RedisKeyUtil.getBrowseRecordKey(userId,entityType);
         //userId浏览的某一类实体集合
-        String browsedRecord=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        String browsedRecord=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
 
         Date date=new Date();
         Jedis jedis=jedisAdapter.getJedis();
@@ -67,29 +67,29 @@ public class ReadRecordService {
 
     //获取浏览记录列表
     public List<Integer> getBrowseRecordList(int userId,int entityType,int offset,int count){
-        String browseRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
+        String browseRecordkey=RedisKeyUtil.getBrowseRecordKey(userId,entityType);
         return getIdsFromSet(jedisAdapter.zrevrange(browseRecordkey,offset,offset+count));
     }
 
     /*获取访问者列表*/
     public List<Integer> getBrowsedRecordList(int entityType,int entityId,int offset,int count){
-        String browsedRecordkey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        String browsedRecordkey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
         return getIdsFromSet(jedisAdapter.zrevrange(browsedRecordkey,offset,offset+count));
     }
     /*获取被访问记录次数*/
     public long getBrowsedCount(int entityType,int entityId) {
-        String browsedRecordkey=RedisKeyUtil.getBrowsedRecord(entityType,entityId);
+        String browsedRecordkey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
         return jedisAdapter.zcard(browsedRecordkey);
     }
     /**获取访问记录次数**/
     public long getBrowseCount(int userId,int entityType) {
-        String browsedRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
+        String browsedRecordkey=RedisKeyUtil.getBrowseRecordKey(userId,entityType);
         return jedisAdapter.zcard(browsedRecordkey);
     }
 
     /*判断userId是否浏览过entitType,entityId*/
     public boolean AssertHasBrowse(int userId,int entityType,int entityId){
-        String browseRecordkey=RedisKeyUtil.getBrowseRecord(userId,entityType);
+        String browseRecordkey=RedisKeyUtil.getBrowseRecordKey(userId,entityType);
         return jedisAdapter.zscore(browseRecordkey, String.valueOf(entityId)) != null;
     }
 
@@ -99,6 +99,10 @@ public class ReadRecordService {
             idList.add(Integer.parseInt(item));
         }
         return idList;
+    }
+    public Double getBrowserTime(int userId,int entityId,int entityType){
+        String browserKey=RedisKeyUtil.getBrowseRecordKey(userId,entityType);
+        return jedisAdapter.zscore(browserKey,String.valueOf(entityId));
     }
 
     public List<Question> getHotQuestionDesc(){
