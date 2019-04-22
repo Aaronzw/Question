@@ -98,9 +98,11 @@ public class UserService {
         loginTicketDao.updateStatus(ticket,1);
     }
 
+
     public int updateHeadUrl(int userId,String newUrl){
         return userDao.updateHeadUrl(userId,newUrl);
     }
+
     public int updatePassword(int userId,String password){
         User user=getUser(userId);
         String md5_pass=WendaUtil.MD5(password+user.getSalt());
@@ -118,5 +120,13 @@ public class UserService {
             userList.add(user);
         }
         return userList;
+    }
+
+    public  List<Integer> getUserIdList(){
+        List<Integer> idlist=new ArrayList<>();
+        List<User> userList=userDao.getUserList();
+        for(User user:userList){idlist.add(user.getId());
+        }
+        return idlist;
     }
 }

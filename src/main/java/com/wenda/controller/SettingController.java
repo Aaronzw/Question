@@ -2,6 +2,7 @@ package com.wenda.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.wenda.model.*;
+import com.wenda.service.FollowService;
 import com.wenda.service.QuestionService;
 import com.wenda.service.ReadRecordService;
 import com.wenda.service.UserService;
@@ -23,6 +24,9 @@ public class SettingController {
     ReadRecordService readRecordService;
     @Autowired
     QuestionService questionService;
+    @Autowired
+    FollowService followService;
+
     @RequestMapping(path={"/setting"},method ={RequestMethod.POST,RequestMethod.GET})
     public String setting(Model model){
         ViewObject vo=new ViewObject();
@@ -84,10 +88,60 @@ public class SettingController {
 
     @RequestMapping(path={"/followQuestion/list"},method ={RequestMethod.POST,RequestMethod.GET})
     public String followQuesList(Model model){
+        if(hostHolder.getUser()==null){
+            return "redirect:/login";
+        }
+        int userId=hostHolder.getUser().getId();
         ViewObject vo=new ViewObject();
         model.addAttribute("data",vo);
+        model.addAttribute("totals",followService.getFolloweeCount(userId,EntityType.ENTITY_QUESTION));
         return "follow_question_list";
     }
+
+
+    /*offset当前页，从1开始*/
+    @RequestMapping(path={"/request/followQuestionList"},method ={RequestMethod.POST})
+    @ResponseBody
+    public String requestFollowQuestionList(@RequestParam("limit")int limit,
+                                 @RequestParam("offset")int offset,
+                                 @RequestParam(value = "userId",required = false,defaultValue = "-1") int userId){
+        if(hostHolder.getUser()==null&&userId==-1){
+            return WendaUtil.getJSONString(1,"请登录");
+        }
+        if(userId==-1){
+            userId=hostHolder.getUser().getId();
+        }
+        Map result=new HashMap();
+        List<Map> list=new ArrayList<>();
+        List<Integer> questionIdList=new ArrayList<>();
+        /*redis底层从0开始 */
+        offset--;
+        try {
+            questionIdList=followService.getFollowees(userId,EntityType.ENTITY_QUESTION,offset*limit,limit);
+//            questionIdList=readRecordService.getBrowseRecordList(userId,EntityType.ENTITY_QUESTION,offset*limit,limit);
+        }catch (Exception e){
+            return WendaUtil.getJSONString(1,e.getMessage());
+        }
+        for (Integer i:questionIdList){
+            Map map=new HashMap();
+            Question question=questionService.getById(i);
+            User user=userService.getUser(question.getUserId());
+            map.put("user",user);
+            map.put("question",question);
+
+            double timeScore=followService.getFolloweeTime(userId,EntityType.ENTITY_QUESTION,question.getId());
+//            double timeScore=readRecordService.getBrowserTime(userId,question.getId(),EntityType.ENTITY_QUESTION);
+            /*fasttime转date*/
+            Date time=WendaUtil.longFastTime2Date((long)timeScore);
+            map.put("browserTime",time);
+            list.add(map);
+        }
+
+        result.put("code",0);
+        result.put("data",list);
+        return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
+    }
+
 
     @RequestMapping(path={"/updatePassword"},method ={RequestMethod.POST,RequestMethod.GET})
     @ResponseBody

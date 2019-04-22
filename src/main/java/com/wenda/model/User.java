@@ -71,7 +71,24 @@ public class User {
     private String headUrl;
     private String password;
     private String salt;
+    private int priLv;//账户等级，1用户，2管理员
     private int status;//账户状态0正常，1封禁
+
+    public int getPriLv() {
+        return priLv;
+    }
+
+    public void setPriLv(int priLv) {
+        this.priLv = priLv;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;

@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface UserDao {
     String TABLE_NAME = " user ";
-    String INSERT_FIELDS = " name, password, salt, head_url ";
+    String INSERT_FIELDS = " name, password, salt, head_url , pri_lv ";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
-            ") values (#{name},#{password},#{salt},#{headUrl})"})
+            ") values (#{name},#{password},#{salt},#{headUrl},#{priLv})"})
     int addUser(User user);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
@@ -40,5 +40,6 @@ public interface UserDao {
     /*获取用户列表+name模糊查询*/
     List<User> getUsers(@Param("user_name")String user_name);
 
-
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME})
+    List<User> getUserList();
 }

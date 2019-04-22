@@ -34,13 +34,31 @@
             </li>
         </ul>
         <div class="msg-panel msg-panel-user" pad20="">
-
+            <div class="item">
+                <input name="totals" hidden value="$!{totals}">
+                <div >
+                    <h4 ><i class="layui-icon layui-icon-star"></i> 收藏问题列表</h4>
+                </div>
+                <ul class="jie-row" id="collect-question-list">
+                    <!--<li >-->
+                    <!--<a href="/question/442" class="jie-title">-->
+                    <!--&lt;script type="text/javascript" src="../js/admin/login.js"&gt;&lt;/script&gt;-->
+                    <!--</a>-->
+                    <!--<i class="pull-right">2019-04-14 18:15:25</i>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="/question/441" class="jie-title"> hello</a>-->
+                    <!--<i class="pull-right">2019-04-14 18:13:12</i>-->
+                    <!--</li>-->
+                </ul>
+                <div id="collect-page"></div>
+            </div>
         </div>
     </div>
 </div>
 <script>
     layui.config({
         base: '../js/'
-    }).use('msg_list');
+    }).use('follow_question_list');
 </script>
 #parse("common/footer.html")

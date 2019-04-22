@@ -9,9 +9,10 @@
 
                 </ul>
                 <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show  tab2">
+                    <div class="layui-tab-item layui-show  tab1">
+                        <input name="rec_totals" hidden value="$!{rec_totals}">
                         <div id="new-question-list">
-                            #foreach($vo in $vos_ques)
+                            #foreach($vo in $rec_ques)
                             <div class="item">
                                 <div class="item-box  layer-photos-demo1 layer-photos-demo">
                                     <div class="question_info" >
@@ -31,11 +32,7 @@
                                         <h5 class="answer_date p">提问于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{vo.questionMap.question.createdDate})</span></h5>
                                     </div>
                                 </div>
-                                <!--<div class="comment count" data-comment-id="$!{vo.commentMap.comment.id}">-->
-                                <!--<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>-->
-                                <!--<a href="javascript:;" class="like"><i class="layui-icon layui-icon-praise"></i><span class="js-likecount">1201</span></a>-->
-                                <!--<a href="javascript:;" class="dislike"><i class="layui-icon layui-icon-tread"></i></a>-->
-                                <!--</div>-->
+
                             </div>
                             #end
                         </div>

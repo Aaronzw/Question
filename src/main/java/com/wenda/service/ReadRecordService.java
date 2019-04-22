@@ -71,11 +71,24 @@ public class ReadRecordService {
         return getIdsFromSet(jedisAdapter.zrevrange(browseRecordkey,offset,offset+count));
     }
 
+    //所有记录列表，不分页
+    public List<Integer> getAllBrowseList(int userId,int entityType){
+        String browseRecordkey=RedisKeyUtil.getBrowseRecordKey(userId,entityType);
+        long count=getBrowseCount(userId,entityType);
+        return getIdsFromSet(jedisAdapter.zrevrange(browseRecordkey,0,(int)count));
+    }
     /*获取访问者列表*/
     public List<Integer> getBrowsedRecordList(int entityType,int entityId,int offset,int count){
         String browsedRecordkey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
         return getIdsFromSet(jedisAdapter.zrevrange(browsedRecordkey,offset,offset+count));
     }
+    /*获取全部访问者列表，不分页*/
+    public List<Integer> getAllBrowsedList(int entityType,int entityId){
+        String browsedRecordkey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
+        long count=getBrowsedCount(entityType,entityId);
+        return getIdsFromSet(jedisAdapter.zrevrange(browsedRecordkey,0,(int)count));
+    }
+
     /*获取被访问记录次数*/
     public long getBrowsedCount(int entityType,int entityId) {
         String browsedRecordkey=RedisKeyUtil.getBrowsedRecordKey(entityType,entityId);
@@ -106,13 +119,15 @@ public class ReadRecordService {
     }
 
     public List<Question> getHotQuestionDesc(){
+        Date start=new Date();
+
         List<Question> questionList=questionService.getLatestQuestionsPageHelper(0);
         List<SortItem<Question>> sortItems=new ArrayList<>();
         for(Question question :questionList){
             long num=getBrowsedCount(EntityType.ENTITY_QUESTION,question.getId());
             SortItem<Question> sortItem=new SortItem<>();
             sortItem.setItem(question);
-            sortItem.setSortItem((int)num);
+            sortItem.setSortNum(num);
             sortItem.setSortSecond(question.getCreatedDate().getTime());
             sortItems.add(sortItem);
         }
@@ -121,6 +136,9 @@ public class ReadRecordService {
         for(SortItem<Question> sortItem:sortItems){
             result.add(sortItem.getItem());
         }
+
+        Date end=new Date();
+        long second=(end.getTime()-start.getTime())/1000;
         return result;
     }
 }

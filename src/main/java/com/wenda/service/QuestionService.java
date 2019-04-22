@@ -2,11 +2,13 @@ package com.wenda.service;
 
 import com.wenda.dao.QuestionDao;
 import com.wenda.model.Question;
+import com.wenda.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,5 +43,12 @@ public class QuestionService {
     public int updateCommentCount(int id,int count){
         return questionDao.updateCommentCount(id,count);
     }
-
+    public  List<Integer> getQuestionIdList(){
+        List<Integer> idlist=new ArrayList<>();
+        List<Question> questionList=questionDao.getQuestionList();
+        for(Question question:questionList){
+            idlist.add(question.getId());
+        }
+        return idlist;
+    }
 }

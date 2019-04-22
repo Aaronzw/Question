@@ -1,4 +1,4 @@
-package com.wenda.controller;
+package com.wenda.Admin.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminController {
     private static final Logger logger= LoggerFactory.getLogger(AdminController.class);
 
-    @RequestMapping(path = {"/admin/login"},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(path = {"/adminLogin"},method = {RequestMethod.POST,RequestMethod.GET})
     public String adMinLogin(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop){
         return "admin/login";
     }

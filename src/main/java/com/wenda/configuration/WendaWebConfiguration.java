@@ -1,5 +1,6 @@
 package com.wenda.configuration;
 
+import com.wenda.interceptor.AdminRequiredInterceptor;
 import com.wenda.interceptor.LoginRequiedInterceptor;
 import com.wenda.interceptor.PassportInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
     @Autowired
     LoginRequiedInterceptor loginRequiredInterceptor;
 
+    @Autowired
+    AdminRequiredInterceptor adminRequiredInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(passportInterceptor);
@@ -22,6 +25,9 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/msg/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/follow/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/history");
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/");
+        //管理员权限控制
+        registry.addInterceptor(adminRequiredInterceptor).addPathPatterns("/admin/*");
         super.addInterceptors(registry);
     }
 }

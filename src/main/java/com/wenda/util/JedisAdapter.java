@@ -19,23 +19,29 @@ public class JedisAdapter implements InitializingBean {
     public static void print(int key,Object obj){
         System.out.println(key+","+obj.toString());
     }
-//    public static void main(String []argv){
+    public static void main(String []argv){
 //        JedisShardInfo shardInfo = new JedisShardInfo("redis://139.199.205.104:6379/1");//这里是连接的本地地址和端口
 //        shardInfo.setPassword("213546");//这里是密码
 //        Jedis jedis = new Jedis(shardInfo);
 //        jedis.connect();
-//        jedis.flushAll();
-//    }
+
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         //项目用到的redis配置信息
         JedisPoolConfig jedisPoolConfig=new JedisPoolConfig();
-        String host="139.199.205.104";
+//        String host="139.199.205.104";
+        String host="localhost";
+        String password="213546";
+
+
         int port=6379;
         int timeout=2000;
-        String password="213546";
+
+
         pool = new JedisPool(jedisPoolConfig,host,port,timeout,password);
+
     }
 
     /*将val加入key对应的一个集合

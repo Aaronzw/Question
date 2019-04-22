@@ -55,7 +55,8 @@ public class QuestionApplicationTests {
 	ReadRecordService readRecordService;
 	@Autowired
 	FollowService followService;
-
+	@Autowired
+	RecommenderService recommenderService;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -133,15 +134,15 @@ public class QuestionApplicationTests {
 		}
 	}
 	@Test
-    public void testq(){
+	public void testq(){
 //		double timeScore=followService.getFollowerTime(24,26);
 		/*fasttime转date转string*/
 		double timeScore=0;
 		String time=WendaUtil.DateFormat(WendaUtil.longFastTime2Date((long)timeScore));
 		System.out.println(time);
-    }
+	}
 
-    @Test
+	@Test
 	public void testBrowseRecord(){
 		long num=readRecordService.getBrowseCount(24,EntityType.ENTITY_QUESTION);
 		List<Integer> list=readRecordService.getBrowseRecordList(24,EntityType.ENTITY_QUESTION,0,(int)num);
@@ -158,5 +159,82 @@ public class QuestionApplicationTests {
 			System.out.println(list.get(i));
 		}
 		System.out.println();
+	}
+
+	@Test
+	public void testRedis() {
+
+		readRecordService.userBrowseAdd(1, EntityType.ENTITY_QUESTION, 1);
+		readRecordService.userBrowseAdd(1, EntityType.ENTITY_QUESTION, 3);
+
+		readRecordService.userBrowseAdd(2, EntityType.ENTITY_QUESTION, 1);
+		readRecordService.userBrowseAdd(2, EntityType.ENTITY_QUESTION, 2);
+		readRecordService.userBrowseAdd(2, EntityType.ENTITY_QUESTION, 3);
+		readRecordService.userBrowseAdd(2, EntityType.ENTITY_QUESTION, 4);
+
+		readRecordService.userBrowseAdd(3, EntityType.ENTITY_QUESTION, 3);
+		readRecordService.userBrowseAdd(3, EntityType.ENTITY_QUESTION, 4);
+
+
+
+		Map<String,List> userSets = new HashMap();
+		List<Integer> list;
+		for (int i = 1; i <=3; i++) {//user i
+			list = new ArrayList<>();
+			long count=readRecordService.getBrowseCount(i,EntityType.ENTITY_QUESTION);
+			list=readRecordService.getBrowseRecordList(i,EntityType.ENTITY_QUESTION,0,(int)count);
+			userSets.put(String.valueOf(i),list);
+		}
+
+		Map<String,List> itemSets = new HashMap();
+		for (int i = 1; i <=4; i++) {//物品i
+			list = new ArrayList<>();
+			long count=readRecordService.getBrowsedCount(EntityType.ENTITY_QUESTION,i);
+			list=readRecordService.getBrowsedRecordList(EntityType.ENTITY_QUESTION,i,0,(int)count);
+			itemSets.put(String.valueOf(i),list);
+		}
+
+		double []ranku=new double[5];
+		double []rankitem=new double[5];
+		Arrays.fill(rankitem,0);
+		Arrays.fill(ranku,0);
+		ranku[0]=1;
+		for(int time=0;time<1;time++){
+			for(int i=1;i<4;i++){
+				if(ranku[i]!=0){
+					//list为与相关的节点
+					list=userSets.get(String.valueOf(i));
+					for(Integer k :list){
+						rankitem[k]=rankitem[k]+ranku[i]/list.size();
+					}
+				}
+			}
+			for(int i=1;i<5;i++){
+				if(rankitem[i]!=0){
+					//list为与i相关的节点
+					list=itemSets.get(String.valueOf(i));
+					for(Integer k :list){
+						ranku[k]=ranku[k]+rankitem[i]/list.size();
+					}
+				}
+			}
+		}
+		System.out.println(rankitem);
+
+	}
+	@Test
+	public  void testREcomender(){
+		List<Integer> userIds=userService.getUserIdList();
+		List<Integer> itemIds=questionService.getQuestionIdList();
+		HashMap<Integer,HashMap<Integer,Integer>> usermatrix=recommenderService.getMatrixBasedOnUsers(userIds);
+		HashMap<Integer,HashMap<Integer,Integer>> itemMatrix=recommenderService.getMatrixBasedOnItems(itemIds);
+		List<Integer> result=recommenderService.getRecListOnUserIdByTwoPartMethod(1,userIds,itemIds,usermatrix,itemMatrix);
+
+//		List<Integer> result=recommenderService.getRecomenderItemsForUser(1);
+		System.out.println(result);
+	}
+
+	@Test
+	public void test(){
 	}
 }

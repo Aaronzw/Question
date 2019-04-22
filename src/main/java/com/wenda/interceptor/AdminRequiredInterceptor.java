@@ -3,6 +3,7 @@ package com.wenda.interceptor;
 import com.wenda.dao.LoginTicketDao;
 import com.wenda.dao.UserDao;
 import com.wenda.model.HostHolder;
+import com.wenda.model.PrivageLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,8 +23,8 @@ public class AdminRequiredInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if(hostHolder.getUser()==null){
-
+        if(hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
+            httpServletResponse.sendRedirect("/adminLogin?next="+ httpServletRequest.getRequestURI());
             return false;
         }
         return true;
