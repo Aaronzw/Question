@@ -23,7 +23,12 @@ public class AdminRequiredInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if(hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
+        if(hostHolder.getUser()==null){
+            httpServletResponse.sendRedirect("/login?next="+ httpServletRequest.getRequestURI());
+            return false;
+        }
+
+        if(hostHolder.getUser()!=null&&hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
             httpServletResponse.sendRedirect("/adminLogin?next="+ httpServletRequest.getRequestURI());
             return false;
         }

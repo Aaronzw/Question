@@ -24,22 +24,7 @@ CREATE TABLE `question` (
     `salt` varchar(32) NOT NULL DEFAULT '',
     `head_url` varchar(256) NOT NULL DEFAULT '',
     `status` int NULL DEFAULT 0,
-    `active_status` int NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `name` (`name`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-  /*新user表*/
-  CREATE TABLE `user` (
-    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-    `name` varchar(64) NOT NULL DEFAULT '',
-    `gender` int NOT NULL DEFAULT 0,
-    `password` varchar(128) NOT NULL DEFAULT '',
-    `salt` varchar(32) NOT NULL DEFAULT '',
-    `head_url` varchar(256) NOT NULL DEFAULT '',
-    `email` varchar(128) NOT NULL DEFAULT '',
-    `status` int NULL DEFAULT 0,
-    `actived` int NULL DEFAULT 0,
+    `pri_lv` int NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -55,6 +40,7 @@ CREATE TABLE `question` (
     PRIMARY KEY (`id`),
     UNIQUE INDEX `ticket_UNIQUE` (`ticket` ASC)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
   DROP TABLE IF EXISTS `comment`;
   CREATE TABLE `comment` (

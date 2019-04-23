@@ -3,6 +3,7 @@ package com.wenda.service;
 import com.wenda.dao.LoginTicketDao;
 import com.wenda.dao.UserDao;
 import com.wenda.model.LoginTicket;
+import com.wenda.model.PrivageLevel;
 import com.wenda.model.User;
 import com.wenda.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
@@ -137,5 +138,35 @@ public class UserService {
         }
         String md5_pass=WendaUtil.MD5(password+user.getSalt());
         return md5_pass.equals(user.getPassword());
+    }
+
+    public Map<String,Object> adlogin(String name,String password){
+        Map<String,Object> map=new HashMap<>();
+        if(StringUtils.isBlank(name)){
+            map.put("msg","管理员名不能为空！");
+            return map;
+        }
+        if(StringUtils.isBlank(password)){
+            map.put("msg","密码不能为空！");
+            return map;
+        }
+
+        User user=userDao.selectByName(name);
+        if(user==null){
+            map.put("msg","管理员账号不存在");
+            return map;
+        }
+        if(!WendaUtil.MD5(password+user.getSalt()).endsWith(user.getPassword()))
+        {
+            map.put("msg","密码错误");
+            return map;
+        }
+        if(user.getPriLv()==PrivageLevel.pri_user){
+            map.put("msg","该用户没有管理员权限");
+            return map;
+        }
+        String ticket=addLoginTicket(user.getId());
+        map.put("ticket",ticket);
+        return map;
     }
 }
