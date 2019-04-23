@@ -38,4 +38,13 @@
         <include refid="insertFields"/>
         )VALUES   (#{title},#{content},#{commentCount},#{createdDate},#{userId})
     </insert>
+
+    <select id="searchQuestions" parameterType="string" resultType="com.wenda.model.Question">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+
+        where title like '%${keyWord}%' or content like '%${keyWord}%'
+    </select>
 </mapper>

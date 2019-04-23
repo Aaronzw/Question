@@ -35,6 +35,8 @@ public class ProfileController {
         }else {
             vo.set("isFollower",0);
         }
+        vo.set("followerCnt",followService.getFollowerCount(EntityType.ENTITY_USER,userId));
+        vo.set("followeeCnt",followService.getFolloweeCount(userId,EntityType.ENTITY_USER));
         vo.set("user",user);
         model.addAttribute("data",vo);
         return "user/profile";

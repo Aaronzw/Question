@@ -1,6 +1,7 @@
 package com.wenda.dao;
 
 import com.wenda.model.Question;
+import com.wenda.model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface QuestionDao {
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME})
     List<Question> getQuestionList();
+
+    List<Question> searchQuestions(@Param("keyWord")String keyWord);
 }

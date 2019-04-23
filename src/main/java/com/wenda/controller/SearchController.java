@@ -14,9 +14,8 @@ public class SearchController {
     private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
     @RequestMapping(path = {"/search"}, method = {RequestMethod.GET})
-    public String search(Model model, @RequestParam("q") String keyword,
-                         @RequestParam(value = "offset", defaultValue = "0") int offset,
-                         @RequestParam(value = "count", defaultValue = "10") int count) {
+    public String search(Model model, @RequestParam("keyWord") String keyword
+                         ) {
         try {
 
         } catch (Exception e) {

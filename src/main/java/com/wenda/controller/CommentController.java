@@ -15,7 +15,7 @@ import java.util.*;
 
 @Controller
 public class CommentController {
-    private static final Logger logger=LoggerFactory.getLogger(QuestionController.class);
+    private static final Logger logger=LoggerFactory.getLogger(CommentController.class);
 
     @Autowired
     HostHolder hostHolder;

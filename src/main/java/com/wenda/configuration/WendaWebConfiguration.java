@@ -25,6 +25,7 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/msg/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/follow/*");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/history");
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/dynamic");
         registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/");
         //管理员权限控制
         registry.addInterceptor(adminRequiredInterceptor).addPathPatterns("/admin/*");

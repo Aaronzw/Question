@@ -80,7 +80,6 @@ public class SettingController {
             map.put("browserTime",time);
             list.add(map);
         }
-
         result.put("code",0);
         result.put("data",list);
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
@@ -97,7 +96,6 @@ public class SettingController {
         model.addAttribute("totals",followService.getFolloweeCount(userId,EntityType.ENTITY_QUESTION));
         return "follow_question_list";
     }
-
 
     /*offset当前页，从1开始*/
     @RequestMapping(path={"/request/followQuestionList"},method ={RequestMethod.POST})
@@ -136,7 +134,6 @@ public class SettingController {
             map.put("browserTime",time);
             list.add(map);
         }
-
         result.put("code",0);
         result.put("data",list);
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
@@ -145,15 +142,19 @@ public class SettingController {
 
     @RequestMapping(path={"/updatePassword"},method ={RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String test(@RequestParam("nowpass")String nowpass,@RequestParam("pass")String pass){
+    public String test(@RequestParam("nowpass")String nowpass,@RequestParam("pass")String new_pass){
         Map result=new HashMap();
         if(hostHolder.getUser()==null)
             return WendaUtil.getJSONString(999);
-        int ret=userService.updatePassword(hostHolder.getUser().getId(),pass);
+        int userId=hostHolder.getUser().getId();
+        if(!userService.checkPass(userId,nowpass)){
+            return WendaUtil.getJSONString(1,"当前密码错误");
+        }
+        int ret=userService.updatePassword(userId,new_pass);
         if(ret>0){
-            return WendaUtil.getJSONString(0,"success");
+            return WendaUtil.getJSONString(0,"修改密码成功");
         }else {
-            return WendaUtil.getJSONString(1,"fail");
+            return WendaUtil.getJSONString(1,"修改密码失败");
         }
     }
 

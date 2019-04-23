@@ -73,7 +73,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         '                                                <img src="'+Item.commentMap.user.headUrl+'" class="author-head-img">\n' +
                         '                                            </a>\n' +
                         '                                        </div>\n' +
-                        '                                        <span class="author_info"><a href="/user/">'+Item.commentMap.user.name+'</a> </span>\n' +
+                        '                                        <span class="author_info"><a href="/user/'+Item.commentMap.user.id+'">'+Item.commentMap.user.name+'</a> </span>\n' +
                         '                                        <h5 class="answer_date p">回答于：<span>'+Item.commentMap.comment.createdDate+'</span></h5>\n' +
                         '                                    </div>\n' +
                         '\n' +

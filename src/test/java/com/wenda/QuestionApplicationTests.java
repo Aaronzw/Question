@@ -2,6 +2,8 @@ package com.wenda;
 
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
 import com.wenda.dao.*;
@@ -57,6 +59,8 @@ public class QuestionApplicationTests {
 	FollowService followService;
 	@Autowired
 	RecommenderService recommenderService;
+	@Autowired
+	DynamicService dynamicService;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -235,6 +239,47 @@ public class QuestionApplicationTests {
 	}
 
 	@Test
-	public void test(){
+	public void testSearch(){
+		List<User> userList=userDao.getUsers("");
+		List<Question> questionList=questionDao.searchQuestions("");
+		List<Comment> commentList=commentService.getLatestAnswers(0);
+		List<FeedItem> feedItems=new ArrayList<>();
+		for(Comment comment:commentList){
+			FeedItem item=new FeedItem();
+			item.setEntityType(EntityType.ENTITY_COMMENT);
+			item.setEntityId(comment.getId());
+			item.setCreatedDate(comment.getCreatedDate());
+			item.setSortNum(comment.getCreatedDate().getTime());
+			feedItems.add(item);
+		}
+		for(Question question:questionList){
+			FeedItem item=new FeedItem();
+			item.setEntityType(EntityType.ENTITY_QUESTION);
+			item.setEntityId(question.getId());
+			item.setCreatedDate(question.getCreatedDate());
+			item.setSortNum(question.getCreatedDate().getTime());
+			feedItems.add(item);
+		}
+		Collections.sort(feedItems);
+
+		System.out.println();
+	}
+
+	@Test
+	public  void  testFeed(){
+		WendaUtil.pageStart(2,3);
+		ArrayList<Integer> integerList=new ArrayList<>();
+		for(int i=1;i<14;i++){
+			integerList.add(i);
+		}
+		ArrayList<Integer> newlist=WendaUtil.pageHelper(integerList);
+		System.out.println(newlist);
+	}
+
+	@Test
+	public void testCheckPass(){
+		boolean res=userService.checkPass(29,"mm");
+		boolean res1=userService.checkPass(29,"mmm");
+		System.out.println(res);
 	}
 }

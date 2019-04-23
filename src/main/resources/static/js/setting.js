@@ -34,15 +34,18 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 if(result.code=="0"){
                     layer.msg("修改密码成功")
                 }else if(result.code=="1") {
-                    layer.msg("修改密码失败");
+                    layer.msg(result.msg,{
+                        icon: 6,
+                        time: 10000
+                    });
                 }else if(result.code=="999"){
                     layer.msg("请重新登录")
                 }
             })
-            console.log(nowpass+","+pass+","+repass);
+            // console.log(nowpass+","+pass+","+repass);
         });
     };
 
-    //输出msg_list接口
+    //输出setting接口
     exports('setting', {});
 });

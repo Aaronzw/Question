@@ -129,4 +129,13 @@ public class UserService {
         }
         return idlist;
     }
+
+    public boolean checkPass(int userId,String password){
+        User user=getUser(userId);
+        if(user==null){
+            return false;
+        }
+        String md5_pass=WendaUtil.MD5(password+user.getSalt());
+        return md5_pass.equals(user.getPassword());
+    }
 }

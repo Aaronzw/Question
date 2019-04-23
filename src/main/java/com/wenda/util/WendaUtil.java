@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
@@ -23,7 +20,8 @@ public class WendaUtil {
     public static int SEX_MALE=1;
     public static int SEX_FEMALE=2;
 
-
+    private static int pageNum=1;
+    private static int pageSize=5;
     public static String MD5(String key) {
 
         char hexDigits[] = {
@@ -105,4 +103,22 @@ public class WendaUtil {
         return str;
     }
 
+    //根据分页截取列表list
+    public static <T> ArrayList<T> pageHelper(List<T> data) {
+        HashMap pageInfo=new HashMap();
+        ArrayList<T> list=new ArrayList<>();
+        int size=data.size();
+        for(int i=(pageNum-1)*pageSize;i<pageNum*pageSize;i++){
+            if(i<size)
+                list.add(data.get(i));
+        }
+        return list;
+    }
+    public static void pageStart(int offset,int limit){
+        //页数从1开始,pageSize
+        if(limit>0&&offset>0){
+            pageNum=offset;
+            pageSize=limit;
+        }
+    }
 }
