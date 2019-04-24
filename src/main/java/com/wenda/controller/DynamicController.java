@@ -36,6 +36,8 @@ public class DynamicController {
     LikeService likeService;
     @RequestMapping(path={"/dynamic"},method ={RequestMethod.POST,RequestMethod.GET})
     public String browseHistory(Model model){
+        if(hostHolder.getUser()==null)
+            return "redirect:/?next=dynamic";
         int userId=hostHolder.getUser().getId();
         List<ViewObject> vos=getUserFollowDynamic(userId);
         model.addAttribute("data",vos);
@@ -43,6 +45,8 @@ public class DynamicController {
         return "dynamic";
     }
     private List<ViewObject> getUserFollowDynamic(int userId){
+        Date date=new Date();
+
         List<ViewObject> vos=new ArrayList<>();
         List<FeedItem> feedItems=dynamicService.getFolloweeDynamic(userId);
         for(FeedItem item:feedItems){
@@ -70,6 +74,7 @@ public class DynamicController {
                 vos.add(vo);
             }
         }
+        Date date1=new Date();
         return vos;
     }
 

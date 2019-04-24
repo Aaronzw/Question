@@ -68,7 +68,10 @@ public class IndexController {
             List<Comment> commentsForAnswer=commentService.getCommentListByEntity(comment.getId(),EntityType.ENTITY_COMMENT);
             commentMap.put("commentCount",commentsForAnswer.size());
             map.put("commentMap",commentMap);
-            questionMap.put("question",questionService.getById(comment.getEntityId()));
+            Question question=questionService.getById(comment.getEntityId());
+            questionMap.put("question",question);
+            if(question.getStatus()==Constant.Question_deleted)
+                continue;
             map.put("questionMap",questionMap);
 
             list.add(map);
@@ -108,7 +111,10 @@ public class IndexController {
 //            commentMap.put("commentCount",0);
             commentMap.put("user",userService.getUser(comment.getUserId()));
             vo.set("commentMap",commentMap);
-            questionMap.put("question",questionService.getById(comment.getEntityId()));
+            Question question=questionService.getById(comment.getEntityId());
+            questionMap.put("question",question);
+            if(question.getStatus()==Constant.Question_deleted)
+                continue;
             vo.set("questionMap",questionMap);
 
             vos.add(vo);

@@ -71,7 +71,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                                 '                                    </span>\n' +
                                 '                                    <div class="l-operate-bar">\n' +
                                 '                                        <a class="layui-btn layui-btn-sm" data-sender-id="'+item.user.id+'" href="/sendMsgTo/'+item.user.id+'">联系TA</a>\n' +
-                                '                                        <span class="js-replacebtn">';
+                                '                                        <span class="js-replacebtn" data-userid="'+item.user.id+'">';
                                 if(item.followStatus=="0")
                                     html=html+'                                            <a class="layui-btn layui-btn-sm follow-btn js-follow" href="javascript:void(0);">\n' +
                                 '                                            关注TA\n' +
@@ -121,14 +121,14 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         $.each(res.data.list,function (index, item) {
                             // console.log(item);
                             var html='<li class="item">\n' +
-                                '                                <div class="letter-info">\n' +
+                                '                                <div class="letter-info" data-userid="'+item.user.id+'">\n' +
                                 '                                    <span class="l-time">\n' +
                                 '                                        关注于\n' +
                                 item.followTime+
                                 '                                    </span>\n' +
                                 '                                    <div class="l-operate-bar">\n' +
                                 '                                        <a class="layui-btn layui-btn-sm" data-sender-id="'+item.user.id+'" href="/sendMsgTo/'+item.user.id+'">联系TA</a>\n' +
-                                '                                        <span class="js-replacebtn">';
+                                '                                        <span class="js-replacebtn" data-userid="'+item.user.id+'">';
                                 if(item.followStatus=="0")
                                     html=html+'                                            <a class="layui-btn layui-btn-sm follow-btn js-follow" href="javascript:void(0);">\n' +
                                         '                                            关注TA\n' +
@@ -160,6 +160,52 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         });
     };
+    $(document).on('click','.js-follow',function(){
+
+        var here=$(this);
+        var user_id=here.parent('.js-replacebtn').attr("data-userid");
+        console.log(user_id);
+        common.ajax("/followUser",{
+            "userId":user_id
+        },function (result) {
+            console.log(result);
+            if(result.code=='0'){
+                layer.msg("关注成功");
+                var followbtn='<a class="layui-btn layui-btn-sm follow-btn js-cancel-follow" href="javascript:void(0);">\n' +
+                    '                                            取关TA\n' +
+                    '                                            </a> ';
+                // here.parent('.js-replacebtn').html("");
+                here.parent('.js-replacebtn').html(followbtn);
+            }else if(result.code=="1"){
+                layer.msg("关注失败"+result.msg);
+            }else {
+                layer.msg("请重新登陆");
+            }
+        })
+
+    })
+    $(document).on('click','.js-cancel-follow',function(){
+        var here=$(this);
+        var user_id=here.parent('.js-replacebtn').attr("data-userid");
+        console.log(user_id);
+        common.ajax("/unFollowUser",{
+            "userId":user_id
+        },function (result) {
+            console.log(result);
+            if(result.code=='0'){
+                layer.msg("取关成功");
+                var followbtn='<a class="layui-btn layui-btn-sm follow-btn js-follow" href="javascript:void(0);">关注TA</a>';
+                // here.parent('.js-replacebtn').html("");
+                here.parent('.js-replacebtn').html(followbtn);
+            }else if(result.code=="1"){
+                layer.msg("取关失败"+result.msg);
+            }else {
+                layer.msg("请重新登陆");
+            }
+        })
+
+
+    })
     //输出msg_list接口
     exports('follow', {});
 });

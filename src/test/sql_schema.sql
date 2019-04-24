@@ -70,5 +70,21 @@ CREATE TABLE `question` (
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
+  DROP TABLE IF EXISTS `report`;
+  CREATE TABLE `report` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+	`reason` TEXT NOT NULL,
+  `entity_id` INT NOT NULL,
+  `entity_type` INT NOT NULL,
+  `created_date` DATETIME NOT NULL,
+	`deal_date` DATETIME ,
+  `deal_status` INT NOT NULL DEFAULT 0,
+	`dealer_id` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `entity_index` (`entity_id` ASC, `entity_type` ASC)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 /*修改数据库设置 root root账号操作*/
 set GLOBAL sql_mode ='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION ';

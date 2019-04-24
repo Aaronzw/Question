@@ -1,5 +1,31 @@
 #parse("common/header.html")
 <div class="container-wrap">
+    <div class="reportQuestionWindow" style="display:none;font-size: 14px">
+        <div class="layui-form" id="new_question">
+            <div class="layui-form-item" >
+                <div class="layui-input-block" style="padding-top:20px;margin-left: 20px;margin-right: 20px">
+                    <label class="layui-form-label" style="padding: 0 0;text-align: left">举报对象</label>
+                    <input hidden name="questionId" autocomplete="off" value="$!{questionMap.question.id}">
+                    <input type="text" name="question_title" value="问题： $!{questionMap.question.title}" autocomplete="off"
+                           class="layui-input layui-disabled" disabled style="color: black">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text" >
+                <!--<label class="layui-form-label">文本域</label>-->
+                <div class="layui-input-block" style="margin-left: 20px;margin-right: 20px">
+                    <textarea name="report_reason" placeholder="举报理由，必填" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block pull-right" style="margin-left: 20px;margin-right: 20px">
+                    <!--<label class="layui-form-label" id="input_Statistics">wenben</label>-->
+                    <button class="layui-btn js-submitReportQues"style="margin-right:20px">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="contar-wrap">
             <div class="item "  data-question-id="$!{questionMap.question.id}">
@@ -18,6 +44,14 @@
                         </button>
                         #end
                     </span>
+                    #if($user)
+                    <span class="reportBtn pull-right">
+                        <button class="layui-btn layui-btn-sm js-report-question" data-question-id="$!{questionMap.question.id}">举报问题</button>
+                        #if($user.id==$!{questionMap.user.id})
+                        <button class="layui-btn layui-btn-sm js-delete-question" data-question-id="$!{questionMap.question.id}">删除</button>
+                        #end
+                    </span>
+                    #end
                     <p>
                         <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>人收藏了问题
                         <div class="follow-list">

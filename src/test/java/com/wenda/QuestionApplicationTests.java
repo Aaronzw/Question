@@ -61,6 +61,8 @@ public class QuestionApplicationTests {
 	RecommenderService recommenderService;
 	@Autowired
 	DynamicService dynamicService;
+	@Autowired
+	ReportService reportService;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -277,9 +279,17 @@ public class QuestionApplicationTests {
 	}
 
 	@Test
-	public void testCheckPass(){
-		boolean res=userService.checkPass(29,"mm");
-		boolean res1=userService.checkPass(29,"mmm");
-		System.out.println(res);
+	public void testReport(){
+//		Report report=new Report();
+//		report.setCreatedDate(new Date());
+//		report.setDealStatus(Constant.Report_undeal);
+//		report.setEntity(EntityType.ENTITY_QUESTION,11);
+//		report.setUseId(11);
+//		report.setReason("why");
+//		int ret=reportService.addReport(report);
+//		Report nr=reportService.getReportById(1);
+		boolean ret=reportService.dealReport(1,11,Constant.Report_dealt,new Date());
+		Report nr=reportService.getReportById(1);
+		System.out.println(ret);
 	}
 }

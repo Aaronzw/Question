@@ -1,6 +1,7 @@
 package com.wenda.service;
 
 import com.wenda.dao.QuestionDao;
+import com.wenda.model.Constant;
 import com.wenda.model.Question;
 import com.wenda.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ public class QuestionService {
         //过滤html标签
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
-
         question.setTitle(sensitiveService.filter(question.getTitle()));
         question.setContent(sensitiveService.filter(question.getContent()));
         return questionDao.addQuestion(question)>0?question.getId():0;
@@ -41,7 +41,7 @@ public class QuestionService {
         return questionDao.selectLatestQuestionsPageHelper(userId);
     }
     public int updateCommentCount(int id,int count){
-        return questionDao.updateCommentCount(id,count);
+        return questionDao.updateQuestionCount(id,count);
     }
     public  List<Integer> getQuestionIdList(){
         List<Integer> idlist=new ArrayList<>();
@@ -50,5 +50,9 @@ public class QuestionService {
             idlist.add(question.getId());
         }
         return idlist;
+    }
+
+    public int deleteQuestion(int qid){
+        return questionDao.updateQuestionStatus(qid,Constant.Question_deleted);
     }
 }

@@ -65,11 +65,15 @@ public class QuestionController {
     @RequestMapping(value = "/question/{qid}", method = {RequestMethod.GET})
     public String questionDetail(Model model, @PathVariable("qid") int qid){
         Question question=questionService.getById(qid);
+        if(question.getStatus()==Constant.Question_deleted&&(hostHolder==null||hostHolder.getUser().getPriLv()==PrivageLevel.pri_user))
+            return  "404";
         Map questionMap=new HashMap();
         Map followerInfo=new HashMap();
         if(question!=null&&hostHolder.getUser()!=null){
             readRecordService.userBrowseAdd(hostHolder.getUser().getId(),EntityType.ENTITY_QUESTION,qid);
         }
+        User user=userService.getUser(question.getUserId());
+        questionMap.put("user",user);
         questionMap.put("question",question);
         if(hostHolder.getUser()==null){
             questionMap.put("followStatus",0);
@@ -153,6 +157,30 @@ public class QuestionController {
         result.put("current_pages",pageInfo.getPageNum());
         result.put("totals",pageInfo.getTotal());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
+    }
+
+    @RequestMapping(path ={"/deleteQuestion"},method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public String followUserId(@RequestParam("questionId")int questionId){
+        if(hostHolder.getUser()==null){
+            return WendaUtil.getJSONString(999);
+        }
+        Question question=questionService.getById(questionId);
+        if(question==null){
+            return WendaUtil.getJSONString(1,"问题不存在");
+        }
+        int localUserId=hostHolder.getUser().getId();
+        if(localUserId!=question.getUserId()&&hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
+            return WendaUtil.getJSONString(1,"当前用户无修改权限");
+        }
+        try {
+            int ret=questionService.deleteQuestion(questionId);
+            return ret>0?WendaUtil.getJSONString(0,String.valueOf(ret)):WendaUtil.getJSONString(1,"fail");
+        }catch (Exception e){
+            return WendaUtil.getJSONString(1,e.getMessage());
+        }
+        //成功则返回code=0，msg=粉丝数；失败则返回code=999，下同
+//        return WendaUtil.getJSONString(1,"fail");
     }
 
 }

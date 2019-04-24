@@ -36,10 +36,10 @@ public class RecommenderController {
 
         int userId;
         Date date=new Date();
-//        if(hostHolder.getUser()!=null)
-//            userId=hostHolder.getUser().getId();
-//        else
-        userId=1;
+        if(hostHolder.getUser()!=null)
+            userId=hostHolder.getUser().getId();
+        else
+            userId=1;
         List<ViewObject> vos=getRecomenderList(userId,10);
         model.addAttribute("rec_ques",vos);
         List<Integer> questionIds=recommenderService.getRecomenderItemsForUser(userId);

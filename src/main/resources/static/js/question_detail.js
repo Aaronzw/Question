@@ -232,7 +232,72 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         })
 
     });
+    
+    $(".js-delete-question").on("click",function () {
+        layer.confirm('确认删除该问题(不可恢复)？', function(index){
+            //do something
+            var question_id=$("input[name='questionId']").val();
+            common.ajax("/deleteQuestion",{
+                "questionId":question_id
+            },function (result) {
+                console.log(result);
+                if(result.code=="0"){
+                    layer.msg("删除成功！",{time:2000});
+                }else {
+                    layer.msg("删除失败",{time:2000});
 
-    //输出index接口
+                }
+                layer.close(index);
+            })
+
+
+        });
+    })
+    
+    /*弹窗事件*/
+    $(".js-report-question").on("click",function () {
+        layer.open({
+            type: 1,
+            title: '举报问题',
+            // maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['500px' , '320px'],
+            content: $(".reportQuestionWindow")
+        });
+    });
+    //举报界面按钮
+    $(".js-submitReportQues").on("click",function () {
+        var question_id=$("input[name='questionId']").val();
+        var reason=$("textarea[name='report_reason']").val();
+        if(question_id==""||question_id==undefined){
+            layer.msg("加载错误，请刷新网页后重试！");
+            return
+        }
+        if(reason==""||reason==undefined){
+            layer.msg("请输入举报理由");
+            return
+        }
+        common.ajax("/reportQuestion",{
+            "questionId":question_id,
+            "reason":reason
+        },function (result) {
+            console.log(result)
+            if(result.code=='0'){
+                layer.msg("举报成功！",{time:3000})
+                layer.closeAll('page')
+                return
+            }else if(result.code=='1'){
+                layer.msg("举报失败"+result.msg,{time:3000});
+                layer.closeAll('page')
+
+            }else if(result.code=='999'){
+                layer.msg("未登录或登录信息失效，请重新登陆",{time:3000})
+                //关闭所有页面层
+                layer.closeAll('page')
+            }
+
+        })
+    })
+    //输出question_detail接口
     exports('question_detail', {});
 });

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wenda.dao.ReportDao">
+    <sql id="table">report</sql>
+    <sql id="selectFields"> id, user_id , reason ,entity_id ,entity_type , created_date, deal_date ,deal_status ,dealer_id
+    </sql>
+    <sql id="insertFields"> user_id , reason ,entity_id ,entity_type , created_date, deal_date ,deal_status ,dealer_id
+    </sql>
+    <insert id="addReport" parameterType="com.wenda.model.Report" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="table"/>
+        (
+        <include refid="insertFields"/>
+        )VALUES   (#{userId},#{reason},#{entityId},#{entityType},#{createdDate},#{dealDate},#{dealStatus},#{dealerId})
+    </insert>
+
+    <select id="getReportType" resultType="com.wenda.model.Report">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        deal_status=#{deal_status}
+        ORDER BY created_date DESC
+    </select>
+    <select id="getReportById" resultType="com.wenda.model.Report">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        id=#{id}
+        ORDER BY created_date DESC
+    </select>
+    <select id="getUserReportList" resultType="com.wenda.model.Report">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE
+        user_id=#{user_id}
+        ORDER BY created_date DESC
+    </select>
+
+</mapper>
