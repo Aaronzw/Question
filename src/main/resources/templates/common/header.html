@@ -56,14 +56,20 @@
                     <li class="layui-nav-item"><a href="/dynamic">关注</a></li>
                     <li class="layui-nav-item"><a href="/hottop">热榜</a></li>
                 </ul>
-                <form class="layui-form blog-seach pull-right" action="">
+                <div class="layui-form blog-seach pull-right" >
                     <div class="layui-form-item blog-sewrap">
                         <div class="layui-input-block blog-sebox">
-                            <i class="layui-icon layui-icon-search"></i>
-                            <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input">
+                            <i class="layui-icon layui-icon-search js-header-search"></i>
+                            <input style="padding-left: 30px" type="text" name="header-search-title" lay-verify="title" autocomplete="off"  class="layui-input">
+
                         </div>
                     </div>
-                </form>
+                </div>
+                <!--<div class="blog-nav pull-right">-->
+                    <!--<ul class="layui-nav">-->
+                        <!--<a class="layui-btn js-header-search">搜索</a>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </div>
             #if(!$user)
             <div class="blog-nav pull-right">
