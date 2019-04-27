@@ -8,7 +8,7 @@
     <sql id="insertFields">name, password, salt, head_url
     </sql>
 
-    <select id="getUsers" parameterType="string" resultType="com.wenda.model.User">
+    <select id="getUsersByName" parameterType="string" resultType="com.wenda.model.User">
         SELECT
         <include refid="selectFields"/>
         FROM

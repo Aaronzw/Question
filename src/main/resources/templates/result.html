@@ -1,3 +1,5 @@
+#set($inputKey=$!{keyWord})
+#set($pageTitle="搜索结果")
 #parse("common/header.html")
 <div class="container-wrap">
     <div class="container">
@@ -6,6 +8,8 @@
                 <ul class="layui-tab-title">
                     <li class="layui-this">关于$!{keyWord}的搜索结果</li>
                 </ul>
+                <input hidden readonly name="key" value="$!{keyWord}">
+                <input hidden readonly name="totals" value="$!{keyWord}">
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show tab1">
                         <div id="search-list">

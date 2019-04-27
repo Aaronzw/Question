@@ -171,7 +171,7 @@ public class QuestionController {
         }
         int localUserId=hostHolder.getUser().getId();
         if(localUserId!=question.getUserId()&&hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
-            return WendaUtil.getJSONString(1,"当前用户无修改权限");
+            return WendaUtil.getJSONString(1,"当前用户无删除权限");
         }
         try {
             int ret=questionService.deleteQuestion(questionId);

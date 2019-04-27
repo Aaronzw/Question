@@ -90,6 +90,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                         else
                             html=html+ '<a href="javascript:;" class="dislike">';
                         html=html+'<i class="layui-icon layui-icon-tread"></i></a>\n' +
+                            '<a href="/answer/Detail?questionId='+Item.commentMap.comment.entityId+'&&answerId='+Item.commentMap.comment.id+'" class="comment-link">\n' +
+                            '                                        <i class="layui-icon layui-icon-reply-fill"></i>\n' +
+                            '                                    </a>'+
                         '                                </div>\n' +
                         '                            </div>';
                     $("#new-answer-list").append(html);

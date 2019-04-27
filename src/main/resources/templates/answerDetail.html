@@ -1,6 +1,29 @@
 #set($containerClass="container-message")
 #parse("common/header.html")
 <div class="container-wrap">
+    <div class="reportAnsWindow" style="display:none;font-size: 14px">
+        <div class="layui-form" id="new_question">
+            <div class="layui-form-item" >
+                <div class="layui-input-block" style="padding-top:20px;margin-left: 20px;margin-right: 20px">
+                    <label class="layui-form-label" style="padding: 0 0;text-align: left">举报对象</label>
+                    <input hidden name="reportAnsId" autocomplete="off" value="$!{answerMap.answer.id}">
+                    <input type="text" name="user_name" value="回答： $!{answerMap.answer.content}" autocomplete="off"
+                           class="layui-input layui-disabled" disabled style="color: black">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text" >
+                <div class="layui-input-block" style="margin-left: 20px;margin-right: 20px">
+                    <textarea name="report_reason" placeholder="举报理由，必填" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block pull-right" style="margin-left: 20px;margin-right: 20px">
+                    <button class="layui-btn js-submitReportAns"style="margin-right:20px">立即提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container container-message">
         <div class="contar-wrap">
             <div class="item "  data-question-id="$!{questionMap.question.id}">
@@ -72,7 +95,13 @@
                             <i class="layui-icon layui-icon-tread"></i>
                         </a>
                         <a href="javascript:;" class="off">
-                            <i class="layui-icon layui-icon-up">收起</i>
+                            <!--<i class="layui-icon layui-icon-up">收起</i>-->
+                            <span class=" pull-right">
+                                <i class="js-optionMenus layui-icon layui-icon-more-vertical pull-right" style="font-size: 20px"></i>
+                                <div class="js-optionsBtn pull-right" style="display: none">
+                                    <button class="layui-btn layui-btn-sm js-report-answer" data-answer-id="$!{answerMap.answer.id}">举报回答</button>
+                                </div>
+                            </span>
                         </a>
                 </div>
             </div>

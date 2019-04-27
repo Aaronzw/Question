@@ -32,6 +32,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         })
         initFollow();
+        initOptions();
     })
     function initFollow() {
         $(document).on("click",".js-follow-question",function () {
@@ -232,7 +233,16 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         })
 
     });
-    
+
+    function initOptions(){
+        $(".js-optionMenus").on("click",function () {
+            if($(".js-optionsBtn").css('display')=='none'){
+                $(".js-optionsBtn").show();
+            }else {
+                $(".js-optionsBtn").hide();
+            }
+        })
+    }
     $(".js-delete-question").on("click",function () {
         layer.confirm('确认删除该问题(不可恢复)？', function(index){
             //do something
@@ -249,11 +259,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 }
                 layer.close(index);
             })
-
-
         });
     })
-    
+
     /*弹窗事件*/
     $(".js-report-question").on("click",function () {
         layer.open({

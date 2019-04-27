@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>问答</title>
+    <title>问答 $!{pageTitle}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css">
     <script src="../layui/layui.js"></script>
@@ -60,7 +60,8 @@
                     <div class="layui-form-item blog-sewrap">
                         <div class="layui-input-block blog-sebox">
                             <i class="layui-icon layui-icon-search js-header-search"></i>
-                            <input style="padding-left: 30px" type="text" name="header-search-title" lay-verify="title" autocomplete="off"  class="layui-input">
+                            <input style="padding-left: 30px" type="text" name="header-search-title" lay-verify="title"
+                                   autocomplete="off"  class="layui-input" value="$!{inputKey}">
 
                         </div>
                     </div>

@@ -32,6 +32,8 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
         });
         initList();
         initFollowEvent();
+        /*暂时不需要举报用户功能*/
+        initOptions();
     });
     function initFollowEvent() {
         $(document).on('click','.js-follow',function(){
@@ -198,6 +200,58 @@ layui.define(['element', 'form','laypage','jquery','upload','common'],function(e
                 })
             }
         });
+    }
+    function initOptions(){
+        $(".js-optionMenus").on("click",function () {
+            if($(".js-optionsBtn").css('display')=='none'){
+                $(".js-optionsBtn").show();
+            }else {
+                $(".js-optionsBtn").hide();
+            }
+        })
+        /*弹窗事件*/
+        $(".js-report-user").on("click",function () {
+            layer.open({
+                type: 1,
+                title: '举报用户',
+                // maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['500px' , '320px'],
+                content: $(".reportUserWindow")
+            });
+        });
+        //举报界面按钮
+        $(".js-submitReportUser").on("click",function () {
+            var user_id=$("input[name='reportUserId']").val();
+            var reason=$("textarea[name='report_reason']").val();
+            if(user_id==""||user_id==undefined){
+                layer.msg("加载错误，请刷新网页后重试！");
+                return
+            }
+            if(reason==""||reason==undefined){
+                layer.msg("请输入举报理由");
+                return
+            }
+            common.ajax("/reportUser",{
+                "userId":user_id,
+                "reason":reason
+            },function (result) {
+                console.log(result)
+                if(result.code=='0'){
+                    layer.msg("举报成功！",{time:3000})
+                    layer.closeAll('page')
+                    return
+                }else if(result.code=='1'){
+                    layer.msg("举报失败"+result.msg,{time:3000});
+                    layer.closeAll('page')
+
+                }else if(result.code=='999'){
+                    layer.msg("未登录或登录信息失效，请重新登陆",{time:3000})
+                    //关闭所有页面层
+                    layer.closeAll('page')
+                }
+            })
+        })
     }
     //输出profile接口
     exports('profile', {});

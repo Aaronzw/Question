@@ -169,4 +169,8 @@ public class UserService {
         map.put("ticket",ticket);
         return map;
     }
+
+    public List<User> searchUserName(String keyWord){
+        return userDao.getUsersByName(keyWord);
+    }
 }

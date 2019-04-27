@@ -18,6 +18,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
         initLike();
         initList();
         initExpand();
+        initOptions();
     });
     function initFollow() {
         $(document).on("click",".js-follow-question",function () {
@@ -165,7 +166,55 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         });
     }
+    function initOptions(){
+        $(".js-optionMenus").on("click",function () {
+            if($(".js-optionsBtn").css('display')=='none'){
+                $(".js-optionsBtn").show();
+            }else {
+                $(".js-optionsBtn").hide();
+            }
+        })
+        /*弹窗事件*/
+        $(".js-report-answer").on("click",function () {
+            layer.open({
+                type: 1,
+                title: '举报用户',
+                // maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['500px' , '320px'],
+                content: $(".reportAnsWindow")
+            });
+        });
+        //举报界面按钮
+        $(".js-submitReportAns").on("click",function () {
+            var answer_id=$("input[name='reportAnsId']").val();
+            var reason=$("textarea[name='report_reason']").val();
+            if(answer_id==""||answer_id==undefined){
+                layer.msg("加载错误，请刷新网页后重试！");
+                return
+            }
+            if(reason==""||reason==undefined){
+                layer.msg("请输入举报理由");
+                return
+            }
+            common.ajax("/reportAnswer",{
+                "answerId":answer_id,
+                "reason":reason
+            },function (result) {
+                console.log(result)
+                if(result.code=='0'){
+                    layer.msg("举报成功！",{time:3000})
+                }else if(result.code=='1'){
+                    layer.msg("举报失败"+result.msg,{time:3000});
 
+                }else if(result.code=='999'){
+                    layer.msg("未登录或登录信息失效，请重新登陆",{time:3000})
+                    //关闭所有页面层
+                }
+                layer.closeAll('page')
+            })
+        })
+    }
     //start 提交
     $('.js-sub-comment').on('click', function(){
         var content=$("textarea[name='new_content']").val();

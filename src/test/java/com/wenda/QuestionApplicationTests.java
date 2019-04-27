@@ -242,7 +242,7 @@ public class QuestionApplicationTests {
 
 	@Test
 	public void testSearch(){
-		List<User> userList=userDao.getUsers("");
+		List<User> userList=userDao.getUsersByName("");
 		List<Question> questionList=questionDao.searchQuestions("");
 		List<Comment> commentList=commentService.getLatestAnswers(0);
 		List<FeedItem> feedItems=new ArrayList<>();

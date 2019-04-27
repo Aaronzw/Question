@@ -12,14 +12,12 @@
             </div>
 
             <div class="layui-form-item layui-form-text" >
-                <!--<label class="layui-form-label">文本域</label>-->
                 <div class="layui-input-block" style="margin-left: 20px;margin-right: 20px">
                     <textarea name="report_reason" placeholder="举报理由，必填" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block pull-right" style="margin-left: 20px;margin-right: 20px">
-                    <!--<label class="layui-form-label" id="input_Statistics">wenben</label>-->
                     <button class="layui-btn js-submitReportQues"style="margin-right:20px">立即提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
@@ -45,22 +43,20 @@
                         #end
                     </span>
                     #if($user)
-                    <span class="reportBtn pull-right">
-                        <button class="layui-btn layui-btn-sm js-report-question" data-question-id="$!{questionMap.question.id}">举报问题</button>
-                        #if($user.id==$!{questionMap.user.id})
-                        <button class="layui-btn layui-btn-sm js-delete-question" data-question-id="$!{questionMap.question.id}">删除</button>
-                        #end
+                    <span class=" pull-right">
+                        <i class="js-optionMenus layui-icon layui-icon-more-vertical pull-right" style="font-size: 20px"></i>
+                        <div class="js-optionsBtn pull-right" style="display: none">
+                            <button class="layui-btn layui-btn-sm js-report-question" data-question-id="$!{questionMap.question.id}">举报问题</button>
+                            #if($user.id==$!{questionMap.user.id})
+                            <button class="layui-btn layui-btn-sm js-delete-question" data-question-id="$!{questionMap.question.id}">删除</button>
+                            #end
+                        </div>
                     </span>
+
                     #end
                     <p>
                         <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>人收藏了问题
                         <div class="follow-list">
-                            <!--<a href="/user/123">-->
-                                <!--<img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">-->
-                            <!--</a>-->
-                            <!--<a href="/user/223">-->
-                                <!--<img src="http://images.nowcoder.com/head/390t.png" class="layui-nav-img" style="border-radius: unset">-->
-                            <!--</a>-->
                             #foreach($follower in $followInfo.followerList)
                             <a href="/user/$!{follower.id}">
                                 <img src="$!{follower.headUrl}" class="layui-nav-img" style="border-radius: unset">
@@ -70,15 +66,11 @@
                             等……
                             #end
                         </div>
-
                     </p>
-
-                    <!--<img src="../res/static/images/item.png" alt="" layer-index="0">-->
                     <div class="count layui-clear">
                         <span class="pull-left">阅读
                             <em>$!{followInfo.browseCnt}</em>
                         </span>
-                        <!--<span class="pull-right like"><i class="layui-icon layui-icon-praise"></i><em>999</em></span>-->
                     </div>
                 </div>
             </div>
@@ -128,7 +120,6 @@
             </div>
             <div class="detail_page" style="display: inline" id="detail_page"></div>
             <div class="item-btn">
-
             </div>
             #if(!$user)
             <label style="color: gray">登陆后方可发布回答。<a href="/reg">去注册</a>/<a href="/login">登录</a></label>

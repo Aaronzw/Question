@@ -45,6 +45,7 @@
         FROM
         <include refid="table"/>
 
-        where title like '%${keyWord}%' or content like '%${keyWord}%'
+        where title like '%${keyWord}%'
+--         or content like '%${keyWord}%'
     </select>
 </mapper>

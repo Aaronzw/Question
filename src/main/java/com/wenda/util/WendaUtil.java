@@ -20,6 +20,8 @@ public class WendaUtil {
     public static int SEX_MALE=1;
     public static int SEX_FEMALE=2;
 
+
+    //分页工具配置
     private static int pageNum=1;
     private static int pageSize=5;
     public static String MD5(String key) {

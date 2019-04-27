@@ -105,5 +105,28 @@ public class CommentController {
 
         return "answerDetail";
     }
+    @RequestMapping(path ={"/deleteAnswer"},method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public String followUserId(@RequestParam("answerId")int answerId){
+        if(hostHolder.getUser()==null){
+            return WendaUtil.getJSONString(999);
+        }
+        Comment comment=commentService.getCommentById(answerId);
+        if(comment==null){
+            return WendaUtil.getJSONString(1,"评论不存在");
+        }
+        int localUserId=hostHolder.getUser().getId();
+        if(localUserId!=comment.getUserId()&&hostHolder.getUser().getPriLv()==PrivageLevel.pri_user){
+            return WendaUtil.getJSONString(1,"当前用户无删除权限");
+        }
+        try {
+            boolean ret=commentService.deleteComment(answerId);
+            return ret?WendaUtil.getJSONString(0,"success"):WendaUtil.getJSONString(1,"fail");
+        }catch (Exception e){
+            return WendaUtil.getJSONString(1,e.getMessage());
+        }
+        //成功则返回code=0，msg=粉丝数；失败则返回code=1，下同
+//        return WendaUtil.getJSONString(1,"fail");
+    }
 
 }

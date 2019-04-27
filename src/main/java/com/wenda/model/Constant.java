@@ -13,4 +13,8 @@ public class Constant {
     //问题状态
     public  static final int Question_normal=0;
     public static final int Question_deleted=1;
+
+    //用户状态
+    public  static final int User_normal=0;
+    public  static final int User_banned=0;
 }

@@ -25,6 +25,7 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
     $(function () {
         initClickMore();
         initWordsLimit();
+        initSearch();
     })
     // initClickMore();
     function initWordsLimit(){
@@ -40,6 +41,21 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
                 $("#input_Statistics").text(String(counter)+"/50");
 
         });
+    }
+    function initSearch() {
+        $(".js-header-search").on("click",function () {
+            var localUserId=$("input[name='global-user-id']").val();
+            if(localUserId==undefined){
+                layer.msg("请重新登录后重试");
+                return
+            }
+            var key=$("input[name='header-search-title']").val();
+            if(key==""||key==undefined){
+                layer.msg("搜索框不能为空！");
+                return
+            }
+            window.location="/search?keyWord="+key;
+        })
     }
     function initClickMore() {
         /*弹窗事件*/
