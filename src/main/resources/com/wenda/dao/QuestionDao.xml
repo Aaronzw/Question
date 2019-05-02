@@ -45,7 +45,8 @@
         FROM
         <include refid="table"/>
 
-        where title like '%${keyWord}%'
+        where title like CONCAT('%',#{keyWord},'%')
 --         or content like '%${keyWord}%'
+        ORDER BY created_date DESC
     </select>
 </mapper>

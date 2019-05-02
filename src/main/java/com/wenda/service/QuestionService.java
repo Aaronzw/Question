@@ -55,4 +55,8 @@ public class QuestionService {
     public int deleteQuestion(int qid){
         return questionDao.updateQuestionStatus(qid,Constant.Question_deleted);
     }
+
+    public List<Question> searchByName(String keyWord){
+        return questionDao.searchQuestions(keyWord);
+    }
 }

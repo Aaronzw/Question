@@ -16,50 +16,120 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
 
     $(function () {
         var that=this;
-        that.totals=$("input[name='totals']").val()
-        that.pageSize=10;
+        that.keyWord=$("input[name='key']").val();
+        initQuestion();
+        initUser();
+    })
+    function initQuestion(){
+        var qTotals=$("input[name='questionTotals']").val();
+        var that=this;
+        that.qCur=1;
+        that.qPageSize=3;
+        that.keyWord=$("input[name='key']").val();
         laypage.render({
-            elem: 'result-page',
-            count: totals,
-            curr: 1,
-            limit: that.pageSize,
+            elem: 'question-page',
+            count:Number(qTotals),
+            curr: that.qCur,
+            limit: that.qPageSize,
             jump: function(obj, first){
-                // console.log(obj.curr+""+obj.limit);
+                console.log(obj.curr+""+obj.limit);
                 var question_id=$("input[name='questionId']").val();
-                common.ajax("/msg/list/request",{
-                    "limit":pageSize,
+                common.ajax("/search/question/request",{
+                    "limit":that.qPageSize,
                     "offset":obj.curr,
-                    "userId":userId
+                    "keyWord":that.keyWord,
                 },function (res) {
                     if(res.code=="0"){
-                        $(".js-msg-list").html("");
+                        $(".js-search-question-list").html("");
                         $.each(res.data,function (index, item) {
-                            console.log(item);
-                            var html='<li data-conversation-id="'+item.message.conversationId+'">\n' +
-                                '                        <p><span>'+item.message.createdDate+'</span></p>\n' +
-                                '                        <blockquote class="layui-elem-quote" >\n' +
-                                '                            <img src="'+item.user.headUrl+'" class="author-head-img">\n' +
-                                '                            <a href="/user/11"><cite>'+item.user.name+'</cite>\n' +
-                                '                                <a style="color: #2D93CA;font-size: small"  class="msg-dtatil-link pull-right" href="/msg/detail?conversationId='+item.message.conversationId+'">查看会话</a>\n' +
-                                '                                <a style="color: #2D93CA;font-size: small" class="pull-right msg-unread-cnt">共'+item.unReadCount+'条未读</a>\n' +
-                                '                                :\n' +
-                                '                                <p class="msg-content">'+item.message.content+'</p>\n' +
-                                '                            </a>\n' +
-                                '                        </blockquote>\n' +
-                                '                    </li>';
-                            $(".js-msg-list").append(html);
-                            // $(window).scrollTop(0);
-                        });
+                            console.log(item.question.title);
+                            var html='<div class="item" style="margin-bottom: 0;padding-top: 0px">\n' +
+                                '                                <div class="item-box  layer-photos-demo1 layer-photos-demo">\n' +
+                                '                                    <div class="question_info">\n' +
+                                '                                        <h3>\n' +
+                                '                                            <a class="question_title" href="/question/'+item.question.id+'">\n' +
+                                item.question.title+
+                                '                                            </a>\n' +
 
+                                '                                        </h3>\n' +
+                                '<p>'+item.question.content+'</p>'+
+                                '                                    </div>\n' +
+                                '                                    <div class="ans_author_info">\n' +
+                                '                                        <div class="author_head pull-right">\n' +
+                                '                                            <a href="/user/'+item.user.id+'">\n' +
+                                '                                                <img src="'+item.user.headUrl+'" class="author-head-img">\n' +
+                                '                                            </a>\n' +
+                                '                                        </div>\n' +
+                                '                                        <span class="author_info"><a href="/user/'+item.user.id+'">'+item.user.name+'</a> </span>\n' +
+                                '                                        <h5 class="answer_date p">提问于：<span>'+item.question.createdDate+'</span></h5>\n' +
+                                '                                    </div>\n' +
+                                '                                </div>\n' +
+                                '                            </div>';
+                            $(".js-search-question-list").append(html);
+                            $(window).scrollTop(0);
+                        });
                     }else {
                         layer.msg("ajax请求失败");
                     }
                 })
-
             }
         });
-    })
-
+    }
+    function initUser(){
+        var uTotals=$("input[name='userTotals']").val();
+        var that=this;
+        that.uCur=1;
+        that.uPageSize=3;
+        that.keyWord=$("input[name='key']").val();
+        laypage.render({
+            elem: 'user-page',
+            count:Number(uTotals),
+            curr: that.uCur,
+            limit: that.uPageSize,
+            jump: function(obj, first){
+                console.log(obj.curr+""+obj.limit);
+                common.ajax("/search/user/request",{
+                    "limit":that.qPageSize,
+                    "offset":obj.curr,
+                    "keyWord":that.keyWord,
+                },function (res) {
+                    console.log(res);
+                    if(res.code=="0"){
+                        $(".js-search-user-list").html("");
+                        $.each(res.data,function (index, item) {
+                            console.log(item);
+                            var html='<li class="item">\n' +
+                                '                                <div class="letter-info">\n' +
+                                '                                    <div class="l-operate-bar">\n' +
+                                '                                        <a class="layui-btn layui-btn-sm" data-sender-id="'+item.user.id+'" href="/sendMsgTo/'+item.user.id+'">联系TA</a>\n' +
+                                '                                        <span class="js-replacebtn" data-userid="'+item.user.id+'"> ' +
+                                '                                           <a class="layui-btn layui-btn-sm follow-btn js-follow" href="javascript:void(0);">关注TA\n </a>' +
+                                '                                        </span>\n' +
+                                '                                    </div>\n' +
+                                '                                </div>\n' +
+                                '                                <div class="chat-headbox">\n' +
+                                '                                    <a class="list-head" href="/user/'+item.user.id+'">\n' +
+                                '                                        <img alt="头像" src="'+item.user.headUrl+'">\n' +
+                                '                                    </a>\n' +
+                                '                                </div>\n' +
+                                '                                <div class="letter-detail">\n' +
+                                '                                    <a href="/user/32" class="letter-name level-color-7">'+item.user.name+'</a>\n' +
+                                '                                    <p class="letter-brief">' +
+                                '                                         <a href="javacvript:;" style="font-size: small;color: gray">粉丝'+item.followerCnt+'</a>' +
+                                '                                         <a href="javacvript:;" style="font-size: small;color: gray">关注'+item.followeeCnt+'</a> ' +
+                                '                                    </p>\n' +
+                                '                                </div>\n' +
+                                '                            </li>';
+                            $(".js-search-user-list").append(html);
+                            $(window).scrollTop(0);
+                        });
+                    }else {
+                        layer.msg("ajax请求失败");
+                    }
+                })
+            }
+        });
+    }
 
     //输出msg_list接口
     exports('result', {});

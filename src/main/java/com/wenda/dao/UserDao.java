@@ -25,6 +25,8 @@ public interface UserDao {
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where name=#{name}"})
     User selectByName(String name);
 
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where pri_lv=#{pri_lv}"})
+    List<User> getUsersByPri(int pri_lv);
     @Delete({"delete from ", TABLE_NAME, " where id=#{id}"})
     void deleteById(int id);
 
@@ -37,6 +39,10 @@ public interface UserDao {
 
     @Update({"update ", TABLE_NAME, " set password=#{password} where id=#{id}"})
     int updatepassword(@Param("id") int id,@Param("password") String password);
+
+    //修改权限等级
+    @Update({"update ", TABLE_NAME, " set pri_lv=#{pri_lv} where id=#{id}"})
+    int updatePri(@Param("id") int id,@Param("pri_lv") int pri_lv);
 
     /*获取用户列表+name模糊查询*/
     List<User> getUsersByName(@Param("user_name")String user_name);

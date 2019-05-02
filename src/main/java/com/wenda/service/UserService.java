@@ -112,6 +112,13 @@ public class UserService {
         return userDao.updatepassword(userId,md5_pass);
     }
 
+    public int upUserPri(int userId,int pri){
+        return userDao.updatePri(userId,pri);
+    }
+    public List<User> getUserPriType(int pri){
+        return userDao.getUsersByPri(pri);
+    }
+
     public List<User> UserIdsToUserList(List<Integer> integerList){
         List<User> userList=new ArrayList<>();
         for(Integer i :integerList){
@@ -173,4 +180,6 @@ public class UserService {
     public List<User> searchUserName(String keyWord){
         return userDao.getUsersByName(keyWord);
     }
+
+
 }

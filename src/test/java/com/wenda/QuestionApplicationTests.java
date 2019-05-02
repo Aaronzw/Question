@@ -4,6 +4,7 @@ package com.wenda;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wenda.Admin.service.PrivageService;
 import com.wenda.controller.IndexController;
 import com.wenda.controller.QuestionController;
 import com.wenda.dao.*;
@@ -63,6 +64,12 @@ public class QuestionApplicationTests {
 	DynamicService dynamicService;
 	@Autowired
 	ReportService reportService;
+	@Autowired
+	SearchService searchService;
+	@Autowired
+	PrivageService privageService;
+	@Autowired
+	HostHolder hostHolder;
 	//插入假数据
 	@Test
 	public void contextLoads() {
@@ -242,54 +249,27 @@ public class QuestionApplicationTests {
 
 	@Test
 	public void testSearch(){
-		List<User> userList=userDao.getUsersByName("");
-		List<Question> questionList=questionDao.searchQuestions("");
-		List<Comment> commentList=commentService.getLatestAnswers(0);
-		List<FeedItem> feedItems=new ArrayList<>();
-		for(Comment comment:commentList){
-			FeedItem item=new FeedItem();
-			item.setEntityType(EntityType.ENTITY_COMMENT);
-			item.setEntityId(comment.getId());
-			item.setCreatedDate(comment.getCreatedDate());
-			item.setSortNum(comment.getCreatedDate().getTime());
-			feedItems.add(item);
-		}
-		for(Question question:questionList){
-			FeedItem item=new FeedItem();
-			item.setEntityType(EntityType.ENTITY_QUESTION);
-			item.setEntityId(question.getId());
-			item.setCreatedDate(question.getCreatedDate());
-			item.setSortNum(question.getCreatedDate().getTime());
-			feedItems.add(item);
-		}
-		Collections.sort(feedItems);
-
+		PageHelper.startPage(1,5);
+		List<Question> questionList=questionDao.searchQuestions("s");
+//		List<Question> questionList=questionDao.selectLatestQuestionsPageHelper(0);
+		PageInfo<Question> pageInfo=new PageInfo<>(questionList);
 		System.out.println();
 	}
 
 	@Test
 	public  void  testFeed(){
-		WendaUtil.pageStart(2,3);
-		ArrayList<Integer> integerList=new ArrayList<>();
-		for(int i=1;i<14;i++){
-			integerList.add(i);
-		}
-		ArrayList<Integer> newlist=WendaUtil.pageHelper(integerList);
-		System.out.println(newlist);
+		User user=userService.getUser(1);
+		User loguser=userService.getUser(30);
+		hostHolder.setUser(loguser);
+		HashMap result=new HashMap();
+		result=privageService.updateUserPri(1,PrivageLevel.pri_admin);
+		user=userService.getUser(1);
+		System.out.println(user);
 	}
 
 	@Test
 	public void testReport(){
-//		Report report=new Report();
-//		report.setCreatedDate(new Date());
-//		report.setDealStatus(Constant.Report_undeal);
-//		report.setEntity(EntityType.ENTITY_QUESTION,11);
-//		report.setUseId(11);
-//		report.setReason("why");
-//		int ret=reportService.addReport(report);
-//		Report nr=reportService.getReportById(1);
-		boolean ret=reportService.dealReport(1,11,Constant.Report_dealt,new Date());
-		Report nr=reportService.getReportById(1);
-		System.out.println(ret);
+		List<User> userList=privageService.getUserPriType(PrivageLevel.pri_user);
+		System.out.println(userList);
 	}
 }

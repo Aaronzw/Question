@@ -4,26 +4,37 @@
 <div class="container-wrap">
     <div class="container">
         <div class="contar-wrap">
-            <div class="layui-tab layui-tab-brief">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">关于$!{keyWord}的搜索结果</li>
-                </ul>
-                <input hidden readonly name="key" value="$!{keyWord}">
-                <input hidden readonly name="totals" value="$!{keyWord}">
-                <div class="layui-tab-content">
-                    <div class="layui-tab-item layui-show tab1">
-                        <div id="search-list">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    关于$!{keyWord}的搜索结果
+                </div>
+                <div class="layui-card-body">
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">问题</li>
+                            <li class="">用户</li>
+                        </ul>
+                        <input hidden readonly name="key" value="$!{keyWord}">
+                        <div class="layui-tab-content">
+                            <div class="layui-tab-item layui-show tab1">
+                                <input hidden readonly name="questionTotals" value="$!{questionTotals}">
+                                <div class="js-search-question-list">
 
+                                </div>
+                                <div id="question-page"></div>
+                            </div>
+                            <div class="layui-tab-item tab2">
+                                <input hidden readonly name="userTotals" value="$!{userTotals}">
+                                <div class="js-search-user-list follow">
+
+                                </div>
+                                <div id="user-page"></div>
+                            </div>
                         </div>
-                        <!--<div class="item-btn">-->
-                            <!--<button class="layui-btn layui-btn-normal js-more-ans">更多</button>-->
-                        <!--</div>-->
                     </div>
-                    <div id="result-page"></div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <script>

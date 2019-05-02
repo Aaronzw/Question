@@ -40,11 +40,16 @@ public class SearchController {
     @RequestMapping(path = {"/search"}, method = {RequestMethod.GET})
     public String search(Model model, @RequestParam("keyWord") String keyword
                          ) {
+        int qTotals=0,uTotals=0;
+        List<HashMap> uList=new ArrayList<>();
         try {
-
+            qTotals=searchService.SearchtQuestionTotals(keyword);
+            uTotals=searchService.SearchtUserTotals(keyword);
         } catch (Exception e) {
             logger.error("搜索评论失败" + e.getMessage());
         }
+        model.addAttribute("questionTotals",qTotals);
+        model.addAttribute("userTotals",uTotals);
         model.addAttribute("keyWord",keyword);
         return "result";
     }
@@ -55,28 +60,18 @@ public class SearchController {
                              @RequestParam("offset")int offset,
                              @RequestParam("keyWord")String keyWord){
         Map result=new HashMap();
-        List<User> userList=new ArrayList<>();
-        List<Map> data=new ArrayList<>();
+        List<HashMap> data=new ArrayList<>();
         try {
-            userList=userService.searchUserName(keyWord);
+            data=searchService.SearchtUserInfo(keyWord,offset,limit);
+            PageInfo<HashMap> pageInfo=new PageInfo<>(data);
         }catch (Exception e){
             logger.error(e.getMessage());
             return WendaUtil.getJSONString(1,e.getMessage());
         }
-        PageHelper.startPage(limit,offset);
-        PageInfo<User> pageInfo=new PageInfo<>(userList);
-        for (User user:pageInfo.getList()){
-            HashMap hashMap=new HashMap();
-            hashMap.put("user",user);
-            if(hostHolder.getUser()==null){
-                hashMap.put("followStatus",0);
-            }else {
-                hashMap.put("followStatus",followService.isFollower(hostHolder.getUser().getId(),
-                        EntityType.ENTITY_USER,user.getId()));
-            }
-            hashMap.put("followerCnt",followService.getFollowerCount(EntityType.ENTITY_USER,user.getId()));
-            hashMap.put("followeeCnt",followService.getFolloweeCount(user.getId(),EntityType.ENTITY_USER));
-        }
+
+        result.put("code",0);
+        result.put("data",data);
+
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
     @RequestMapping(value = "/search/question/request", method = {RequestMethod.POST})
@@ -86,7 +81,15 @@ public class SearchController {
                              @RequestParam("offset")int offset,
                              @RequestParam("keyWord")String keyWord){
         Map result=new HashMap();
-//        List<Question> questionList
+        List<HashMap> data=new ArrayList<>();
+        try {
+            data=searchService.SearchtQuestionInfo(keyWord,offset,limit);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return WendaUtil.getJSONString(1,e.getMessage());
+        }
+        result.put("code",0);
+        result.put("data",data);
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
 }
