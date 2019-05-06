@@ -59,4 +59,9 @@ public class QuestionService {
     public List<Question> searchByName(String keyWord){
         return questionDao.searchQuestions(keyWord);
     }
+
+    public List<Question> getRandQuestionList(int num){
+        return questionDao.getRandomList(num);
+    }
+
 }

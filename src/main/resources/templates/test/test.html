@@ -1,167 +1,174 @@
 #parse("common/header.html")
 <div class="container-wrap">
-    <div class="container">
-        <div class="contar-wrap">
-            <div class="item">
-                <div class="fly-home fly-panel" style="background-image: url();">
-                    <form method="post" action="/upload/" enctype="multipart/form-data">
-                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-                        <input name="file" type="file" onchange="this.parentNode.submit()" style="opacity:0;position:absolute;top:0;left:0;display:block;width:100%;height:100%;">
-                    </form>
-
-                    <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
-                    <h1>
-                        贤心
-                        <i class="iconfont icon-nan"></i>
-                        <i class="layui-badge fly-badge-vip">VIP3</i>
-                    </h1>
-
-                    <p class="fly-home-sign">（人生仿若一场修行）</p>
-
-                    <div class="fly-sns" data-user="">
-                        <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">关注</a>
-                        <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
-                    </div>
-
+    <div class="reportQuestionWindow" style="display:none;font-size: 14px">
+        <div class="layui-form" id="new_question">
+            <div class="layui-form-item" >
+                <div class="layui-input-block" style="padding-top:20px;margin-left: 20px;margin-right: 20px">
+                    <label class="layui-form-label" style="padding: 0 0;text-align: left">举报对象</label>
+                    <input hidden name="questionId" autocomplete="off" value="$!{questionMap.question.id}">
+                    <input type="text" name="question_title" value="问题： $!{questionMap.question.title}" autocomplete="off"
+                           class="layui-input layui-disabled" disabled style="color: black">
                 </div>
             </div>
-            <div class="item">
-                <div class="layui-container">
-                    <div class="layui-row layui-col-space15">
-                        <ul class="layui-tab-title">
-                            <li class="layui-this">最近的提问</li>
-                            <li >最近的回答</li>
 
-                        </ul>
-                        <div class="layui-tab-content">
-                            <div class="layui-tab-item layui-show tab1">
-                                <div id="new-answer-list">
-                                    <ul class="jie-row">
-                                        <li>
-                                            <span class="fly-jing">精</span>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>刚刚</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>2017-10-30</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div id="page-pro-ans">
+            <div class="layui-form-item layui-form-text" >
+                <div class="layui-input-block" style="margin-left: 20px;margin-right: 20px">
+                    <textarea name="report_reason" placeholder="举报理由，必填" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block pull-right" style="margin-left: 20px;margin-right: 20px">
+                    <button class="layui-btn js-submitReportQues"style="margin-right:20px">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="width: 1200px">
+        <div class="layui-col-md9" >
+            <div class="layui-col-md10 layui-col-md-offset2">
+                <div class="item "  data-question-id="$!{questionMap.question.id}">
+                    <input type="hidden" name="questionId" value="$!{questionMap.question.id}">
+                    <div class="item-box  layer-photos-demo1 layer-photos-demo">
+                        <h3><a href="/question/$!{questionMap.question.id}">$!{questionMap.question.title}</a></h3>
+                        <p>$!{questionMap.question.content}</p>
+                        <span class="js-replace-btn">
+                        #if($questionMap.followStatus > 0)
+                        <button class="layui-btn layui-btn-sm js-cancel-follow">
+                            取消收藏
+                        </button>
+                        #else
+                        <button class="layui-btn layui-btn-sm js-follow-question">
+                            收藏问题
+                        </button>
+                        #end
+                    </span>
+                        #if($user)
+                        <span class=" pull-right">
+                        <i class="js-optionMenus layui-icon layui-icon-more-vertical pull-right" style="font-size: 20px"></i>
+                        <div class="js-optionsBtn pull-right" style="display: none">
+                            <button class="layui-btn layui-btn-sm js-report-question" data-question-id="$!{questionMap.question.id}">举报问题</button>
+                            #if($user.id==$!{questionMap.user.id})
+                            <button class="layui-btn layui-btn-sm js-delete-question" data-question-id="$!{questionMap.question.id}">删除</button>
+                            #end
+                        </div>
+                    </span>
 
-                                </div>
-                            </div>
-                            <div class="layui-tab-item  tab2">
-                                <div id="new-question-list">
-                                    <ul class="jie-row">
-                                        <li>
-                                            <span class="fly-jing">精</span>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>刚刚</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>2017-10-30</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                        <li>
-                                            <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                                            <i>1天前</i>
-                                            <em class="layui-hide-xs">1136阅/27答</em>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div id="page-pro-ques">
-                                </div>
-                            </div>
+                        #end
+                        <p>
+                            <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>人收藏了问题
+                        <div class="follow-list">
+                            #foreach($follower in $followInfo.followerList)
+                            <a href="/user/$!{follower.id}">
+                                <img src="$!{follower.headUrl}" class="layui-nav-img" style="border-radius: unset">
+                            </a>
+                            #end
+                            #if($followInfo.followerList.size()==10)
+                            等……
+                            #end
+                        </div>
+                        </p>
+                        <div class="count layui-clear">
+                        <span class="pull-left">阅读
+                            <em>$!{followInfo.browseCnt}</em>
+                        </span>
                         </div>
                     </div>
                 </div>
+                <h5 style="text-align: center" >
+                    <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
+                </h5>
+                <div class="answers-list">
+                    <!--以下内容将不显示-->
+                    <!--#foreach($item in $comments)-->
+                    <!--<div class="item" >-->
+                    <!--<div class="item-box  layer-photos-demo1 layer-photos-demo">-->
+
+                    <!--<div class="ans_author_info" >-->
+                    <!--<div class="author_head pull-right">-->
+                    <!--<a href="/user/$!{item.user.id}">-->
+                    <!--<img src="$!{item.user.headUrl}" class="author-head-img">-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--<span class="author_info">-->
+                    <!--<a href="/user/$!{item.user.id}">$!{item.user.name}</a>-->
+                    <!--</span>-->
+                    <!--<h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>-->
+                    <!--</div>-->
+
+                    <!--<p class="answer-content">$!{item.comment.content}</p>-->
+                    <!--</div>-->
+                    <!--<div class="comment count" data-comment-id="$!{item.comment.id}">-->
+                    <!--&lt;!&ndash;<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>&ndash;&gt;-->
+                    <!--#if($item.liked> 0)-->
+                    <!--<a href="javascript:;" class="like layblog-this">-->
+                    <!--#else-->
+                    <!--<a href="javascript:;" class="like ">-->
+                    <!--#end-->
+                    <!--<i class="layui-icon layui-icon-praise"></i>-->
+                    <!--<span class="js-likecount">$!{item.likeCount}</span>-->
+                    <!--</a>-->
+                    <!--#if($item.liked< 0)-->
+                    <!--<a href="javascript:;" class="dislike layblog-this">-->
+                    <!--#else-->
+                    <!--<a href="javascript:;" class="dislike ">-->
+                    <!--#end-->
+                    <!--<i class="layui-icon layui-icon-tread"></i>-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--#end-->
+                </div>
+                <div class="detail_page" style="display: inline" id="detail_page"></div>
+                <div class="item-btn">
+                </div>
+                #if(!$user)
+                <label style="color: gray">登陆后方可发布回答。<a href="/reg">去注册</a>/<a href="/login">登录</a></label>
+                <form class="layui-form" action="">
+                    <div class="layui-form-item layui-form-text">
+                    <textarea class="layui-textarea" id="ans-content"disabled="disabled" placeholder="未登录无法回答"
+                              readonly style="resize:none" ></textarea>
+                    </div>
+                </form>
+                <div class="item-btn" style="text-align: right">
+                    <button class="layui-btn layui-btn-normal" id="item-btn" disabled>提交</button>
+                </div>
+                #else
+                <form class="layui-form" action="">
+                    <div class="layui-form-item layui-form-text">
+                        <textarea class="layui-textarea" id="ans-content" style="resize:none" placeholder="分享你的回答"></textarea>
+                    </div>
+                </form>
+                <div class="item-btn" style="text-align: right">
+                    <button class="layui-btn layui-btn-normal" id="sub_ans">提交</button>
+                </div>
+                #end
+            </div>
+        </div>
+        <div class="layui-col-md3" >
+            <div class="layui-card layui-col-md11 layui-col-md-offset1" style="">
+                <div class="layui-card-header">猜你感兴趣</div>
+                <div class="layui-card-body js-topThree" style="font-weight:600">
+                    <ul class="js-recommender-ques" >
+                        <li>
+                            <a href="/question/137" class="Button">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>
+                        </li>
+                        <li>
+                            <a href="/question/137">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>
+                        </li>
+                        <li>
+                            <a href="/question/137">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="item" style="display: none">
-    <div class="fly-home fly-panel" style="background-image: url();">
-        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
-        <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
-        <h1>
-            贤心
-            <i class="iconfont icon-nan"></i>
-            <!-- <i class="iconfont icon-nv"></i>  -->
-            <i class="layui-badge fly-badge-vip">VIP3</i>
-        </h1>
-
-        <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>
-
-        <p class="fly-home-info">
-            <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
-            <i class="iconfont icon-shijian"></i><span>2015-6-17 加入</span>
-            <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
-        </p>
-
-        <p class="fly-home-sign">（人生仿若一场修行）</p>
-
-        <div class="fly-sns" data-user="">
-            <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
-            <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
-        </div>
-
-    </div>
-</div>
-
 <script>
     layui.config({
         base: '../js/'
-    }).use('profile');
+    }).use('question_detail');
 </script>
 #parse("common/footer.html")

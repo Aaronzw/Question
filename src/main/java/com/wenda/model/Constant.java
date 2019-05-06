@@ -16,5 +16,5 @@ public class Constant {
 
     //用户状态
     public  static final int User_normal=0;
-    public  static final int User_banned=0;
+    public  static final int User_banned=1;
 }

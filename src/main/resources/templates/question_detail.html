@@ -24,12 +24,12 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="contar-wrap">
-            <div class="item "  data-question-id="$!{questionMap.question.id}">
+    <div class="container layui-row" style="width: 1400px">
+        <div class="layui-col-md7 layui-col-md-offset2">
+            <div class="question-part item"  data-question-id="$!{questionMap.question.id}">
                 <input type="hidden" name="questionId" value="$!{questionMap.question.id}">
-                <div class="item-box  layer-photos-demo1 layer-photos-demo">
-                    <h3><a href="/question/$!{questionMap.question.id}">$!{questionMap.question.title}</a></h3>
+                <div class="item-box" style="position: relative">
+                    <h3><a >$!{questionMap.question.title}</a></h3>
                     <p>$!{questionMap.question.content}</p>
                     <span class="js-replace-btn">
                         #if($questionMap.followStatus > 0)
@@ -52,10 +52,10 @@
                             #end
                         </div>
                     </span>
-
                     #end
                     <p>
-                        <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>人收藏了问题
+                        <span class="js-follow-cnt" style="color: #01AAED">$!{followInfo.followerCnt}</span>
+                        人收藏了问题
                         <div class="follow-list">
                             #foreach($follower in $followInfo.followerList)
                             <a href="/user/$!{follower.id}">
@@ -74,77 +74,98 @@
                     </div>
                 </div>
             </div>
-            <h5 style="text-align: center" >
-                <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
-            </h5>
-            <div class="answers-list">
-                <!--以下内容将不显示-->
-                <!--#foreach($item in $comments)-->
-                <!--<div class="item" >-->
+            <div class="answers-part">
+                <h5 style="text-align: center" >
+                    <span >本问题共有<a class="js-comment-count">$!{commentCount}</a> 个回答</span>
+                </h5>
+                <div class="answers-list">
+                    <!--以下内容将不显示-->
+                    <!--#foreach($item in $comments)-->
+                    <!--<div class="item" >-->
                     <!--<div class="item-box  layer-photos-demo1 layer-photos-demo">-->
 
-                        <!--<div class="ans_author_info" >-->
-                            <!--<div class="author_head pull-right">-->
-                                <!--<a href="/user/$!{item.user.id}">-->
-                                    <!--<img src="$!{item.user.headUrl}" class="author-head-img">-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<span class="author_info">-->
-                            <!--<a href="/user/$!{item.user.id}">$!{item.user.name}</a>-->
-                        <!--</span>-->
-                            <!--<h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>-->
-                        <!--</div>-->
+                    <!--<div class="ans_author_info" >-->
+                    <!--<div class="author_head pull-right">-->
+                    <!--<a href="/user/$!{item.user.id}">-->
+                    <!--<img src="$!{item.user.headUrl}" class="author-head-img">-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--<span class="author_info">-->
+                    <!--<a href="/user/$!{item.user.id}">$!{item.user.name}</a>-->
+                    <!--</span>-->
+                    <!--<h5 class="answer_date p">回答于：<span>$date.format('yyyy-MM-dd HH:mm:ss', $!{item.comment.createdDate})</span></h5>-->
+                    <!--</div>-->
 
-                        <!--<p class="answer-content">$!{item.comment.content}</p>-->
+                    <!--<p class="answer-content">$!{item.comment.content}</p>-->
                     <!--</div>-->
                     <!--<div class="comment count" data-comment-id="$!{item.comment.id}">-->
-                        <!--&lt;!&ndash;<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>&ndash;&gt;-->
-                        <!--#if($item.liked> 0)-->
-                        <!--<a href="javascript:;" class="like layblog-this">-->
-                        <!--#else-->
-                        <!--<a href="javascript:;" class="like ">-->
-                        <!--#end-->
-                            <!--<i class="layui-icon layui-icon-praise"></i>-->
-                            <!--<span class="js-likecount">$!{item.likeCount}</span>-->
-                        <!--</a>-->
-                        <!--#if($item.liked< 0)-->
-                        <!--<a href="javascript:;" class="dislike layblog-this">-->
-                        <!--#else-->
-                        <!--<a href="javascript:;" class="dislike ">-->
-                        <!--#end-->
-                            <!--<i class="layui-icon layui-icon-tread"></i>-->
-                        <!--</a>-->
+                    <!--&lt;!&ndash;<a href="/question/{}">评论$!{vo.commentMap.commentCount}</a>&ndash;&gt;-->
+                    <!--#if($item.liked> 0)-->
+                    <!--<a href="javascript:;" class="like layblog-this">-->
+                    <!--#else-->
+                    <!--<a href="javascript:;" class="like ">-->
+                    <!--#end-->
+                    <!--<i class="layui-icon layui-icon-praise"></i>-->
+                    <!--<span class="js-likecount">$!{item.likeCount}</span>-->
+                    <!--</a>-->
+                    <!--#if($item.liked< 0)-->
+                    <!--<a href="javascript:;" class="dislike layblog-this">-->
+                    <!--#else-->
+                    <!--<a href="javascript:;" class="dislike ">-->
+                    <!--#end-->
+                    <!--<i class="layui-icon layui-icon-tread"></i>-->
+                    <!--</a>-->
                     <!--</div>-->
-                <!--</div>-->
-                <!--#end-->
-            </div>
-            <div class="detail_page" style="display: inline" id="detail_page"></div>
-            <div class="item-btn">
-            </div>
-            #if(!$user)
-            <label style="color: gray">登陆后方可发布回答。<a href="/reg">去注册</a>/<a href="/login">登录</a></label>
-            <form class="layui-form" action="">
-                <div class="layui-form-item layui-form-text">
-                    <textarea class="layui-textarea" id="ans-content"disabled="disabled" placeholder="未登录无法回答"
-                              readonly style="resize:none" ></textarea>
+                    <!--</div>-->
+                    <!--#end-->
                 </div>
-            </form>
-            <div class="item-btn" style="text-align: right">
-                <button class="layui-btn layui-btn-normal" id="item-btn" disabled>提交</button>
+                <div class="detail_page" style="display: inline" id="detail_page"></div>
             </div>
-            #else
-            <form class="layui-form" action="">
-                <div class="layui-form-item layui-form-text">
-                    <textarea class="layui-textarea" id="ans-content" style="resize:none" placeholder="分享你的回答"></textarea>
+            <div class="oprate-part">
+                #if(!$user)
+                <label style="color: gray">登陆后方可发布回答。<a href="/reg">去注册</a>/<a href="/login">登录</a></label>
+                <form class="layui-form" action="">
+                    <div class="layui-form-item layui-form-text">
+                <textarea class="layui-textarea" id="ans-content"disabled="disabled" placeholder="未登录无法回答"
+                          readonly style="resize:none" ></textarea>
+                    </div>
+                </form>
+                <div class="item-btn" style="text-align: right">
+                    <button class="layui-btn layui-btn-normal" id="item-btn" disabled>提交</button>
                 </div>
-            </form>
-            <div class="item-btn" style="text-align: right">
-                <button class="layui-btn layui-btn-normal" id="sub_ans">提交</button>
+                #else
+                <form class="layui-form" action="">
+                    <div class="layui-form-item layui-form-text">
+                        <textarea class="layui-textarea" id="ans-content" style="resize:none" placeholder="分享你的回答"></textarea>
+                    </div>
+                </form>
+                <div class="item-btn" style="text-align: right">
+                    <button class="layui-btn layui-btn-normal" id="sub_ans">提交</button>
+                </div>
+                #end
             </div>
-            #end
         </div>
+        <div class="layui-col-md3">
+            <div class="layui-card layui-col-md9" style="margin-left: 10px">
+                <div class="layui-card-header">猜你感兴趣</div>
+                <div class="layui-card-body js-topThree" style="font-weight:600">
+                    <ul class="js-recommender-ques" >
+                        <!--<li>-->
+                            <!--<a href="/question/137" class="Button">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="/question/137">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="/question/137">单身职场人士如何利用晚上八点到十点这段时间自我提高？</a>-->
+                        <!--</li>-->
+                    </ul>
 
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 <script>
     layui.config({

@@ -57,7 +57,7 @@ public class SearchService {
     }
     public List<HashMap> SearchtQuestionInfo(String key,int pageNum, int pageSize){
         PageHelper.startPage(pageNum,pageSize);
-        List<Question> questionList=questionService.searchByName("s");
+        List<Question> questionList=questionService.searchByName(key);
         PageInfo<Question> pageInfo=new PageInfo<>(questionList);
         List<HashMap>result=new ArrayList<>();
         for(Question question:pageInfo.getList()){

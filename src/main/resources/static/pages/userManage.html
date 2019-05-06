@@ -2,10 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../js/admin/page/userManage.js"></script>
+    <title>问答</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <script src="../layui/layui.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/jquery.min.js"></script>
 </head>
 <body>
-
+<div class="js-userlist" style="padding-left: 20px">
+    <span>用户列表</span>
+    <div class="layui-form">
+        <input type="radio" name="status" title="正常" lay-filter="status"  value="0" checked="">
+        <div class="layui-unselect layui-form-radio">
+            <i class="layui-anim layui-icon"></i>
+            <div>正常</div>
+        </div>
+        <input type="radio" name="status" title="被禁" lay-filter="status" value="1" >
+        <div class="layui-unselect layui-form-radio layui-form-radioed">
+            <i class="layui-anim layui-icon"></i>
+            <div>被禁</div>
+        </div>
+        <input type="radio" name="status" title="中性" lay-filter="status" value="2">
+        <div class="layui-unselect layui-form-radio layui-radio-disbaled layui-disabled">
+            <i class="layui-anim layui-icon"></i>
+            <div>全部</div>
+        </div>
+    </div>
+    <div id="usersList" ></div>
+</div>
 </body>
+<script>
+    layui.config({
+        base: '../js/'      //自定义layui组件的目录
+    }).extend({ //设定组件别名
+        common:'common',
+    });
+</script>
+<script type="text/javascript" src="../js/admin/page/userManage.js"></script>
 </html>

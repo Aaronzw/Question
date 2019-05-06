@@ -96,7 +96,7 @@ public class ReportController {
         report.setUseId(localUserId);
         report.setReason(reason);
         report.setCreatedDate(new Date());
-        report.setEntity(EntityType.ENTITY_USER,answerId);
+        report.setEntity(EntityType.ENTITY_COMMENT,answerId);
         try {
             int ret=reportService.addReport(report);
             return WendaUtil.getJSONString(0,String.valueOf(ret));

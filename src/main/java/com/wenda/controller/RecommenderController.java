@@ -104,4 +104,27 @@ public class RecommenderController {
         result.put("has_next",pageInfo.isHasNextPage());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
+    @RequestMapping(path ={"/reuestt/getRecomenderQuestion"},method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public String getRecmenderQuestion(@RequestParam("questionId")int questionId){
+        HashMap result=new HashMap();
+        HashMap questionMap=new HashMap();
+
+        List<Integer> questionIds=recommenderService.getRecomenderItemsForItem(questionId);
+        PageInfo<Integer> pageInfo=new PageInfo<>(questionIds);
+        List<Map> list=new ArrayList<>();
+        int RecomenderListLimit=3;//最多推荐3个
+        for(int i=0;i<RecomenderListLimit&&i<questionIds.size();i++){
+            questionMap=new HashMap();
+            Question question=questionService.getById(questionIds.get(i));
+            User user=userService.getUser(question.getUserId());
+            questionMap.put("question",question);
+            questionMap.put("user",user);
+            list.add(questionMap);
+        }
+        result.put("data",list);
+        result.put("code",0);
+//        result.put("has_next",pageInfo.isHasNextPage());
+        return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
+    }
 }

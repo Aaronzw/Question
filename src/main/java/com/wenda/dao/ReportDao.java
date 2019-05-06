@@ -30,4 +30,8 @@ public interface ReportDao {
 
     @Update({"update ", TABLE_NAME, " set deal_date = #{deal_date} where id=#{id}"})
     int updateReportDealDate(@Param("id") int id, @Param("deal_date") Date deal_date);
+
+
+    @Select({"select ",SELECT_FIELDS, " from ", TABLE_NAME, " where deal_status=#{status} and entity_type=#{entityType}"})
+    List<Report> getQuestionListByStatus(@Param("status") int status, @Param("entityType") int entityType);
 }

@@ -2,6 +2,7 @@ package com.wenda.service;
 
 import com.wenda.dao.LoginTicketDao;
 import com.wenda.dao.UserDao;
+import com.wenda.model.Constant;
 import com.wenda.model.LoginTicket;
 import com.wenda.model.PrivageLevel;
 import com.wenda.model.User;
@@ -76,10 +77,20 @@ public class UserService {
             map.put("msg","密码错误");
             return map;
         }
+        if(!WendaUtil.MD5(password+user.getSalt()).endsWith(user.getPassword()))
+        {
+            map.put("msg","密码错误");
+            return map;
+        }
+        if(user.getStatus()==Constant.User_banned){
+            map.put("msg","该用户账号被封禁");
+            return map;
+        }
         String ticket=addLoginTicket(user.getId());
         map.put("ticket",ticket);
         return map;
     }
+
     public String addLoginTicket(int userId){
         LoginTicket loginTicket=new LoginTicket();
         loginTicket.setUserId(userId);
@@ -91,6 +102,7 @@ public class UserService {
         loginTicketDao.addTicket(loginTicket);
         return loginTicket.getTicket();
     }
+
     public User getUser(int id){
         return userDao.selectById(id);
     }
@@ -99,22 +111,6 @@ public class UserService {
         loginTicketDao.updateStatus(ticket,1);
     }
 
-
-    public int updateHeadUrl(int userId,String newUrl){
-        return userDao.updateHeadUrl(userId,newUrl);
-    }
-
-    public int updatePassword(int userId,String password){
-        User user=getUser(userId);
-        String md5_pass=WendaUtil.MD5(password+user.getSalt());
-        if(md5_pass==user.getPassword())
-            System.out.println("ok");
-        return userDao.updatepassword(userId,md5_pass);
-    }
-
-    public int upUserPri(int userId,int pri){
-        return userDao.updatePri(userId,pri);
-    }
     public List<User> getUserPriType(int pri){
         return userDao.getUsersByPri(pri);
     }
@@ -172,6 +168,10 @@ public class UserService {
             map.put("msg","该用户没有管理员权限");
             return map;
         }
+        if(user.getStatus()==Constant.User_banned){
+            map.put("msg","该用户被封禁，如有疑问请联系管理员");
+            return map;
+        }
         String ticket=addLoginTicket(user.getId());
         map.put("ticket",ticket);
         return map;
@@ -181,5 +181,29 @@ public class UserService {
         return userDao.getUsersByName(keyWord);
     }
 
+    public int updateHeadUrl(int userId,String newUrl){
+        return userDao.updateHeadUrl(userId,newUrl);
+    }
 
+    public int updatePassword(int userId,String password){
+        User user=getUser(userId);
+        String md5_pass=WendaUtil.MD5(password+user.getSalt());
+        if(md5_pass==user.getPassword())
+            System.out.println("ok");
+        return userDao.updatepassword(userId,md5_pass);
+    }
+
+    public int upUserPri(int userId,int pri){
+        return userDao.updatePri(userId,pri);
+    }
+
+    public int updateUserStatus(int userId,int status){
+        return userDao.updateStatus(userId,status);
+    }
+
+    public List<User> getAllUsers(int status){
+            //status 0 正常用户列表 ，status 1 被禁用户列表
+            //status 2 获取全部用户列表
+            return userDao.getUsersByStatus(status);
+    }
 }

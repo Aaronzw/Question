@@ -40,4 +40,8 @@ public class CommentService {
     public List<Comment> getLatestAnswers(int userId){
         return commentDao.getLatestAnswers(userId);
     }
+
+    public List<Comment> getEntityTypeList(int entityType){
+        return commentDao.getListByEntity(entityType);
+    }
 }

@@ -27,7 +27,7 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
         initWordsLimit();
         initSearch();
     })
-    // initClickMore();
+
     function initWordsLimit(){
         var text=$("input[name='question_title']").val();
         var counter=text.length;
@@ -43,12 +43,13 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
         });
     }
     function initSearch() {
+
         $(".js-header-search").on("click",function () {
             var localUserId=$("input[name='global-user-id']").val();
-            if(localUserId==undefined){
-                layer.msg("请重新登录后重试");
-                return
-            }
+            // if(localUserId==undefined){
+            //     layer.msg("请重新登录后重试");
+            //     return
+            // }
             var key=$("input[name='header-search-title']").val();
             if(key==""||key==undefined){
                 layer.msg("搜索框不能为空！");
@@ -56,6 +57,17 @@ layui.define(['element', 'form','laypage','jquery','layer','common'],function(ex
             }
             window.location="/search?keyWord="+key;
         })
+
+        $("input[name='header-search-title']").focus(function(){
+            //输入框获得焦点时启用回车搜索
+            $(document).keyup(function(event){
+                var key=$("input[name='header-search-title']").val();
+                if(event.keyCode ==13&&key!=""){
+                    $(".js-header-search").trigger("click");
+                }
+            });
+
+        });
     }
     function initClickMore() {
         /*弹窗事件*/

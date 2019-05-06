@@ -16,6 +16,12 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
     //statr 分页
 
     $(function () {
+        initAjaxAnswers();
+        initFollow();
+        initOptions();
+        initRecomender();
+    })
+    function initAjaxAnswers() {
         var that=this;
         that.question_id=$("input[name='questionId']").val();
         that.page=0;
@@ -31,9 +37,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                 initPages(that.totals,that.page,that.pageSize)
             }
         })
-        initFollow();
-        initOptions();
-    })
+    }
     function initFollow() {
         $(document).on("click",".js-follow-question",function () {
             var questionId=$("input[name='questionId']").val();
@@ -153,6 +157,28 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
             }
         });
     }
+    function initRecomender(){
+        var questionId=$("input[name='questionId']").val();
+        console.log(questionId);
+        common.ajax("/reuestt/getRecomenderQuestion",{
+            "questionId":questionId
+        },function (res) {
+            console.log(res);
+            if(res.code!='0') {
+                layer.msg("ajax请求数据失败！")
+                return
+            }
+            $(".js-recommender-ques").html("");
+            $.each(res.data,function (index, item) {
+                console.log(item);
+                var html='<li>\n' +
+                    '         <a href="/question/'+item.question.id+'" class="Button">'+item.question.title+'</a>\n' +
+                    '    </li>';
+                $(".js-recommender-ques").append(html);
+            });
+        })
+    }
+
     /*点赞点踩*/
     $(document).on('click','.like',function(){
         var here=$(this);
@@ -164,12 +190,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                     here.addClass('layblog-this');
                     here.parent('.comment').children(".dislike").removeClass("layblog-this");
                     here.find('.js-likecount').text(Number(here.find('.js-likecount').text())+1);
-                    // $.tipsBox({
-                    //     obj: here,
-                    //     str: "+1",
-                    //     callback: function () {
-                    //     }
-                    // });
+
                     layer.msg('点赞成功', {
                         icon: 6
                         ,time: 1000

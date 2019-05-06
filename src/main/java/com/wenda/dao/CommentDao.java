@@ -1,6 +1,7 @@
 package com.wenda.dao;
 
 import com.wenda.model.Comment;
+import com.wenda.model.Question;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -34,4 +35,7 @@ public interface CommentDao {
     int getUserCommentCount(@Param("userId")int userId);
 
     List<Comment> getLatestAnswers(@Param("userId")int userId);
+
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where entity_type=#{entityType}"})
+    List<Comment> getListByEntity(@Param("entityType")int entityType);
 }

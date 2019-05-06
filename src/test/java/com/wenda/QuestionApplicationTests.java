@@ -269,7 +269,30 @@ public class QuestionApplicationTests {
 
 	@Test
 	public void testReport(){
-		List<User> userList=privageService.getUserPriType(PrivageLevel.pri_user);
-		System.out.println(userList);
+		List<User> userList=userDao.getUsersByStatus(2);
+		System.out.println(userList.size());
+	}
+
+	@Test
+	public void testForItemRecommender(){
+//		readRecordService.userBrowseAdd(1,EntityType.ENTITY_QUESTION,1);
+//		readRecordService.userBrowseAdd(1,EntityType.ENTITY_QUESTION,2);
+//		readRecordService.userBrowseAdd(1,EntityType.ENTITY_QUESTION,3);
+//		readRecordService.userBrowseAdd(2,EntityType.ENTITY_QUESTION,2);
+//		readRecordService.userBrowseAdd(2,EntityType.ENTITY_QUESTION,4);
+//		readRecordService.userBrowseAdd(4,EntityType.ENTITY_QUESTION,2);
+//		readRecordService.userBrowseAdd(4,EntityType.ENTITY_QUESTION,4);
+		List<Integer> userList=userService.getUserIdList();
+		List<Integer> questionList=questionService.getQuestionIdList();
+
+		HashMap<Integer,HashMap<Integer,Integer>> usermatrix=recommenderService.getMatrixBasedOnUsers(userList);
+
+		HashMap<Integer,HashMap<Integer,Integer>> questionmatrix=recommenderService.getMatrixBasedOnItems(questionList);
+
+		List<Integer> recomenderList=recommenderService.getRecListOnItemIdByTwoPartMethod(2,userList,questionList,usermatrix,questionmatrix);
+
+//		System.out.println(recomenderList);
+		System.out.println("ok");
+
 	}
 }
