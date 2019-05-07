@@ -60,7 +60,7 @@ public class QuestionService {
         return questionDao.searchQuestions(keyWord);
     }
 
-    public List<Question> getRandQuestionList(int num){
+    public List<Integer> getRandQuestionList(int num){
         return questionDao.getRandomList(num);
     }
 

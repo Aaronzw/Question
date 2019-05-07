@@ -1,6 +1,7 @@
 package com.wenda.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenda.model.*;
 import com.wenda.service.QuestionService;
@@ -40,9 +41,10 @@ public class RecommenderController {
             userId=hostHolder.getUser().getId();
         else
             userId=1;
-        List<ViewObject> vos=getRecomenderList(userId,10);
-        model.addAttribute("rec_ques",vos);
+//        List<ViewObject> vos=getRecomenderList(userId,10);
+//        model.addAttribute("rec_ques",vos);
         List<Integer> questionIds=recommenderService.getRecomenderItemsForUser(userId);
+
         model.addAttribute("rec_totals",questionIds.size());
         Date date1=new Date();
         double s=(date1.getTime()-date.getTime())/1000.0;
@@ -58,29 +60,27 @@ public class RecommenderController {
         List<Integer> questionIds=recommenderService.getRecomenderItemsForUser(userId);
         List<ViewObject> vos=new ArrayList<>();
         int cnt=0;
-        for(Integer qid:questionIds){
-            ViewObject vo=new ViewObject();
-            HashMap questionMap=new HashMap();
-            Question question=questionService.getById(qid);
-            User user=userService.getUser(question.getUserId());
-            questionMap.put("question",question);
-            questionMap.put("user",user);
-            vo.set("questionMap",questionMap);
-            vos.add(vo);
-            cnt++;
-            if(cnt>=num)
-                break;
-        }
+//        for(Integer qid:questionIds){
+//            ViewObject vo=new ViewObject();
+//            HashMap questionMap=new HashMap();
+//            Question question=questionService.getById(qid);
+//            User user=userService.getUser(question.getUserId());
+//            questionMap.put("question",question);
+//            questionMap.put("user",user);
+//            vo.set("questionMap",questionMap);
+//            vos.add(vo);
+//            cnt++;
+//            if(cnt>=num)
+//                break;
+//        }
         return vos;
     }
 
-    @RequestMapping(path ={"/reuestt/recTwoPartMethod"},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(path ={"/request/recomQuestionsForUser"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String recTwoPartMethod(@RequestParam("limit")int limit,
                                    @RequestParam("offset")int offset){
-//        if(hostHolder.getUser()==null){
-//            return WendaUtil.getJSONString(999);
-//        }
+//        PageHelper.startPage(offset,limit);
         HashMap result=new HashMap();
         HashMap questionMap=new HashMap();
         int userId;
@@ -90,9 +90,16 @@ public class RecommenderController {
             userId=1;
         }
         List<Integer> questionIds=recommenderService.getRecomenderItemsForUser(userId);
-        PageInfo<Integer> pageInfo=new PageInfo<>(questionIds);
+        //若数据太少无法产生推荐结果则随机推荐
+//        if(questionIds.size()==0){
+//            questionIds=questionService.getRandQuestionList(20);
+//        }
+        WendaUtil.pageStart(offset,limit);
+        ArrayList<Integer> new_questionIdList=WendaUtil.pageHelper(questionIds);
+//        PageInfo<Integer> pageInfo=new PageInfo<Integer>(questionIds);
         List<Map> list=new ArrayList<>();
-        for(Integer qid:questionIds){
+        for(Integer qid:new_questionIdList){
+            questionMap=new HashMap();
             Question question=questionService.getById(qid);
             User user=userService.getUser(question.getUserId());
             questionMap.put("question",question);
@@ -101,9 +108,11 @@ public class RecommenderController {
         }
         result.put("data",list);
         result.put("code",0);
-        result.put("has_next",pageInfo.isHasNextPage());
+        result.put("count",questionIds.size());
         return JSON.toJSONStringWithDateFormat(result,"yyyy-MM-dd HH:mm:ss");
     }
+
+    //针对特定的问题请求推荐结果
     @RequestMapping(path ={"/reuestt/getRecomenderQuestion"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String getRecmenderQuestion(@RequestParam("questionId")int questionId){

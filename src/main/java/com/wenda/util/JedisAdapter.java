@@ -19,13 +19,13 @@ public class JedisAdapter implements InitializingBean {
     public static void print(int key,Object obj){
         System.out.println(key+","+obj.toString());
     }
-    public static void main(String []argv){
-//        JedisShardInfo shardInfo = new JedisShardInfo("redis://139.199.205.104:6379/1");//这里是连接的本地地址和端口
-//        shardInfo.setPassword("213546");//这里是密码
-//        Jedis jedis = new Jedis(shardInfo);
-//        jedis.connect();
-
-    }
+//    public static void main(String []argv){
+////        JedisShardInfo shardInfo = new JedisShardInfo("redis://139.199.205.104:6379/1");//这里是连接的本地地址和端口
+////        shardInfo.setPassword("213546");//这里是密码
+////        Jedis jedis = new Jedis(shardInfo);
+////        jedis.connect();
+//
+//    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -34,16 +34,11 @@ public class JedisAdapter implements InitializingBean {
 //        String host="139.199.205.104";
         String host="localhost";
         String password="213546";
-
-
         int port=6379;
         int timeout=2000;
-
-
         pool = new JedisPool(jedisPoolConfig,host,port,timeout,password);
 
     }
-
     /*将val加入key对应的一个集合
         return:被成功加入的元素的数量
     */
@@ -60,7 +55,6 @@ public class JedisAdapter implements InitializingBean {
         }
         return 0;
     }
-
     /*将value移除key对应的一个集合
         return:被成功移除的元素的数量
     */

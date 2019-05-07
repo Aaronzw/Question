@@ -32,6 +32,11 @@ public class RecommenderService {
         HashMap<Integer,HashMap<Integer,Integer>> questionmatrix=getMatrixBasedOnItems(questionIdList);
 
         List<Integer> recomenderList=getRecListOnUserIdByTwoPartMethod(userId,userlist,questionIdList,usermatrix,questionmatrix);
+
+        if(recomenderList.size()==0){
+            //随机推荐
+            recomenderList=questionService.getRandQuestionList(20);
+        }
         return recomenderList;
 
     }

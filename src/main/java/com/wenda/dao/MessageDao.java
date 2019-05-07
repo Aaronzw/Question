@@ -22,13 +22,12 @@ public interface MessageDao {
     @Select({"select count(id) from",TABLE_NAME,"where conversation_id=#{conversationId} and has_read=0 and to_id=#{userId}"})
     int getConversationUnreadCount(@Param("userId")int userId,@Param("conversationId")String conversationId);
 
-
-    //此处bug，查询的message fromId被映射为查询结果的id，原因不明，mapper.xml写法无此问题
+    //根据id查询消息详情
     @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME," where id=#{id} "})
     Message selectMessageById(@Param("id")int id);
-
+    //根据id查询消息详情
     Message selectById(int id);
-
+    //更新消息状态
     @Update({"update ",TABLE_NAME,"set has_read=#{hasRead} where id=#{id}"})
     int setMsgHasRead(@Param("id")int id,@Param("hasRead")int hasRead);
 }
