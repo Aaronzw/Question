@@ -37,6 +37,7 @@
             <div class="layui-tab layui-tab-brief" lay-filter="user">
                 <ul class="layui-tab-title" id="LAY_mine">
                     <li lay-id="pass" class="layui-this">密码管理</li>
+                    <li lay-id="name" >昵称管理</li>
                 </ul>
                 <div class="layui-tab-content">
                     <div class="layui-form layui-form-pane layui-tab-item layui-show">
@@ -58,6 +59,26 @@
                                 <input type="password" id="L_repass" name="repass" required="" lay-verify="required" autocomplete="off" class="layui-input">
                             </div>
                         </div>
+                        <div class="form-item">
+                            <button class="layui-btn js-CertainUpdate" key="set-mine" lay-filter="*" lay-submit="">确认修改</button>
+                        </div>
+
+                    </div>
+                    <div class="layui-form layui-form-pane layui-tab-item ">
+                        <div class="form-item">
+                            <label for="L_nowpass" class="layui-form-label">当前昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="now_name" required="" lay-verify="required" autocomplete="off"
+                                    value=" $!{user.name}" class="layui-input layui-disabled">
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <label for="L_pass" class="layui-form-label">新昵称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="new_name" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
                         <div class="form-item">
                             <button class="layui-btn js-CertainUpdate" key="set-mine" lay-filter="*" lay-submit="">确认修改</button>
                         </div>

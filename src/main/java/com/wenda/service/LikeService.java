@@ -25,6 +25,7 @@ public class LikeService {
         return jedisAdapter.sismenber(disLikeKey,String.valueOf(userId))?-1:0;
     }
 
+    //userId喜欢某实体
     public long like(int userId,int entityType,int entityId){
         String likeKey=RedisKeyUtil.getLikeKey(entityType,entityId);
         //为该实体点赞的用户集合加入一人
@@ -35,6 +36,7 @@ public class LikeService {
 
         return jedisAdapter.scard(likeKey);
     }
+
     public long disLike(int userId,int entityType,int entityId){
         String disLikeKey=RedisKeyUtil.getDisLikeKey(entityType,entityId);
         //点赞之后就取消踩

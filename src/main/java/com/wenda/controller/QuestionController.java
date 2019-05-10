@@ -137,15 +137,11 @@ public class QuestionController {
             if(hostHolder.getUser()==null){
                 map.put("liked",0);
             }else {
-                //暂定
                 map.put("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
             }
-            //likeservice暂定
             map.put("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
             map.put("commentCount",commentService.getCommentCount(comment.getId(),EntityType.ENTITY_COMMENT));
-//            vo.set("comments_count,);
             User user=userService.getUser(comment.getUserId());
-            //避免密码暴露于ajax
             user.setPassword("*************");
             user.setSalt("***********");
             map.put("user",user);

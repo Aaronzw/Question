@@ -20,7 +20,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
         table.render({
             elem: '#undeal-list' //指定原始表格元素选择器（推荐id选择器）
             // ,height: 315 //容器高度
-            ,url: '/getReportedUserList' //数据接口
+            ,url: '/getReportedAnswerList' //数据接口
             ,where:{"status":0}
             ,request: {
                 pageName: 'offset' //页码的参数名称，默认：page
@@ -42,9 +42,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                             return "用户";
                     }
                 },
-                {field: 'title', title: '用户名', width:300, fixed: 'left',templet: function(d){
+                {field: 'title', title: '评论内容', width:300, fixed: 'left',templet: function(d){
                         console.log(d)
-                        return d.user.name
+                        return d.answer.content
                     }
                 },
                 {field: 'act', title: '举报原因', width:220, fixed: 'left',templet: function(d){
@@ -53,7 +53,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                 },
                 {field: 'act', title: '处理', width:60, fixed: 'left',templet: function(d){
                         return '<div>' + '<a href="javacript:;" class="layui-btn-sm js-ban-user" data-report="'+d.report.id+'">' +
-                            '封禁</a></div>';
+                            '删除</a></div>';
                     }
                 },
                 {field: 'act', title: '拒绝', width:60, fixed: 'left',templet: function(d){
@@ -76,7 +76,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
         table.render({
             elem: '#dealt-list' //指定原始表格元素选择器（推荐id选择器）
             // ,height: 315 //容器高度
-            ,url: '/getReportedUserList' //数据接口
+            ,url: '/getReportedAnswerList' //数据接口
             ,where:{"status":3}
             ,request: {
                 pageName: 'offset' //页码的参数名称，默认：page
@@ -98,9 +98,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                             return "用户";
                     }
                 },
-                {field: 'title', title: '用户名', width:300, fixed: 'left',templet: function(d){
+                {field: 'title', title: '评论内容', width:300, fixed: 'left',templet: function(d){
                         console.log(d)
-                        return '<a href="/user/'+d.user.id+'">'+d.user.name+'</a>'
+                        return d.answer.content
                     }
                 },
                 {field: 'act', title: '举报原因', width:220, fixed: 'left',templet: function(d){
@@ -109,7 +109,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                 },
                 {field: 'act', title: '处理', width:60, fixed: 'left',templet: function(d){
                         return '<div>' + '<a href="javacript:;" class="layui-btn-sm js-ban-user" data-report="'+d.report.id+'">' +
-                            '封禁</a></div>';
+                            '删除</a></div>';
                     }
                 },
                 {field: 'act', title: '拒绝', width:60, fixed: 'left',templet: function(d){
@@ -132,7 +132,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
         table.render({
             elem: '#refuse-list' //指定原始表格元素选择器（推荐id选择器）
             // ,height: 315 //容器高度
-            ,url: '/getReportedUserList' //数据接口
+            ,url: '/getReportedAnswerList' //数据接口
             ,where:{"status":1}
             ,request: {
                 pageName: 'offset' //页码的参数名称，默认：page
@@ -154,9 +154,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                             return "用户";
                     }
                 },
-                {field: 'title', title: '用户名', width:300, fixed: 'left',templet: function(d){
+                {field: 'title', title: '评论内容', width:300, fixed: 'left',templet: function(d){
                         console.log(d)
-                        return d.user.name
+                        return d.answer.content
                     }
                 },
                 {field: 'act', title: '举报原因', width:220, fixed: 'left',templet: function(d){
@@ -174,7 +174,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
         table.render({
             elem: '#ignore-list' //指定原始表格元素选择器（推荐id选择器）
             // ,height: 315 //容器高度
-            ,url: '/getReportedUserList' //数据接口
+            ,url: '/getReportedAnswerList' //数据接口
             ,where:{"status":2}
             ,request: {
                 pageName: 'offset' //页码的参数名称，默认：page
@@ -196,9 +196,9 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                             return "用户";
                     }
                 },
-                {field: 'title', title: '用户名', width:300, fixed: 'left',templet: function(d){
+                {field: 'title', title: '评论内容', width:300, fixed: 'left',templet: function(d){
                         console.log(d)
-                        return d.user.name
+                        return d.answer.content
                     }
                 },
                 {field: 'act', title: '举报原因', width:220, fixed: 'left',templet: function(d){
@@ -228,17 +228,17 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
             var here=$(this);
             var report_id=here.attr("data-report");
             console.log(report_id);
-            layer.confirm("封禁该用户？",function (index) {
+            layer.confirm("删除该回答？",function (index) {
                 common.ajax("/handleDealtReport",{
                     "reportId":report_id,
                     "resultCode":3
                 },function (result) {
                     console.log(result);
                     if(result.code=='0'){
-                        layer.msg("封禁该用户成功");
+                        layer.msg("删除该问题成功");
                         // window.location=location.reload()
                     }else if(result.code=="1"){
-                        layer.msg("封禁该用户失败");
+                        layer.msg("删除该问题失败");
                     }else {
                         layer.msg("请重新登陆");
                     }

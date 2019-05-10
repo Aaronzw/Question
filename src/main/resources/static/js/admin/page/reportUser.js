@@ -106,26 +106,19 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common','table'],fu
                 {field: 'act', title: '举报原因', width:220, fixed: 'left',templet: function(d){
                         return d.report.reason;
                     }
-                },
-                {field: 'act', title: '处理', width:60, fixed: 'left',templet: function(d){
-                        return '<div>' + '<a href="javacript:;" class="layui-btn-sm js-ban-user" data-report="'+d.report.id+'">' +
-                            '封禁</a></div>';
-                    }
-                },
-                {field: 'act', title: '拒绝', width:60, fixed: 'left',templet: function(d){
-                        return '<div>' + '<a href="javacript:;" class="layui-btn-sm js-refuse-report" data-report="'+d.report.id+'">' +
-                            '拒绝</a></div>';
-                    }
-                },
-                {field: 'act', title: '忽略', width:60, fixed: 'left',templet: function(d){
-                        return '<div>' + '<a href="javacript:;" class="layui-btn-sm js-ignore-report" data-report="'+d.report.id+'">' +
-                            '忽略</a></div>';
-                    }
-                },{field: 'reportTime', title: '举报时间', width:200, fixed: 'left',templet: function(d){
+                }
+                ,{field: 'reportTime', title: '举报时间', width:200, fixed: 'left',templet: function(d){
                         return '<a>'+d.report.createdDate+'</a>';
                     }
                 }
-
+                , {field: 'reportTime', title: '处理时间', width:200, fixed: 'left',templet: function(d){
+                        return '<a>'+d.report.dealDate+'</a>';
+                    }
+                }
+                , {field: 'reportTime', title: '处理人id', width:100, fixed: 'left',templet: function(d){
+                        return '<a>'+d.report.dealerId+'</a>';
+                    }
+                }
             ]] //设置表头
             //,…… //更多参数参考右侧目录：基本参数选项
         });

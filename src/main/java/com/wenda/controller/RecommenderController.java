@@ -80,23 +80,16 @@ public class RecommenderController {
     @ResponseBody
     public String recTwoPartMethod(@RequestParam("limit")int limit,
                                    @RequestParam("offset")int offset){
-//        PageHelper.startPage(offset,limit);
         HashMap result=new HashMap();
         HashMap questionMap=new HashMap();
         int userId;
-        if(hostHolder.getUser()!=null){
-            userId=hostHolder.getUser().getId();
-        }else {
-            userId=1;
-        }
+        if(hostHolder.getUser()==null)
+            return WendaUtil.getJSONString(999);
+        userId=hostHolder.getUser().getId();
         List<Integer> questionIds=recommenderService.getRecomenderItemsForUser(userId);
         //若数据太少无法产生推荐结果则随机推荐
-//        if(questionIds.size()==0){
-//            questionIds=questionService.getRandQuestionList(20);
-//        }
         WendaUtil.pageStart(offset,limit);
         ArrayList<Integer> new_questionIdList=WendaUtil.pageHelper(questionIds);
-//        PageInfo<Integer> pageInfo=new PageInfo<Integer>(questionIds);
         List<Map> list=new ArrayList<>();
         for(Integer qid:new_questionIdList){
             questionMap=new HashMap();

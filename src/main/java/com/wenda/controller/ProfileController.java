@@ -25,11 +25,17 @@ public class ProfileController {
     public String test(Model model, @PathVariable("userId")int userId){
         User user=userService.getUser(userId);
         ViewObject vo=new ViewObject();
-        if(hostHolder.getUser()!=null&&hostHolder.getUser().getId()==user.getId()){
-            vo.set("myProfile","1");
-        }else {
+        if(hostHolder.getUser()==null||hostHolder.getUser().getId()!=user.getId()){
             vo.set("myProfile","0");
+        }else {
+            vo.set("myProfile","1");
         }
+
+//        if(hostHolder.getUser()!=null&&hostHolder.getUser().getId()==user.getId()){
+//            vo.set("myProfile","1");
+//        }else {
+//            vo.set("myProfile","0");
+//        }
         if(hostHolder.getUser()!=null){
             vo.set("isFollower",followService.isFollower(hostHolder.getUser().getId(),EntityType.ENTITY_USER,userId)?1:0);
         }else {
