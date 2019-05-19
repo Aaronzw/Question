@@ -45,8 +45,8 @@ public class UserService {
         user=new User();
         user.setName(name);
         user.setSalt(UUID.randomUUID().toString().substring(0,5));
-        String head_url= String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
-        //String head_url="https://baike.baidu.com/pic/%E5%88%98%E7%9C%8B%E5%B1%B1/16703273/0/a50f4bfbfbedab642b03b874fb36afc379311e14?fr=lemma&ct=single";
+//        String head_url= String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000));
+        String head_url="http://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/1558233336728.png";
         user.setHeadUrl(head_url);
         user.setPassword(WendaUtil.MD5(password+user.getSalt()));
         userDao.addUser(user);

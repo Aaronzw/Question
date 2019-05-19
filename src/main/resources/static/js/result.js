@@ -113,7 +113,7 @@ layui.define(['element', 'form','laypage','jquery','laytpl','common'],function(e
                                 '                                    </a>\n' +
                                 '                                </div>\n' +
                                 '                                <div class="letter-detail">\n' +
-                                '                                    <a href="/user/32" class="letter-name level-color-7">'+item.user.name+'</a>\n' +
+                                '                                    <a href="/user/'+item.user.id+'" class="letter-name level-color-7">'+item.user.name+'</a>\n' +
                                 '                                    <p class="letter-brief">' +
                                 '                                         <a href="javacvript:;" style="font-size: small;color: gray">粉丝'+item.followerCnt+'</a>' +
                                 '                                         <a href="javacvript:;" style="font-size: small;color: gray">关注'+item.followeeCnt+'</a> ' +

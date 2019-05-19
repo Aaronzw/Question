@@ -295,4 +295,14 @@ public class QuestionApplicationTests {
 		System.out.println("ok");
 
 	}
+	@Test
+	public void registerUser(){
+		for(int i=0;i<20;i++)
+		{
+//			String name=(char)(96+i)+""+(char)(96+i);
+//			userService.register(name,name);
+			String url=WendaUtil.getRandonHeadUrl();
+			System.out.println(url);
+		}
+	}
 }

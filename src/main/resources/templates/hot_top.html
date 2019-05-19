@@ -6,12 +6,33 @@
             <div class="layui-tab layui-tab-brief">
                 <ul class="layui-tab-title">
                     <li class="layui-this">热榜</li>
-                    <!--<li >最新问题 </li>-->
-
                 </ul>
                 <div class="layui-tab-content hot-content">
                     <div class="layui-tab-item layui-show tab1">
                         <div class="Topstory-hot HotList">
+                            <!--<div class="topItem">-->
+                                <!--<div class="topItem-index">-->
+                                    <!--<div class="HotItem-rank">4</div>-->
+                                <!--</div>-->
+                                <!--<div class="HotItem-content">-->
+                                    <!--<a href="/question/614" title="神给每个地球人发了一张牌，其中持王牌的五个人会面之后，将获得奴役其他地球人的能力，他们如何成功会面？">-->
+                                        <!--<h2 class="HotItem-title">-->
+                                            <!--神给每个地球人发了一张牌，其中持王牌的五个人会面之后，将获得奴役其他地球人的能力，他们如何成功会面？-->
+                                        <!--</h2>-->
+                                        <!--<p class="HotItem-excerpt">神召集所有地球人灵魂于梦中，每人分发一张牌。 并当着所有灵魂的面宣布: 牌只有普通牌与王牌</p>-->
+                                        <!--&lt;!&ndash;<p class="HotItem-excerpt">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五&ndash;&gt;-->
+                                        <!--&lt;!&ndash;一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                                    <!--</a>-->
+                                    <!--<div class="HotItem-metrics HotItem-metrics&#45;&#45;bottom">-->
+                                        <!--<i class="layui-icon layui-icon-fire"></i>-->
+                                        <!--0热度-->
+                                        <!--&lt;!&ndash;<span class="HotItem-action"></span>&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
                             #set($rank=1)
                             #foreach($vo in $hot_ques)
                             <section class="HotItem item">
@@ -20,12 +41,21 @@
                                     #set($rank=$rank+1)
                                 </div>
                                 <div class="HotItem-content">
-                                    <a href="/question/$!{vo.question.id}" title="$!{vo.question.title}" target="_blank" rel="noopener noreferrer">
-                                        <h2 class="HotItem-title">
+                                    <a href="/question/$!{vo.question.id}" title="$!{vo.question.title}" >
+                                        <span class="HotItem-title" style="font-weight: bolder">
                                             $!{vo.question.title}
-                                        </h2>
-                                        <p class="HotItem-excerpt">$!{vo.question.content}</p>
-                                        </a>
+                                        </span>
+                                        #if($vo.question.content.length()>70)
+                                            #set($content=$vo.question.content.substring(0,70))
+                                        #else
+                                            #set($content=$vo.question.content)
+                                        #end
+                                        <p class="HotItem-excerpt">$content</p>
+                                        <!--<p class="HotItem-excerpt">-->
+                                      <!--一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五-->
+                                            <!--一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二-->
+                                        <!--</p>-->
+                                    </a>
                                     <div class="HotItem-metrics HotItem-metrics--bottom">
                                         <i class="layui-icon layui-icon-fire"></i>
                                         $!{vo.browseNum}热度

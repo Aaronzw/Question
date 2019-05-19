@@ -484,13 +484,16 @@ ul li .msg-content{
 	text-align: center;
 	width: 57px;
 }
+.hot-content .HotItem-excerpt{
+	color: #444;
+	line-height: 25px;
+}
 .hot-content .HotItem-index .HotItem-hot{
 	color: #cc0000;
 }
 .hot-content .HotItem-index .HotItem-rank{
 	line-height: 1.6;
 	font-size: 18px;
-	/*color: #999;*/
 	font-weight: 600;
 	font-synthesis: style;
 }

@@ -123,4 +123,18 @@ public class WendaUtil {
             pageSize=limit;
         }
     }
+
+    public static String getRandonHeadUrl(){
+        Random random=new Random();
+        ArrayList<String> urlList=new ArrayList();
+        String commom="https://wenda-question-1256798108.cos.ap-guangzhou.myqcloud.com/headPic/";
+        urlList.add(commom+"1553930223072.png");
+        urlList.add(commom+"1553930389088.png");
+        urlList.add(commom+"1553930593079.png");
+        urlList.add(commom+"1553931436068.png");
+        urlList.add(commom+"1553931676630.png");
+        urlList.add(commom+"1554034581045.png");
+
+        return urlList.get(random.nextInt(urlList.size()));
+    }
 }
